@@ -14,7 +14,7 @@ export class HelloWorldComponent implements OnInit {
 
   isBusy: boolean = true;
 
-  title = 'Demo';
+  title = 'World';
   greeting: Greeting = {content: "", id: ""};
 
 
