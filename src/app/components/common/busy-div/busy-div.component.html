@@ -1,0 +1,14 @@
+<div [ngClass]="styleClass || {'h-100': maxHeight}" style="position: relative">
+  <div [cgBusyConfig]="{templateRef: customTemplate, message:''}" [cgBusy]="busyPromise">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<ng-template #customTemplate let-options="options">
+  <div *ngIf="busy" class="ng-busy">
+    <mat-spinner style="display: inline-block !important;" [diameter]="diameter || 0"></mat-spinner>
+    <p *ngIf="showText" class="busy-text">
+      {{busyText | translate}}
+    </p>
+  </div>
+</ng-template>

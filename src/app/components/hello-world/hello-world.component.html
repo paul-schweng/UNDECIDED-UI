@@ -1,0 +1,23 @@
+<div class="container border-red mb-5">
+  <h1 class="mb-1 mt-2">
+    Welcome {{title}}!
+  </h1>
+  <small>(Added 5s delay on server side)</small>
+  <busy-div [busy]="isBusy" [showText]="false" [diameter]="30" [styleClass]="'mt-4 p-3 border border-primary'">
+    <p>Id: <span>{{greeting.id}}</span></p>
+    <p class="m-0">Message: <span>{{greeting.content}}!</span></p>
+  </busy-div>
+  <div class="border border-primary m-5">
+    <span class="form-inline justify-content-center">
+      <span>Translation test (Browsersprache wird automatisch erkannt, default: Englisch): <span translate>hello</span> </span>
+      <select class="form-control m-3" #selectedLang (change)="switchLang(selectedLang.value)">
+        <option *ngFor="let language of translate.getLangs()"
+                [value]="language"
+                [selected]="translate.currentLang === language">
+          {{ language }}
+        </option>
+    </select>
+  </span>
+  </div>
+</div>
+

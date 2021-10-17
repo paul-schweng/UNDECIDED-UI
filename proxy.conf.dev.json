@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://undecided.ted2.cyou",
+    "secure": true,
+    "changeOrigin": true
+  }
+}
