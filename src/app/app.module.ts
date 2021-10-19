@@ -14,6 +14,7 @@ import { BusyDivComponent } from './components/common/busy-div/busy-div.componen
 import {CgBusyModule} from "angular-busy2";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
       backdrop: true
     }),
     MatProgressSpinnerModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
