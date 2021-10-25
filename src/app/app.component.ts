@@ -9,7 +9,7 @@ import {FormControl} from "@angular/forms";
 })
 export class AppComponent implements OnInit{
   title = 'UNDECIDED';
-  toggleTheme = new FormControl(false);
+  isDarkTheme: boolean = true;
 
   constructor(private translate: TranslateService,
               private _renderer: Renderer2) {
@@ -17,13 +17,11 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.toggleTheme.valueChanges.subscribe((toggleValue: boolean) => {
-      if (toggleValue) {
-        this._renderer.addClass(document.body, 'dark-theme');
-      } else {
-        this._renderer.removeClass(document.body, 'dark-theme');
-      }
-    });
+
+  }
+
+  toggleTheme(): void {
+    this.isDarkTheme = !this.isDarkTheme;
   }
 
 
