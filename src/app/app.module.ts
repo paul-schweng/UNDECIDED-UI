@@ -15,6 +15,10 @@ import {CgBusyModule} from "angular-busy2";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ToastrModule} from "ngx-toastr";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatIconModule} from "@angular/material/icon";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import {ToastrModule} from "ngx-toastr";
     }),
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
