@@ -19,12 +19,17 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { HomeComponent } from './components/home/home.component';
+import { NavBarComponent } from './components/main-frame/nav-bar/nav-bar.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
     AppComponent,
     HelloWorldComponent,
-    BusyDivComponent
+    BusyDivComponent,
+    HomeComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,8 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

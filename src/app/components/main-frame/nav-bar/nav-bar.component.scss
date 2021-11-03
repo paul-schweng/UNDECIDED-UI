@@ -1,0 +1,55 @@
+.nav-bar-u {
+
+  width: 140.6px;
+  height: 120.9px;
+  margin: 3.9px 21px 0 0;
+  padding: 1.3px 39.4px 98.5px 86.7px;
+  text-shadow: 0 5.3px 5.3px rgba(0, 0, 0, 0.25);
+  font-family: FrederickatheGreat;
+  font-size: 94.6px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 45.88px;
+  text-align: center;
+  color: #000;
+}
+
+.nav-bar-n {
+
+  width: 42px;
+  height: 69px;
+  margin: 0 10.6px 55.8px 109.1px;
+  text-shadow: 0 5.3px 2.6px rgba(0, 0, 0, 0.25);
+  font-family: FrederickatheGreat;
+  font-size: 56.5px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 27.4px;
+  text-align: center;
+  color: #000;
+}
+
+.nav-bar-decided{
+
+  width: 325px;
+  height: 50px;
+  margin: 26.6px 0 18px 126.1px;
+  text-shadow: 0 5.3px 2.6px rgba(0, 0, 0, 0.5);
+  font-family: FrederickatheGreat;
+  font-size: 41.1px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 19.92px;
+  text-align: center;
+  color: #000;
+}
+
+app-nav-bar {
+  background: var(--color-orange-2-orange-75);
+}
