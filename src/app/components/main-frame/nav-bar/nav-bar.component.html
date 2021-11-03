@@ -1,19 +1,25 @@
-<div class="d-inline-flex mb-4">
-  <div>
+<div class="d-inline">
     <span class="nav-bar-u">
       U
     </span>
-    <span class="nav-bar-n">
+  <span class="nav-bar-n">
       N
     </span>
-    <span class="nav-bar-decided">
+  <span class="nav-bar-decided">
       DECIDED
     </span>
+</div>
+
+<div class="nav-bar-buttons justify-content-between d-flex flex-grow-1">
+  <a mat-icon-button *ngFor="let btn of buttons" [routerLink]="btn.path"  [class.button-selected]="router.url.includes(btn.path)">
+    <mat-icon>{{btn.icon}}</mat-icon>
+  </a>
+  <div class="nav-bar-profile-border">
+    <div class="nav-bar-profile">
   </div>
 
-  <div class="nav-bar-buttons d-inline-flex m-auto">
-    <a mat-icon-button *ngFor="let btn of buttons" [routerLink]="btn.path"  [class.button-selected]="router.url.includes(btn.path)" class="m-auto">
-      <mat-icon>{{btn.icon}}</mat-icon>
-    </a>
+
   </div>
 </div>
+<div class="nav-bar-line"></div>
+
