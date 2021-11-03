@@ -54,7 +54,8 @@ import {MatButtonModule} from "@angular/material/button";
     ReactiveFormsModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
