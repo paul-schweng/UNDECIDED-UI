@@ -26,7 +26,9 @@ import {MatDividerModule} from "@angular/material/divider";
 import { SearchComponent } from './components/search/search.component';
 import { RatingsComponent } from './components/ratings/ratings.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import {MatRippleModule} from "@angular/material/core";
+import {MatLineModule, MatRippleModule} from "@angular/material/core";
+import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {MatRippleModule} from "@angular/material/core";
     NavBarComponent,
     SearchComponent,
     RatingsComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditProfileComponent
   ],
     imports: [
         BrowserModule,
@@ -65,7 +68,9 @@ import {MatRippleModule} from "@angular/material/core";
         MatToolbarModule,
         MatButtonModule,
         MatDividerModule,
-        MatRippleModule
+        MatRippleModule,
+        MatListModule,
+        MatLineModule
     ],
   providers: [],
   bootstrap: [AppComponent]

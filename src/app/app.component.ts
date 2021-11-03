@@ -1,6 +1,6 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
-import {FormControl} from "@angular/forms";
+
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,7 @@ export class AppComponent implements OnInit{
   title = 'UNDECIDED';
   isDarkTheme: boolean = false;
 
-  constructor(private translate: TranslateService,
-              private _renderer: Renderer2) {
+  constructor(private translate: TranslateService) {
 
   }
 

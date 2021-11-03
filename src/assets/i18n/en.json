@@ -1,4 +1,18 @@
 {
+  "home" : {
+
+  },
+  "search" : {
+
+  },
+  "ratings" : {
+
+  },
+  "profile": {
+    "edit" : "Edit profile",
+    "friends" : "Friends",
+    "settings": "Account settings"
+  },
   "hello": "Hello World",
   "test": "TEST"
 }

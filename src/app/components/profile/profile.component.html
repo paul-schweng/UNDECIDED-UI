@@ -1,1 +1,38 @@
-<p>profile works!</p>
+<div class="w-100 profile-background">
+  <img class="profile-picture"/>
+  <span class="profile-name">name</span>
+  <span class="profile-username">username</span>
+</div>
+
+
+<div class="profile-stats">
+  <span>ratings</span>
+  <span>friends</span>
+  <span>ratings</span>
+</div>
+
+
+<div class="profile-content">
+  <div class="profile-desc">
+    description
+  </div>
+
+  <mat-list class="profile-opt">
+    <a class="on-hover" mat-list-item routerLink="edit">
+      <mat-icon mat-list-icon> </mat-icon>
+      <div mat-line translate>profile.edit</div>
+      <mat-divider></mat-divider>
+    </a>
+    <mat-list-item class="on-hover">
+      <mat-icon mat-list-icon> </mat-icon>
+      <div mat-line translate>profile.friends</div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+    <mat-list-item class="on-hover">
+      <mat-icon mat-list-icon> </mat-icon>
+      <div mat-line translate>profile.settings</div>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-list>
+
+</div>
