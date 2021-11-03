@@ -22,6 +22,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/main-frame/nav-bar/nav-bar.component';
 import {MatButtonModule} from "@angular/material/button";
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -31,32 +32,33 @@ import {MatButtonModule} from "@angular/material/button";
     HomeComponent,
     NavBarComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    BrowserAnimationsModule,
-    NgBusyModule,
-    NgbModule,
-    CgBusyModule.forRoot({
-      backdrop: true
-    }),
-    MatProgressSpinnerModule,
-    MatDatepickerModule,
-    ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        BrowserAnimationsModule,
+        NgBusyModule,
+        NgbModule,
+        CgBusyModule.forRoot({
+            backdrop: true
+        }),
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
