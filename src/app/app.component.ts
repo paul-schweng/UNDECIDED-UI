@@ -16,12 +16,25 @@ export class AppComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.initTranslateService();
   }
+
 
   toggleTheme(): void {
     this.isDarkTheme = !this.isDarkTheme;
+  }
+
+
+  private initTranslateService(): void {
+    this.translate.addLangs(['de','en']);
+    this.translate.setDefaultLang('en');
+
+    if(this.translate.getLangs().includes(this.translate.getBrowserLang()))
+      this.translate.use(this.translate.getBrowserLang());
+    else
+      this.translate.use(this.translate.getDefaultLang());
   }
 
 

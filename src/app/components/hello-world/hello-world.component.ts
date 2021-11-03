@@ -21,22 +21,14 @@ export class HelloWorldComponent implements OnInit {
 
   constructor(private readonly http: HttpClient,
               public readonly translate: TranslateService,
-              private readonly resourceService: GreetingService,
+              private readonly greetingService: GreetingService,
               private readonly toastr: ToastrService) {
   }
 
 
   ngOnInit(): void {
-    this.translate.addLangs(['de','en']);
-    this.translate.setDefaultLang('en');
 
-    if(this.translate.getLangs().includes(this.translate.getBrowserLang()))
-      this.translate.use(this.translate.getBrowserLang());
-    else
-      this.translate.use(this.translate.getDefaultLang());
-
-
-    this.resourceService.getId()
+    this.greetingService.getId()
       .then(greeting => this.greeting = greeting)
       .finally(() => {
         if(!this.greeting.id)
