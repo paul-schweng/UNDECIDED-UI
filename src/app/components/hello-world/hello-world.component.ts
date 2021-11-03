@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {TranslateService} from "@ngx-translate/core";
 import {Greeting} from "../../models/greeting";
 import {GreetingService} from "../../services/greeting.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'hello-world',
@@ -20,22 +21,23 @@ export class HelloWorldComponent implements OnInit {
 
   constructor(private readonly http: HttpClient,
               public readonly translate: TranslateService,
-              private readonly resourceService: GreetingService) {
-
-    resourceService.getId().then(greeting => this.greeting = greeting)
-      .finally(() => this.isBusy = false);
-
+              private readonly greetingService: GreetingService,
+              private readonly toastr: ToastrService) {
   }
 
 
   ngOnInit(): void {
-    this.translate.addLangs(['de','en']);
-    this.translate.setDefaultLang('en');
 
-    if(this.translate.getLangs().includes(this.translate.getBrowserLang()))
-      this.translate.use(this.translate.getBrowserLang());
-    else
-      this.translate.use(this.translate.getDefaultLang());
+    this.greetingService.getId()
+      .then(greeting => this.greeting = greeting)
+      .finally(() => {
+        if(!this.greeting.id)
+          this.toastr.error('The server did not respond!', 'Error')
+        else
+          this.toastr.success('The server responded!', 'Success!')
+
+        this.isBusy = false
+      });
   }
 
 
