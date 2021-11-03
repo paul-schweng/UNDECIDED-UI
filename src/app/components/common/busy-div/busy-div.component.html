@@ -6,7 +6,7 @@
 
 <ng-template #customTemplate let-options="options">
   <div *ngIf="busy" class="ng-busy">
-    <mat-spinner style="display: inline-block !important;" [diameter]="diameter || 0"></mat-spinner>
+    <mat-spinner style="display: inline-block !important;"  [attr.diameter]="diameter || null"></mat-spinner>
     <p *ngIf="showText" class="busy-text">
       {{busyText | translate}}
     </p>

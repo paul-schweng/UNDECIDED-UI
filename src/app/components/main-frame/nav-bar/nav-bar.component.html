@@ -1,25 +1,17 @@
-<div class="d-inline">
-    <span class="nav-bar-u">
-      U
-    </span>
-  <span class="nav-bar-n">
-      N
-    </span>
-  <span class="nav-bar-decided">
-      DECIDED
-    </span>
+<div class="nav-bar nav-bar-logo">
+  <a routerLink="/">
+    <img class="nav-bar" src="/assets/img/logo.svg"/>
+  </a>
+
 </div>
 
-<div class="nav-bar-buttons justify-content-between d-flex flex-grow-1">
+<div class="nav-bar nav-bar-buttons justify-content-between d-flex flex-grow-1">
   <a mat-icon-button *ngFor="let btn of buttons" [routerLink]="btn.path"  [class.button-selected]="router.url.includes(btn.path)">
-    <mat-icon>{{btn.icon}}</mat-icon>
+    <mat-icon >{{btn.icon}}</mat-icon>
   </a>
-  <div class="nav-bar-profile-border">
-    <div class="nav-bar-profile">
-  </div>
-
-
-  </div>
+  <a class="nav-bar nav-bar-profile-border" routerLink="profile" mat-ripple>
+    <img src="/assets/img/default-user.png" class="nav-bar nav-bar-profile"/>
+  </a>
 </div>
 <div class="nav-bar-line"></div>
 

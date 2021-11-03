@@ -1,54 +1,9 @@
-.nav-bar-u {
-
-  width: 140.6px;
-  height: 120.9px;
-  text-shadow: 0 5.3px 5.3px rgba(0, 0, 0, 0.25);
-  font-family: FrederickatheGreat;
-  font-size: 94.6px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 45.88px;
-  text-align: center;
-  color: #000;
+.nav-bar-logo {
+  flex-grow: 2;
 }
-
-.nav-bar-n {
-
-  width: 42px;
-  height: 69px;
-  text-shadow: 0 5.3px 2.6px rgba(0, 0, 0, 0.25);
-  font-family: FrederickatheGreat;
-  font-size: 56.5px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 27.4px;
-  text-align: center;
-  color: #000;
-}
-
-.nav-bar-decided{
-
-  width: 325px;
-  height: 50px;
-  text-shadow: 0 5.3px 2.6px rgba(0, 0, 0, 0.5);
-  font-family: FrederickatheGreat;
-  font-size: 41.1px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: 19.92px;
-  text-align: center;
-  color: #000;
-}
-
 
 .nav-bar-buttons {
-  margin: 1rem 2rem 1rem 9rem;
+  margin: auto 2rem auto 0;
   align-items: center;
 }
 
@@ -60,12 +15,19 @@
 }
 
 .nav-bar-profile {
-  border-radius: 50px;
+  border-radius: 100%;
 }
 
 .nav-bar-profile-border {
-  width: 88px;
-  height: 88px;
+  margin: 0.5rem 0 0.5rem 0;
   border: solid 3px #000;
-  border-radius: 50px;
+  border-radius: 100%;
+}
+
+.nav-bar {
+  height: 100%;
+}
+
+a.mat-button-base:hover {
+  background: rgba(0,0,0,0.4);
 }
