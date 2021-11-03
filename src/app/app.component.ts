@@ -5,11 +5,12 @@ import {FormControl} from "@angular/forms";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  host: {'[class.dark-theme]':'isDarkTheme'}
 })
 export class AppComponent implements OnInit{
   title = 'UNDECIDED';
-  isDarkTheme: boolean = true;
+  isDarkTheme: boolean = false;
 
   constructor(private translate: TranslateService,
               private _renderer: Renderer2) {

@@ -23,6 +23,10 @@ import { HomeComponent } from './components/home/home.component';
 import { NavBarComponent } from './components/main-frame/nav-bar/nav-bar.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
+import { SearchComponent } from './components/search/search.component';
+import { RatingsComponent } from './components/ratings/ratings.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {MatRippleModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import {MatDividerModule} from "@angular/material/divider";
     HelloWorldComponent,
     BusyDivComponent,
     HomeComponent,
-    NavBarComponent
+    NavBarComponent,
+    SearchComponent,
+    RatingsComponent,
+    ProfileComponent
   ],
     imports: [
         BrowserModule,
@@ -57,7 +64,8 @@ import {MatDividerModule} from "@angular/material/divider";
         MatIconModule,
         MatToolbarModule,
         MatButtonModule,
-        MatDividerModule
+        MatDividerModule,
+        MatRippleModule
     ],
   providers: [],
   bootstrap: [AppComponent]

@@ -51,7 +51,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background: rgba(0,0,0,0.2);
 }
 
-a:hover {
-  color: white!important;
+a.mat-button-base, a.mat-button-base:hover {
+  color: var(--color-default);
   text-decoration: none!important;
+  border: 0;
 }
+
+a, a:hover{
+  color: transparent;
+  text-decoration: none!important;
+  border: 0;
+}
+
+
