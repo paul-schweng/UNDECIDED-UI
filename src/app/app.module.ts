@@ -26,9 +26,15 @@ import {MatDividerModule} from "@angular/material/divider";
 import { SearchComponent } from './components/search/search.component';
 import { RatingsComponent } from './components/ratings/ratings.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import {MatLineModule, MatRippleModule} from "@angular/material/core";
+import {MatLineModule, MatOptionModule, MatRippleModule} from "@angular/material/core";
 import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import {MatListModule} from "@angular/material/list";
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+
 
 @NgModule({
   declarations: [
@@ -40,38 +46,45 @@ import {MatListModule} from "@angular/material/list";
     SearchComponent,
     RatingsComponent,
     ProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    LoginComponent,
+    RegisterComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        BrowserAnimationsModule,
-        NgBusyModule,
-        NgbModule,
-        CgBusyModule.forRoot({
-            backdrop: true
-        }),
-        MatProgressSpinnerModule,
-        MatDatepickerModule,
-        ToastrModule.forRoot(),
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        MatIconModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatDividerModule,
-        MatRippleModule,
-        MatListModule,
-        MatLineModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    BrowserAnimationsModule,
+    NgBusyModule,
+    NgbModule,
+    CgBusyModule.forRoot({
+      backdrop: true
+    }),
+    MatProgressSpinnerModule,
+    MatDatepickerModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatRippleModule,
+    MatListModule,
+    MatLineModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule,
+
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

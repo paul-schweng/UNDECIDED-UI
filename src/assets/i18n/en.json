@@ -1,4 +1,7 @@
 {
+  "basics": {
+    "required": "Cannot be empty"
+  },
   "home" : {
 
   },
@@ -12,6 +15,12 @@
     "edit" : "Edit profile",
     "friends" : "Friends",
     "settings": "Account settings"
+  },
+  "login" : {
+    "forgot": "Forgot password?"
+  },
+  "register" : {
+
   },
   "hello": "Hello World",
   "test": "TEST"
