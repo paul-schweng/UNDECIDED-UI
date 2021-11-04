@@ -1,10 +1,12 @@
-.nav-bar-logo {
-  flex-grow: 2;
+.Background-Nav {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  background-image: radial-gradient(circle at 50% 0%, var(--white), #f000), radial-gradient(circle at 80% 0%, #d3b95cb5, #fff0);
 }
 
-.nav-bar-buttons {
-  margin: auto 2rem auto 0;
-  align-items: center;
+.NAVLogo {
+  width: 28.25rem;
+  height: 7.802rem;
 }
 
 .nav-bar-line {
@@ -16,18 +18,28 @@
 
 .nav-bar-profile {
   border-radius: 100%;
+  width: 40px;
 }
+
+ul{
+  margin-right: 2vw;
+  display: contents;
+}
+
+a.mat-button-base:hover {
+  background: rgba(0,0,0,0.4);
+}
+
+@media only screen and (max-width: 620px) {
+  /* For mobile phones: */
+  .menu, .main, .right {
+    width: 100%;
+  }
+}
+
 
 .nav-bar-profile-border {
   margin: 0.5rem 0 0.5rem 0;
   border: solid 3px #000;
   border-radius: 100%;
-}
-
-.nav-bar {
-  height: 100%;
-}
-
-a.mat-button-base:hover {
-  background: rgba(0,0,0,0.4);
 }
