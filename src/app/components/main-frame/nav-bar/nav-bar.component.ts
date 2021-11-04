@@ -8,21 +8,6 @@ import {Router} from "@angular/router";
 })
 export class NavBarComponent implements OnInit {
 
-  buttons = [
-    {
-      path: 'home',
-      label: 'Home',
-      icon: 'home'
-    },{
-      path: 'search',
-      label: 'Search',
-      icon: 'search'
-    },{
-      path: 'ratings',
-      label: 'Ratings',
-      icon: 'panorama'
-    }
-  ];
 
 
 
