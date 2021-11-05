@@ -34,6 +34,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import { NewRatingDialogComponent } from './components/dialogs/new-rating-dialog/new-rating-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { StarsComponent } from './components/common/stars/stars.component';
 
 
 @NgModule({
@@ -48,43 +51,46 @@ import {MatSelectModule} from "@angular/material/select";
     ProfileComponent,
     EditProfileComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewRatingDialogComponent,
+    StarsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    BrowserAnimationsModule,
-    NgBusyModule,
-    NgbModule,
-    CgBusyModule.forRoot({
-      backdrop: true
-    }),
-    MatProgressSpinnerModule,
-    MatDatepickerModule,
-    ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatRippleModule,
-    MatListModule,
-    MatLineModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatOptionModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        BrowserAnimationsModule,
+        NgBusyModule,
+        NgbModule,
+        CgBusyModule.forRoot({
+            backdrop: true
+        }),
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatRippleModule,
+        MatListModule,
+        MatLineModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatDialogModule,
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

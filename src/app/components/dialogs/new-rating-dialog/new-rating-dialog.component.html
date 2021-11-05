@@ -1,0 +1,53 @@
+<div *ngIf="data.bg">
+  <header>
+    <div>
+      <img src="{{data.rating.user.profileImage}}">
+      <span>name</span>
+    </div>
+    <span>Date</span>
+  </header>
+  <footer>
+    <button mat-button>Post it!</button>
+    <button mat-button>Cancel</button>
+  </footer>
+</div>
+
+
+<div *ngIf="!data.bg">
+
+  <div>
+    <img src=""/>
+    <div>Chooes image</div>
+  </div>
+
+  <div>
+    <div>
+      <span>Product</span>
+      <span>Label</span>
+      <div class="line"></div>
+    </div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Write a description</mat-label>
+        <textarea matInput placeholder="I liked the most that..."></textarea>
+      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <mat-label>Add location</mat-label>
+          <input matInput placeholder="Name of the restaurant/bar/..."/>
+          <mat-icon matSuffix>location</mat-icon>
+        </mat-form-field>
+        <div>
+          <img src="">
+          <button mat-fab>
+            <mat-icon>add</mat-icon>
+          </button>
+          <span>Tag friends</span>
+        </div>
+        <app-stars [value]="data.rating.stars"></app-stars>
+      </div>
+    </div>
+
+  </div>
+</div>
