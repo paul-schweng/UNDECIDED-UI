@@ -1,0 +1,5 @@
+<div class="d-inline-block"  *ngFor="let _ of max; let index = index">
+  <mat-icon *ngIf="index - value === -0.5">star_half</mat-icon>
+  <mat-icon *ngIf="index - value <= -1">star</mat-icon>
+  <mat-icon *ngIf="index - value >= 0">star_border</mat-icon>
+</div>
