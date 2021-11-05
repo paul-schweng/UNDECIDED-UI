@@ -7,8 +7,8 @@
     <span>Date</span>
   </header>
   <footer>
-    <button mat-button>Post it!</button>
-    <button mat-button>Cancel</button>
+    <button color="primary" mat-button>Post it!</button>
+    <button color="accent" mat-button>Cancel</button>
   </footer>
 </div>
 
@@ -46,6 +46,7 @@
           <span>Tag friends</span>
         </div>
         <app-stars [value]="data.rating.stars"></app-stars>
+        <ngx-stars [size]="5" [initialStars]="data.rating.stars" color="gold"></ngx-stars>
       </div>
     </div>
 
