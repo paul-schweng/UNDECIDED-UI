@@ -1,4 +1,4 @@
-<div class="login-container">
+<form class="login-container" (submit)="loginClicked()">
   <mat-error *ngIf="authFailed" translate>login.authFail</mat-error>
   <mat-form-field appearance="fill">
     <mat-label>Enter your email</mat-label>
@@ -15,5 +15,5 @@
     <mat-hint align="end" translate="login.forgot" (click)="openForgotPassword()"></mat-hint>
   </mat-form-field>
 
-  <button (click)="loginClicked()" [disabled]="isLoginDisabled()" mat-raised-button>Login</button>
-</div>
+  <button type="submit" [disabled]="isLoginDisabled()" mat-raised-button>Login</button>
+</form>
