@@ -10,5 +10,6 @@ export interface Rating {
   timestamp: string,
   image?: string | File,
   product: Product,
-  votes: number | Vote[]
+  votes: number | Vote[],
+  friends?: string[]
 }

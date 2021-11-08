@@ -15,7 +15,7 @@ import {CgBusyModule} from "angular-busy2";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ToastrModule} from "ngx-toastr";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -36,8 +36,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import { NewRatingDialogComponent } from './components/dialogs/new-rating-dialog/new-rating-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import { StarsComponent } from './components/common/stars/stars.component';
 import {NgxStarsModule} from "ngx-stars";
+import { BaseRatingComponent } from './components/common/base-rating/base-rating.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 
 @NgModule({
@@ -54,45 +55,48 @@ import {NgxStarsModule} from "ngx-stars";
     LoginComponent,
     RegisterComponent,
     NewRatingDialogComponent,
-    StarsComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    BrowserAnimationsModule,
-    NgBusyModule,
-    NgbModule,
-    CgBusyModule.forRoot({
-      backdrop: true
-    }),
-    MatProgressSpinnerModule,
-    MatDatepickerModule,
-    ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatRippleModule,
-    MatListModule,
-    MatLineModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatDialogModule,
-    NgxStarsModule,
+    BaseRatingComponent,
 
   ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        BrowserAnimationsModule,
+        NgBusyModule,
+        NgbModule,
+        CgBusyModule.forRoot({
+            backdrop: true
+        }),
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatRippleModule,
+        MatListModule,
+        MatLineModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatDialogModule,
+        NgxStarsModule,
+        MatAutocompleteModule,
+        FormsModule,
+
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

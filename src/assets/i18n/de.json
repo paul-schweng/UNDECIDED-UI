@@ -11,6 +11,10 @@
   "ratings": {
 
   },
+  "product": {
+    "product": "Produkt",
+    "brand": "Marke"
+  },
   "profile": {
     "edit": "Profil bearbeiten",
     "friends" : "Freunde",

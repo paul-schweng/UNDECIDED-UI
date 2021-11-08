@@ -11,7 +11,7 @@ export class NewRatingDialogComponent implements OnInit {
 
 
   constructor(public dialogRef: MatDialogRef<NewRatingDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: {bg: boolean, rating: Rating}) {
+              @Inject(MAT_DIALOG_DATA) public data: Rating) {
 
   }
 
