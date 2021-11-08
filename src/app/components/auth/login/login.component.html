@@ -1,4 +1,5 @@
 <div class="login-container">
+  <mat-error *ngIf="authFailed" translate>login.authFail</mat-error>
   <mat-form-field appearance="fill">
     <mat-label>Enter your email</mat-label>
     <input matInput placeholder="pat@example.com" [formControl]="email" required>

@@ -21,7 +21,8 @@
     "settings": "Accounteinstellungen"
   },
   "login" : {
-    "forgot": "Passwort vergessen?"
+    "forgot": "Passwort vergessen?",
+    "authFail": "Falsche Email/Benutzername oder Password"
   },
   "register" : {
 
