@@ -1,0 +1,96 @@
+<div *ngIf="!edit" xmlns="http://www.w3.org/1999/html">
+  <div class="rating-image"></div>
+
+  <div>
+    <div>
+      <span>{{rating.product.name}}</span>
+      <span>{{rating.product?.brand}}</span>
+      <div class="line"></div>
+    </div>
+
+    <div>
+      <div class="rating-desc">{{rating.description}}</div>
+
+      <div>
+        <div>
+          <span>{{rating.product.location?.name || 'location unknown'}}</span>
+          <mat-icon *ngIf="rating.product.location?.name">location_on</mat-icon>
+          <mat-icon *ngIf="!rating.product.location?.name">location_off</mat-icon>
+        </div>
+        <div>
+          <img src="own profile pic here">
+          <div *ngFor="let friend of rating.friends" [style]="'background-image: url(/static/img/' + friend + ');'"></div>
+        </div>
+        <ngx-stars [size]="5" [initialStars]="rating.stars" color="black" [readonly]="!edit"></ngx-stars>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div *ngIf="edit">
+  <div>
+    <img src=""/>
+    <div>Choose image</div>
+  </div>
+
+  <div>
+    <form class="product-form">
+      <mat-form-field class="" appearance="fill">
+        <mat-label translate>product.product</mat-label>
+        <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
+        <mat-autocomplete #autoProduct [displayWith]="displayFnProduct">
+          <mat-option *ngFor="let option of filteredOptionsProduct | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="" appearance="fill">
+        <mat-label translate>product.brand</mat-label>
+        <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
+        <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
+          <mat-option *ngFor="let option of filteredOptionsBrand | async" [value]="option">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+
+    <div class="line"></div>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Write a description</mat-label>
+        <textarea matInput placeholder="I liked the most that..."
+                  [(ngModel)]="rating.description" name="description"></textarea>
+      </mat-form-field>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Add location</mat-label>
+          <input matInput placeholder="Restaurant/bar/..."
+                 [(ngModel)]="rating.product.location!.name" name="location">
+          <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+        <div>
+          <img src="own image">
+          <div *ngFor="let friend of rating.friends" [style]="'background-image: url(/static/img/' + friend + ');'"></div>
+          <button mat-fab>
+            <mat-icon>add</mat-icon>
+          </button>
+          <span>Tag friends</span>
+        </div>
+        <ngx-stars [size]="5" (ratingOutput)="setStars($event)" [initialStars]="rating.stars" color="black"></ngx-stars>
+      </div>
+    </div>
+
+  </div>
+  <footer>
+    <button mat-raised-button>Cancel</button>
+    <button color="accent" (click)="postClicked()" mat-raised-button>Post it!</button>
+  </footer>
+</div>
+
+
