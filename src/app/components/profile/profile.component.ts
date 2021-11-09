@@ -15,4 +15,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  edit: boolean = false;
+
+
 }

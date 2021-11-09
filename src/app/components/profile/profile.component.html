@@ -1,15 +1,54 @@
-<div class="w-100 profile-background">
-  <img class="profile-picture"/>
-  <span class="profile-name">name</span>
-  <span class="profile-username">username</span>
+<div class="profile-background-content position-absolute d-inline-flex align-items-center">
+  <div class="profile-picture" style="background-image: url('/assets/img/default-user.png')"></div>
+  <span class="profile-name">
+    name
+    <span class="profile-username">username</span>
+  </span>
+</div>
+<div class="w-100 profile-background" style="background-image: url('/assets/img/default-banner.png')"></div>
+
+<div class="profile-stats m-auto py-4 d-flex align-items-center justify-content-between border-bottom border-2">
+  <span>20 ratings</span>
+  <span>70 friends</span>
+  <span>ratings</span>
+</div>
+
+<div class="d-flex">
+  <div *ngIf="!edit" class="w-50 m-4 p-4 border border-2 rounded">
+    Description...
+  </div>
+
+  <form *ngIf="edit" class="m-4 w-50">
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput #descr maxlength="256" placeholder="...">
+      <mat-hint align="end">{{descr.value.length}} / 256</mat-hint>
+    </mat-form-field>
+  </form>
+
+  <mat-list class="m-auto">
+    <a class="on-hover" mat-list-item routerLink="edit">
+      <mat-icon mat-list-icon class="d-flex"><img src="assets/img/iconsEdit.svg" alt="edit"></mat-icon>
+      <div mat-line translate>profile.edit</div>
+      <mat-divider class="border-2"></mat-divider>
+    </a>
+    <a class="on-hover" mat-list-item routerLink="friends">
+      <mat-icon mat-list-icon class="d-flex"><img src="assets/img/iconsContacts.svg" alt="friends"></mat-icon>
+      <div mat-line translate>profile.friends</div>
+      <mat-divider class="border-2"></mat-divider>
+    </a>
+    <a class="on-hover" mat-list-item routerLink="settings">
+      <mat-icon mat-list-icon class="d-flex"><img src="assets/img/iconsSettings.svg" alt="settings"></mat-icon>
+      <div mat-line translate>profile.settings</div>
+      <mat-divider class="border-2"></mat-divider>
+    </a>
+  </mat-list>
+
 </div>
 
 
-<div class="profile-stats">
-  <span>ratings</span>
-  <span>friends</span>
-  <span>ratings</span>
-</div>
+
+<!--
 
 
 <div class="profile-content">
@@ -36,3 +75,4 @@
   </mat-list>
 
 </div>
+-->
