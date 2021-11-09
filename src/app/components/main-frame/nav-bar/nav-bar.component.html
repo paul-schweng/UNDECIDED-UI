@@ -5,7 +5,7 @@
     </a>
   </div>
 
-  <ul class="nav justify-content-end">
+  <ul class="nav d-contents justify-content-end">
     <li>
       <a routerLink="home" mat-icon-button [class.button-selected]="router.url.includes('home')"><img src="/assets/img/iconNavHome.svg" alt="HOME"></a>
     </li>
@@ -16,7 +16,7 @@
       <a routerLink="ratings" mat-icon-button [class.button-selected]="router.url.includes('ratings')"><img src="/assets/img/iconsNavImage.svg" alt="RATINGS"></a>
     </li>
     <li>
-      <a routerLink="profile" mat-ripple [class.button-selected]="router.url.includes('profile')"><img src="/assets/img/default-user.png" class="nav-bar-profile" alt="PROFILE"/></a>
+      <a routerLink="profile"><img src="/assets/img/default-user.png" class="nav-bar-profile" alt="PROFILE"/></a>
     </li>
   </ul>
 </div>
