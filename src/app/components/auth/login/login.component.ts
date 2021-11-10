@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {TranslateService} from "@ngx-translate/core";
 import {FormControlValidation} from "../../../services/formControlValidation";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,15 +12,19 @@ import {FormControlValidation} from "../../../services/formControlValidation";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public readonly translate: TranslateService) { }
+  constructor(public readonly translate: TranslateService,
+              private readonly auth: AuthenticationService,
+              private readonly router: Router) {
+  }
 
   ngOnInit(): void {
   }
 
   hide = true;
+  authFailed = false;
 
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  email = new FormControl('', [Validators.required, /* Validators.email */]);
   password =  new FormControl('', [Validators.required]);
 
 
@@ -37,7 +43,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginClicked() {
-    //add send login logic
+    this.auth.authenticate({username: this.email.value, password: this.password.value}).then(res => {
+      if(res)
+        this.router.navigateByUrl('/');
+      else
+        this.authFailed = true;
+    });
   }
 
   isLoginDisabled(): boolean {

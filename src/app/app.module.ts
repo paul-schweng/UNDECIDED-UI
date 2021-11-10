@@ -1,10 +1,14 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HelloWorldComponent } from './components/hello-world/hello-world.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -15,7 +19,7 @@ import {CgBusyModule} from "angular-busy2";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {ToastrModule} from "ngx-toastr";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
@@ -34,6 +38,14 @@ import { RegisterComponent } from './components/auth/register/register.component
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import { NewRatingDialogComponent } from './components/dialogs/new-rating-dialog/new-rating-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {NgxStarsModule} from "ngx-stars";
+import { BaseRatingComponent } from './components/common/base-rating/base-rating.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {AuthenticationService} from "./services/authentication.service";
+import {XhrInterceptor} from "./services/xhr.interceptor";
+import {initApp} from "./services/initApp";
 
 
 @NgModule({
@@ -48,44 +60,62 @@ import {MatSelectModule} from "@angular/material/select";
     ProfileComponent,
     EditProfileComponent,
     LoginComponent,
-    RegisterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    BrowserAnimationsModule,
-    NgBusyModule,
-    NgbModule,
-    CgBusyModule.forRoot({
-      backdrop: true
-    }),
-    MatProgressSpinnerModule,
-    MatDatepickerModule,
-    ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatRippleModule,
-    MatListModule,
-    MatLineModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatOptionModule,
+    RegisterComponent,
+    NewRatingDialogComponent,
+    BaseRatingComponent,
 
   ],
-  providers: [],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        BrowserAnimationsModule,
+        NgBusyModule,
+        NgbModule,
+        CgBusyModule.forRoot({
+            backdrop: true
+        }),
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+        MatSlideToggleModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatRippleModule,
+        MatListModule,
+        MatLineModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatDialogModule,
+        NgxStarsModule,
+        MatAutocompleteModule,
+        FormsModule,
+
+    ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: XhrInterceptor,
+      multi: true
+    }, {
+      provide: APP_INITIALIZER,
+      useFactory: initApp,
+      multi: true,
+      deps: [AuthenticationService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
