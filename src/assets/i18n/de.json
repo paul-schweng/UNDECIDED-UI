@@ -1,3 +1,32 @@
 {
-  "hello": "Hallo Welt"
+  "basics": {
+    "required": "Darf nicht leer sein"
+  },
+  "home" : {
+
+  },
+  "search" : {
+
+  },
+  "ratings": {
+
+  },
+  "product": {
+    "product": "Produkt",
+    "brand": "Marke"
+  },
+  "profile": {
+    "edit": "Profil bearbeiten",
+    "friends" : "Freunde",
+    "settings": "Accounteinstellungen"
+  },
+  "login" : {
+    "forgot": "Passwort vergessen?",
+    "authFail": "Falsche Email/Benutzername oder Password"
+  },
+  "register" : {
+
+  },
+  "hello": "Hallo Welt",
+  "test": "TEST"
 }

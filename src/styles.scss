@@ -1,7 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+@use "styles/colors";
 
-/* Importing Bootstrap SCSS file. */
+@use '~@angular/material' as mat;
+
+@import "~@angular/material/theming";
+
+
+@include mat.core();
+
+@import "~@angular/material/theming";
+@include mat-core();
+
+$light-theme-primary: mat.define-palette(mat.$indigo-palette, 700, 300, 900);
+$light-theme-accent: mat.define-palette(mat.$light-blue-palette);
+$light-theme-warn: mat.define-palette(mat.$deep-orange-palette, A200);
+
+
+$dark-theme-primary: mat.define-palette(mat.$purple-palette, 700, 300, 900);
+$dark-theme-accent: mat.define-palette(mat.$green-palette);
+$dark-theme-warn: mat.define-palette(mat.$deep-orange-palette, A200);
+
+
+$light-theme: mat.define-light-theme(
+    $light-theme-primary,
+    $light-theme-accent,
+    $light-theme-warn
+);
+
+$dark-theme: mat.define-dark-theme(
+    $dark-theme-primary,
+    $dark-theme-accent,
+    $dark-theme-warn
+);
+
+@include mat.all-component-themes($light-theme);
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+
+}
+
+
 @import '~bootstrap/scss/bootstrap';
 
-html, body { height: 100%; }
+
+html, body {
+  height: 100%;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.button-selected {
+  background: rgba(0,0,0,0.2);
+}
+
+a.mat-button-base, a.mat-button-base:hover {
+  color: var(--color-default);
+  text-decoration: none!important;
+  border: 0;
+}
+
+a, a:hover{
+  color: transparent;
+  text-decoration: none!important;
+  border: 0;
+}
+
+.on-hover:hover {
+  background: rgba(0,0,0,0.15);
+}
+
+.BODYBACKGROUND-OVERLAY {
+  display: block;
+  width: 99%;
+  min-height: 98%;
+  margin: 0.5% auto auto;
+  border-radius: 10px;
+  box-shadow: 0 0 16px 6px rgba(0, 0, 0, 0.05);
+  background-color: var(--white);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(202, 0, 0);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(68, 0, 0);
+}
+
+

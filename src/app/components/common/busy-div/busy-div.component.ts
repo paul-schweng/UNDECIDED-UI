@@ -8,7 +8,7 @@ import {Component, Input, OnChanges, OnDestroy, SimpleChanges} from '@angular/co
 })
 export class BusyDivComponent implements OnDestroy, OnChanges {
   @Input() busy: boolean = false;
-  @Input() showText: boolean = true;
+  @Input() showText: boolean = false;
   @Input() maxHeight: boolean = false;
   @Input() busyText: string = "loading";
   @Input() diameter?: number;
