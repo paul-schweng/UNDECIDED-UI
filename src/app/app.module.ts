@@ -24,7 +24,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatIconModule} from "@angular/material/icon";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { HomeComponent } from './components/home/home.component';
-import { NavBarComponent } from './components/main-frame/nav-bar/nav-bar.component';
+import { NavBarComponent } from './components/common/main-frame/nav-bar/nav-bar.component';
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
 import { SearchComponent } from './components/search/search.component';
@@ -46,6 +46,9 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {AuthenticationService} from "./services/authentication.service";
 import {XhrInterceptor} from "./services/xhr.interceptor";
 import {initApp} from "./services/initApp";
+import { AuthComponent } from './components/auth/auth.component';
+import { MainFrameComponent } from './components/common/main-frame/main-frame.component';
+import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
 
 
 @NgModule({
@@ -63,6 +66,9 @@ import {initApp} from "./services/initApp";
     RegisterComponent,
     NewRatingDialogComponent,
     BaseRatingComponent,
+    AuthComponent,
+    MainFrameComponent,
+    AuthNavbarComponent,
 
   ],
     imports: [
