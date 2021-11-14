@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import {AuthenticationService} from "./services/authentication.service";
 
 
 @Component({
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit{
   isDarkTheme: boolean = false;
 
   constructor(private translate: TranslateService,
-              private readonly renderer: Renderer2) {
+              private readonly renderer: Renderer2,
+              private readonly auth: AuthenticationService) {
     this.manageDarkTheme();
   }
 

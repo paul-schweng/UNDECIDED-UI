@@ -7,6 +7,19 @@
   border-radius: 10px !important;
 }
 
+.profile-member-date{
+  z-index: 2;
+  right: 0;
+  font-family: FrederickatheGreat, cursive;
+  font-size: 1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: var(--white);
+}
+
 .profile-background {
   height: 45vh;
   -webkit-filter: blur(10px);

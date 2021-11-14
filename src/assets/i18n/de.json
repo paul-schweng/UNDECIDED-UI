@@ -11,13 +11,18 @@
   "ratings": {
 
   },
+  "product": {
+    "product": "Produkt",
+    "brand": "Marke"
+  },
   "profile": {
     "edit": "Profil bearbeiten",
     "friends" : "Freunde",
     "settings": "Accounteinstellungen"
   },
   "login" : {
-    "forgot": "Passwort vergessen?"
+    "forgot": "Passwort vergessen?",
+    "authFail": "Falsche Email/Benutzername oder Password"
   },
   "register" : {
 
