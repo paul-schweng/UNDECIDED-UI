@@ -44,7 +44,7 @@ import {NgxStarsModule} from "ngx-stars";
 import { BaseRatingComponent } from './components/common/base-rating/base-rating.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {AuthenticationService} from "./services/authentication.service";
-import {XhrInterceptor} from "./services/xhr.interceptor";
+import {XhrInterceptor} from "./services/lib/xhr.interceptor";
 import {initApp} from "./services/initApp";
 import { AuthComponent } from './components/auth/auth.component';
 import { MainFrameComponent } from './components/common/main-frame/main-frame.component';
