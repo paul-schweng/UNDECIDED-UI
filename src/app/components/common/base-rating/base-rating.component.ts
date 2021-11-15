@@ -3,12 +3,8 @@ import {Rating} from "../../../models/rating";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {GeoLocation} from "../../../models/location";
 
-
-//TODO: remove this
-export interface User {
-  name: string;
-}
 
 @Component({
   selector: 'base-rating[rating]',
@@ -18,26 +14,28 @@ export interface User {
 export class BaseRatingComponent implements OnInit {
 
 
-  @Input() rating!: Rating;
+  _rating!: Rating;
+
+  @Input() set rating(rating: Rating){
+    this._rating = rating;
+  }
   @Input() edit: boolean = false;
-  isBusy: boolean = true;
 
   constructor() {
   }
 
   productControl = new FormControl();
   brandControl = new FormControl();
-  productOptions: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor2'}];
-  brandOptions: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
-  filteredOptionsProduct!: Observable<User[]>;
-  filteredOptionsBrand!: Observable<User[]>;
+  productOptions: string[] = ['Fanta', 'Sprite'];
+  brandOptions: string[] = ['Nike', 'Samsung'];
+  filteredOptionsProduct!: Observable<string[]>;
+  filteredOptionsBrand!: Observable<string[]>;
 
   ngOnInit() {
-    this.rating.product.location = {name: ''};
+    if (!this._rating.product.location) this._rating.product.location = {} as GeoLocation;
 
-
-    this.productControl.valueChanges.subscribe(change => this.rating.product.name = change);
-    this.brandControl.valueChanges.subscribe(change => this.rating.product.brand = change);
+    this.productControl.valueChanges.subscribe(change => this._rating.product.name = change);
+    this.brandControl.valueChanges.subscribe(change => this._rating.product.brand = change);
 
     this.filteredOptionsProduct = this.productControl.valueChanges.pipe(
       startWith(''),
@@ -53,32 +51,30 @@ export class BaseRatingComponent implements OnInit {
 
   }
 
-  displayFnProduct = (user: User) => {
-    return user && user.name ? user.name : (this.rating.product.name || '');
+  displayFnProduct = (product: string) => {
+    return product ? product : (this._rating.product.name || '');
   };
 
-  displayFnBrand = (user: User) => {
-    return user && user.name ? user.name : (this.rating.product.brand || '');
+  displayFnBrand = (brand: string) => {
+    return brand ? brand : (this._rating.product.brand || '');
   }
 
-  private _filterProduct(name: string): User[] {
+  private _filterProduct(name: string): string[] {
     const filterValue = name.toLowerCase();
 
-    return this.productOptions.filter(option => option.name.toLowerCase().includes(filterValue));
+    return this.productOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  private _filterBrand(name: string): User[] {
+  private _filterBrand(name: string): string[] {
     const filterValue = name.toLowerCase();
 
-    return this.brandOptions.filter(option => option.name.toLowerCase().includes(filterValue));
+    return this.brandOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  postClicked(): void {
-    console.log(this.rating);
-  }
+
 
   setStars(stars: number): void {
-    this.rating.stars = stars;
+    this._rating.stars = stars;
   }
 
 }

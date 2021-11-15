@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpParams} from "@angular/common/http";
-import {BaseCommunicationService} from "./base-communication.service";
+import {BaseCommunicationService} from "./lib/base-communication.service";
 
 @Injectable({
   providedIn: 'root'
