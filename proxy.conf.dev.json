@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://undecided.ted2.cyou:8080",
+    "target": "http://10.0.0.4:8080",
     "secure": true,
     "changeOrigin": true
   }
