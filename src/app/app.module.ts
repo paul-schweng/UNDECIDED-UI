@@ -31,7 +31,6 @@ import { SearchComponent } from './components/search/search.component';
 import { RatingsComponent } from './components/ratings/ratings.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatLineModule, MatOptionModule, MatRippleModule} from "@angular/material/core";
-import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import {MatListModule} from "@angular/material/list";
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -49,6 +48,9 @@ import {initApp} from "./services/initApp";
 import { AuthComponent } from './components/auth/auth.component';
 import { MainFrameComponent } from './components/common/main-frame/main-frame.component';
 import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
+import { SettingsComponent } from './components/profile/settings/settings.component';
+import { InputEmailComponent } from './components/common/input-email/input-email.component';
+import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
 
 
 @NgModule({
@@ -61,7 +63,6 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
     SearchComponent,
     RatingsComponent,
     ProfileComponent,
-    EditProfileComponent,
     LoginComponent,
     RegisterComponent,
     NewRatingDialogComponent,
@@ -69,6 +70,9 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
     AuthComponent,
     MainFrameComponent,
     AuthNavbarComponent,
+    SettingsComponent,
+    InputEmailComponent,
+    InputPwdComponent,
 
   ],
     imports: [

@@ -1,7 +1,13 @@
-import { Injectable } from '@angular/core';
+import {
+  Injectable
+} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {User} from "../models/user";
+import {UserService} from "./user.service";
+import {SampleUser} from "./SampleData";
+import {Subject} from "rxjs";
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +15,43 @@ import {User} from "../models/user";
 export class AuthenticationService {
 
   public authenticated: boolean = false;
-  public iAmUser: User | undefined;
+  private _onUserChanges: Subject<User> = new Subject<User>();
+  get onUserChanges() {
+    return this._onUserChanges.asObservable();
+  }
 
-  constructor(private http: HttpClient,
-              private router: Router) { }
+
+  private _iAmUser: User = {} as User;
+  set iAmUser(user: User) {
+    this._iAmUser = user;
+    this._onUserChanges.next(user);
+  }
+  get iAmUser() {
+    return this._iAmUser;
+  }
+
+
+  public notifyChange() {
+    this._onUserChanges.next(this._iAmUser);
+
+  }
+
+
+
+
+  constructor(private readonly http: HttpClient,
+              private readonly router: Router,
+              private readonly userService: UserService) {
+
+
+    new Promise(() => {
+    }).then(() => {
+
+    })
+
+
+  }
+
 
   logout() {
     this.http.post('/logout', {}).subscribe(() => {
@@ -33,11 +72,23 @@ export class AuthenticationService {
       .then((response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
-        if(this.authenticated)
+        if(this.authenticated){
           localStorage.setItem('credentials', JSON.stringify(credentials));
+
+          //TODO: uncomment this and delete other line
+          //this.userService.getUser().then(user => this.iAmUser = user);
+          this.iAmUser = SampleUser;
+        }
+
         return this.authenticated;
       }, () => {return false;});
 
   }
+
+
+
+
+
+
 
 }
