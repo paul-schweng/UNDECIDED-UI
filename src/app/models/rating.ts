@@ -4,12 +4,12 @@ import {Vote} from "./vote";
 
 export interface Rating {
   id: string,
-  user: User,
+  user?: User,
   stars: number,
   description?: string,
-  timestamp: string,
+  timestamp?: string,
   image?: string | File,
   product: Product,
-  votes: number | Vote[],
+  votes?: number | Vote[],
   friends?: string[]
 }
