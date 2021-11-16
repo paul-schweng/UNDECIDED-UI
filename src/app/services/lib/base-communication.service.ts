@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {Subject, Subscription} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {NotificationService} from "./notification.service";
