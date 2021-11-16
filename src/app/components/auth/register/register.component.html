@@ -1,1 +1,41 @@
-<p>register works!</p>
+<form>
+  <div [formGroup]="formGroup">
+    <div>
+      <h3 translate>auth.welcome</h3>
+      <span translate>auth.register.hasAccount</span>
+      <a translate>auth.login.signIn</a>
+    </div>
+    <span translate>auth.register.name</span>
+    <mat-form-field appearance="fill">
+      <mat-label>{{'auth.register.name' | translate}}</mat-label>
+      <input [(ngModel)]="user.name" matInput placeholder="{{'auth.register.name' | translate}}" formControlName="name" required>
+      <mat-error *ngIf="formGroup.controls['name'].invalid">{{'basics.required' | translate}}</mat-error>
+    </mat-form-field>
+    <span translate>auth.register.username</span>
+   <mat-form-field appearance="fill">
+      <mat-label>{{'auth.register.usernameLabel' | translate}}</mat-label>
+      <input [(ngModel)]="user.username" matInput placeholder="{{'auth.register.username' | translate}}" formControlName="username" required>
+      <mat-error *ngIf="formGroup.controls['username'].invalid">{{'basics.required' | translate}}</mat-error>
+    </mat-form-field>
+    <span translate>auth.register.birthdate</span>
+    <mat-form-field appearance="fill" class="example-form-field">
+      <mat-label>{{'auth.register.birthdate' | translate}}</mat-label>
+      <input (dateChange)="changeDate($event)" [matDatepickerFilter]="dateFilter" matInput [matDatepicker]="datepicker" formControlName="birthdate" required>
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+      <mat-error *ngIf="formGroup.controls['birthdate'].invalid">{{'basics.required' | translate}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div></div>
+  <div>
+    <span translate>basics.email</span>
+    <input-email (value)="user.email = $event" #email></input-email>
+    <span translate>auth.register.password</span>
+    <input-pwd (value)="user.password = $event" type="new" [disableCurrentPwdValidator]="true" #newPwd></input-pwd>
+    <span translate>auth.repeatPwd</span>
+    <input-pwd type="repeat" [repeatedPwd]="newPwd.formControl.value" #repeatPwd></input-pwd>
+    <button (click)="registerClicked()"
+            type="submit" mat-raised-button translate="auth.register.signUp"
+            [disabled]="isInvalid() || newPwd.formControl.invalid || repeatPwd.formControl.invalid"></button>
+  </div>
+</form>

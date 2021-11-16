@@ -9,6 +9,7 @@ export interface User {
   profileImage?: string | File,
   registerDate: Date,
   isDarkTheme: boolean,
-  language: string
+  language: string,
+  password?: string
 }
 

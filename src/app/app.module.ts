@@ -51,6 +51,7 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
 import { SettingsComponent } from './components/profile/settings/settings.component';
 import { InputEmailComponent } from './components/common/input-email/input-email.component';
 import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { InputPwdComponent } from './components/common/input-pwd/input-pwd.compo
         NgxStarsModule,
         MatAutocompleteModule,
         FormsModule,
+        MatNativeDateModule
 
     ],
   providers: [

@@ -6,7 +6,8 @@
     "ratings": "Ratings",
     "darkmode": "Darkmode",
     "lang": "Language",
-    "chooseLang": "Choose language"
+    "chooseLang": "Choose language",
+    "email": "Email"
   },
   "home": {
 
@@ -44,17 +45,29 @@
     "newPwd": "Enter new password",
     "repeatPwd": "Repeat password",
     "wrongPwdRepeat": "Password does not match",
+    "enterEmail": "Enter your email",
+    "welcome": "Welcome!",
     "securePwd": {
       "length": "Min. 8 characters",
       "lowercase": "At least 1 lowercase letter",
       "uppercase": "At least 1 uppercase letter",
       "number": "At least 1 number",
       "samePwd": "Cannot use current password"
+    },
+    "register": {
+      "name": "Name",
+      "username": "Username",
+      "usernameLabel": "Choose your Username",
+      "birthdate": "Birthdate",
+      "password": "Password",
+      "signUp": "Sign Up",
+      "hasAccount": "Do you have an account?"
+    },
+    "login": {
+      "signIn": "Sign In"
     }
   },
-  "register": {
 
-  },
   "httpError": {
     "header": {
       "error": "Error"

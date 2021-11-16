@@ -1,19 +1,19 @@
 import {
   Injectable
 } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../models/user";
-import {UserService} from "./user.service";
 import {SampleUser} from "./SampleData";
 import {Subject} from "rxjs";
+import {CommunicationRequestService} from "./communication-request.service";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService extends CommunicationRequestService<User> {
 
+  protected readonly backendUrlExt = 'auth';
   public authenticated: boolean = false;
   private _onUserChanges: Subject<User> = new Subject<User>();
   get onUserChanges() {
@@ -39,20 +39,6 @@ export class AuthenticationService {
 
 
 
-  constructor(private readonly http: HttpClient,
-              private readonly router: Router,
-              private readonly userService: UserService) {
-
-
-    new Promise(() => {
-    }).then(() => {
-
-    })
-
-
-  }
-
-
   logout() {
     this.http.post('/logout', {}).subscribe(() => {
       this.authenticated = false;
@@ -63,7 +49,7 @@ export class AuthenticationService {
   }
 
 
-  authenticate(credentials: any): Promise<boolean> {
+  login(credentials: any): Promise<boolean> {
 
     const headers = new HttpHeaders(credentials ?
       {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} : {ola:'boy'});
@@ -83,6 +69,14 @@ export class AuthenticationService {
         return this.authenticated;
       }, () => {return false;});
 
+  }
+
+  register(user: User): Promise<boolean>{
+    return super.sendPostRequest(this.backendUrlExt + '/register', user);
+  }
+
+  protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
+    return new HttpParams();
   }
 
 
