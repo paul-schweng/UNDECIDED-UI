@@ -1,11 +1,17 @@
 {
   "basics": {
-    "required": "Darf nicht leer sein"
+    "required": "Darf nicht leer sein",
+    "change": "Ändern",
+    "friends": "Freunde",
+    "ratings": "Bewertungen",
+    "darkmode": "Darkmode",
+    "lang": "Sprache",
+    "chooseLang": "Sprache auswählen"
   },
-  "home" : {
+  "home": {
 
   },
-  "search" : {
+  "search": {
 
   },
   "ratings": {
@@ -17,15 +23,45 @@
   },
   "profile": {
     "edit": "Profil bearbeiten",
-    "friends" : "Freunde",
-    "settings": "Accounteinstellungen"
+    "friends": "{{num}} Freunde",
+    "ratings": "{{num}} Bewertungen",
+    "settings": "Accounteinstellungen",
+    "desc": "Beschreibung",
+    "defaultDesc": "Beschreibung...",
+    "descPlaceholder": "Erzähl etwas über dich...",
+    "accSettings": {
+      "email": "Email ändern",
+      "currentEmail": "Aktuelle Email eingeben",
+      "newEmail": "Neue Email eingeben",
+      "wrongEmail": "Falsche Email",
+      "pwd": "Passwort ändern"
+    }
   },
-  "login" : {
+  "auth": {
     "forgot": "Passwort vergessen?",
-    "authFail": "Falsche Email/Benutzername oder Password"
+    "authFail": "Falsche Email/Benutzername oder Password",
+    "enterPwd": "Passwort eingeben",
+    "newPwd": "Neues Passwort eingeben",
+    "repeatPwd": "Password wiederholen",
+    "wrongPwdRepeat": "Passwort stimmt nicht über ein",
+    "securePwd": {
+      "length": "Min. 8 characters",
+      "lowercase": "At least 1 lowercase letter",
+      "uppercase": "At least 1 uppercase letter",
+      "number": "At least 1 number",
+      "samePwd": "Cannot use current password"
+    }
   },
-  "register" : {
+  "register": {
 
+  },
+  "httpError": {
+    "header": {
+      "error": "Error"
+    },
+    "msg": {
+      "error": "Es ist ein Fehler aufgetreten"
+    }
   },
   "hello": "Hallo Welt",
   "test": "TEST"

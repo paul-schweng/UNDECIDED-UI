@@ -1,1 +1,6 @@
-<base-rating [rating]="data" [edit]="true"></base-rating>
+<busy-div [busy]="isBusy">
+  <base-rating [rating]="data" [edit]="true"></base-rating>
+  <button mat-dialog-close="cancel" mat-raised-button>Cancel</button>
+  <button (click)="postClicked()" color="accent"  mat-raised-button>Post it!</button>
+</busy-div>
+

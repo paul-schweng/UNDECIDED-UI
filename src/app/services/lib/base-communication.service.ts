@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {Subject, Subscription} from "rxjs";
 import {takeUntil} from "rxjs/operators";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
   providedIn: 'root'
 })
-@Injectable()
 export abstract class BaseCommunicationService {
-  constructor(//protected notification: NotificationService,
+  constructor(protected notification: NotificationService,
               protected http: HttpClient,
               protected router: Router) {
   }
@@ -34,7 +34,7 @@ export abstract class BaseCommunicationService {
 
     if (!error) {
       console.info('[BaseCommunicationService] - An undefined error occurred while calling backend');
-      //this.notification.error(this.defaultErrorPath, "httpError.msg.error", notificationSettings);
+      //this.notification.error(this.defaultErrorPath, "httpError.msg.error");
     }
     else if (error.status === 400) {
       console.info('[BaseCommunicationService] - Bad request was sent to backend');
@@ -47,8 +47,10 @@ export abstract class BaseCommunicationService {
       //this.notification.warn("httpError.header.forbidden", "httpError.msg.forbidden", notificationSettings);
     } else if (error.status === 404) {
       console.info('[BaseCommunicationService] - Unknown backend call');
-      if (error.hasOwnProperty("error") && error.error !== null)
+      if (error.hasOwnProperty("error") && error.error !== null){
         console.info('[BaseCommunicationService] - error msg: ', error.error);
+       // this.notification.error(this.defaultErrorPath, "httpError.msg.error");
+      }
     } else {
       console.info( '[BaseCommunicationService] - An error occurred while calling backend:\n', error.message);
       //this.notification.error(this.defaultErrorPath, "httpError.msg.error", notificationSettings);
@@ -88,7 +90,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            //this.handleHttpError(error);
+            this.handleHttpError(error);
             reject(error);
           }
         );
@@ -104,7 +106,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            //this.handleHttpError(error);
+            this.handleHttpError(error);
             reject(error);
           }
         );
@@ -120,7 +122,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            //this.handleHttpError(error);
+            this.handleHttpError(error);
             reject(error);
           }
         );

@@ -1,19 +1,9 @@
 <form class="login-container" (submit)="loginClicked()">
-  <mat-error *ngIf="authFailed" translate>login.authFail</mat-error>
-  <mat-form-field appearance="fill">
-    <mat-label>Enter your email</mat-label>
-    <input matInput placeholder="pat@example.com" [formControl]="email" required>
-    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-  </mat-form-field>
+  <mat-error *ngIf="authFailed" translate>auth.authFail</mat-error>
+  <input-email (value)="email.value = $event" (invalid)="email.invalid = $event"></input-email>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Enter your password</mat-label>
-    <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    <mat-hint align="end" translate="login.forgot" (click)="openForgotPassword()"></mat-hint>
-  </mat-form-field>
+  <input-pwd (value)="password.value = $event"
+             (invalid)="password.invalid = $event"></input-pwd>
 
   <button type="submit" [disabled]="isLoginDisabled()" mat-raised-button>Login</button>
 </form>
