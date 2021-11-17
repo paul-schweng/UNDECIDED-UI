@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
-import {FormControlValidation} from "../../../services/formControlValidation";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -36,7 +32,7 @@ export class LoginComponent implements OnInit {
 
 
   loginClicked() {
-    this.auth.authenticate({username: this.email.value, password: this.password.value}).then(res => {
+    this.auth.login({username: this.email.value, password: this.password.value}).then(res => {
       if(res)
         this.router.navigateByUrl('/');
       else

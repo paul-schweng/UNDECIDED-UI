@@ -18,13 +18,13 @@ export class InputPwdComponent implements OnInit {
     this.repeatedPwd = pwd;
     this.formControl.updateValueAndValidity();
   };
+  @Input() disableCurrentPwdValidator: boolean = false;
 
   repeatedPwd: string = '';
   forgotPwd: boolean = true;
   label: string = 'auth.enterPwd';
   hide = true;
   formControl: FormControl = new FormControl('',[Validators.required]);
-  extraValidators?: ValidatorFn[];
 
   securePasswordRegEx = [
     {
@@ -60,12 +60,13 @@ export class InputPwdComponent implements OnInit {
       case 'new':
         this.securePasswordRegEx.forEach( p => this.formControl.addValidators(Validators.pattern(p.regex)) );
         this.forgotPwd = false;
-        this.label ='auth.enterPwd';
-        this.formControl.addValidators(this.repeatedPwdValidator());
+        this.label ='auth.newPwd';
+        if (!this.disableCurrentPwdValidator)
+          this.formControl.addValidators(this.repeatedPwdValidator());
         break;
 
       case 'repeat':
-        this.label = 'auth.newPwd';
+        this.label = 'auth.repeatPwd';
         this.forgotPwd = false;
         this.formControl.addValidators(this.repeatedPwdValidator());
         break;

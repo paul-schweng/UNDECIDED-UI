@@ -10,5 +10,6 @@ export interface User {
   registerDate?: Date,
   isDarkTheme?: boolean,
   language?: string
+  password?: string
 }
 
