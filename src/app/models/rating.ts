@@ -7,7 +7,7 @@ export interface Rating {
   user?: User,
   stars: number,
   description?: string,
-  timestamp?: string,
+  timestamp?: Date,
   image?: string | File,
   product: Product,
   votes?: number | Vote[],

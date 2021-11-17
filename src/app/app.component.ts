@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy{
   constructor(private translate: TranslateService,
               private readonly renderer: Renderer2,
               private readonly auth: AuthenticationService) {
-
+    
     this.userSub = this.auth.onUserChanges.subscribe(() => this.init())
   }
 
