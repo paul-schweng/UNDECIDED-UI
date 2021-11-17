@@ -11,5 +11,5 @@ export interface Rating {
   image?: string | File,
   product: Product,
   votes?: number | Vote[],
-  friends?: string[]
+  friends?: User[]
 }
