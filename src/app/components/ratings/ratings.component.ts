@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {NewRatingDialogComponent} from "../dialogs/new-rating-dialog/new-rating-dialog.component";
 import {Rating} from "../../models/rating";
-import {User} from "../../models/user";
-import {Product} from "../../models/product";
+import {SampleRating} from "../../services/SampleData";
 
 @Component({
   selector: 'app-ratings',
@@ -21,36 +20,6 @@ export class RatingsComponent implements OnInit {
 
   }
 
-  sampleData(){
-    let sampleUser: User = {
-      birthdate: new Date(),
-      description: "my description",
-      email: "",
-      isDarkTheme: false,
-      language: "de",
-      name: "Theophilus Junior Bestelmeyer",
-      profileImage: "",
-      registerDate: new Date(),
-      username: "",
-      usertype: "privat",
-      verified: false
-    }
-
-    let sampleProduct: Product = {
-      id: "", name: "SampleProduct", type: "Drink", brand: "Coco Cala"
-    }
-
-    return  {
-      id: "-1",
-      product: sampleProduct,
-      stars: 3.5,
-      timestamp: "",
-      user: sampleUser,
-      votes: 0,
-      description: 'test description'
-    };
-
-  }
 
   openRatingDialog(id: string = "-1") {
 
@@ -62,7 +31,7 @@ export class RatingsComponent implements OnInit {
     }
 
     if (id=="-1" && !rating) {
-      rating = this.sampleData();
+      rating = SampleRating;
       this.editedRatings.push(rating);
     }
 

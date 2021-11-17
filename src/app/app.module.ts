@@ -31,7 +31,6 @@ import { SearchComponent } from './components/search/search.component';
 import { RatingsComponent } from './components/ratings/ratings.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatLineModule, MatOptionModule, MatRippleModule} from "@angular/material/core";
-import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import {MatListModule} from "@angular/material/list";
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -52,6 +51,10 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
 import {MatRadioModule} from "@angular/material/radio";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatExpansionModule} from "@angular/material/expansion";
+import { SettingsComponent } from './components/profile/settings/settings.component';
+import { InputEmailComponent } from './components/common/input-email/input-email.component';
+import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -64,7 +67,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
     SearchComponent,
     RatingsComponent,
     ProfileComponent,
-    EditProfileComponent,
     LoginComponent,
     RegisterComponent,
     NewRatingDialogComponent,
@@ -72,6 +74,9 @@ import {MatExpansionModule} from "@angular/material/expansion";
     AuthComponent,
     MainFrameComponent,
     AuthNavbarComponent,
+    SettingsComponent,
+    InputEmailComponent,
+    InputPwdComponent,
 
   ],
     imports: [
@@ -114,6 +119,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
         MatRadioModule,
         MatCheckboxModule,
         MatExpansionModule,
+        MatNativeDateModule
 
     ],
   providers: [

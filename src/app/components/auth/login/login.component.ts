@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {TranslateService} from "@ngx-translate/core";
-import {FormControlValidation} from "../../../services/formControlValidation";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Router} from "@angular/router";
 
@@ -12,38 +9,30 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public readonly translate: TranslateService,
-              private readonly auth: AuthenticationService,
+  constructor(private readonly auth: AuthenticationService,
               private readonly router: Router) {
   }
 
   ngOnInit(): void {
+
   }
 
-  hide = true;
   authFailed = false;
 
 
-  email = new FormControl('', [Validators.required, /* Validators.email */]);
-  password =  new FormControl('', [Validators.required]);
+  password =  {
+    invalid: false,
+    value: ''
+  };
 
+  email = {
+    invalid: false,
+    value: ''
+  };
 
-
-
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return this.translate.instant('basics.required');
-    }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
-  }
-
-  openForgotPassword() {
-    console.log("opens dialog")
-  }
 
   loginClicked() {
-    this.auth.authenticate({username: this.email.value, password: this.password.value}).then(res => {
+    this.auth.login({username: this.email.value, password: this.password.value}).then(res => {
       if(res)
         this.router.navigateByUrl('/');
       else
@@ -51,8 +40,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
   isLoginDisabled(): boolean {
-   return FormControlValidation.hasFormValidationErrors(this.email, this.password);
+   return this.email.invalid || this.password.invalid;
   }
 
 }
