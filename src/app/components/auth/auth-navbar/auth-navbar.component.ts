@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'auth-navbar',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthNavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public readonly router: Router) { }
 
   ngOnInit(): void {
   }

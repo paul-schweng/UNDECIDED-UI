@@ -49,6 +49,9 @@ import {initApp} from "./services/initApp";
 import { AuthComponent } from './components/auth/auth.component';
 import { MainFrameComponent } from './components/common/main-frame/main-frame.component';
 import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 
 @NgModule({
@@ -108,6 +111,9 @@ import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.c
         NgxStarsModule,
         MatAutocompleteModule,
         FormsModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        MatExpansionModule,
 
     ],
   providers: [
