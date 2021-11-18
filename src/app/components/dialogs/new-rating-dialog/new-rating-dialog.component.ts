@@ -18,14 +18,20 @@ export class NewRatingDialogComponent implements OnInit {
 
   }
 
-  onCancel(): void {
-    this.dialogRef.close();
-  }
 
   postClicked(): void {
     this.isBusy = true;
-    this.ratingService.postRating(this.data).finally(() => this.isBusy = false);
-    console.log(this.data);
+
+    if(this.data.id == '-1')
+      this.ratingService.postRating(this.data)
+        .then(() => this.dialogRef.close('post'))
+        .finally(() => this.isBusy = false);
+    else
+      this.ratingService.editRating(this.data)
+        .then(() => this.dialogRef.close('post'))
+        .finally(() => this.isBusy = false);
+
+
   }
 
   ngOnInit(): void {

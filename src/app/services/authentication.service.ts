@@ -5,7 +5,7 @@ import {HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../models/user";
 import {SampleUser} from "./SampleData";
 import {Subject} from "rxjs";
-import {CommunicationRequestService} from "./communication-request.service";
+import {CommunicationRequestService} from "./lib/communication-request.service";
 
 
 @Injectable({
@@ -14,6 +14,10 @@ import {CommunicationRequestService} from "./communication-request.service";
 export class AuthenticationService extends CommunicationRequestService<User> {
 
   protected readonly backendUrlExt = 'auth';
+
+  //TODO: this is temporary, remove when backend is setup
+  private readonly backendUrlAuth = 'user';
+
   public authenticated: boolean = false;
   private _onUserChanges: Subject<User> = new Subject<User>();
   get onUserChanges() {
@@ -52,21 +56,22 @@ export class AuthenticationService extends CommunicationRequestService<User> {
   login(credentials: any): Promise<boolean> {
 
     const headers = new HttpHeaders(credentials ?
-      {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} : {ola:'boy'});
+      {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} :
+      {authorization: ''});
 
-    return this.http.get('/api/user', {headers: headers}).toPromise()
+    return super.sendGetRequest(this.backendUrlAuth, undefined, headers)
       .then((response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
-        if(this.authenticated){
+        if(this.authenticated) {
           localStorage.setItem('credentials', JSON.stringify(credentials));
 
           //TODO: uncomment this and delete other line
           //this.userService.getUser().then(user => this.iAmUser = user);
           this.iAmUser = SampleUser;
         }
-
         return this.authenticated;
+
       }, () => {return false;});
 
   }

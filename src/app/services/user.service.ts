@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CommunicationRequestService} from "./communication-request.service";
+import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
 import {User} from "../models/user";
 

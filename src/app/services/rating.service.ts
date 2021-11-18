@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {CommunicationRequestService} from "./communication-request.service";
+import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
 import {Rating} from "../models/rating";
 
@@ -11,6 +11,10 @@ export class RatingService extends CommunicationRequestService<Rating>{
 
   public postRating(rating: Rating){
     return super.sendPostRequest(this.backendUrlExt, rating);
+  }
+
+  public editRating(rating: Rating) {
+    return super.sendPutRequest(this.backendUrlExt, rating);
   }
 
   protected prepareRequestObjectParameter(reqParameter: Rating): HttpParams {

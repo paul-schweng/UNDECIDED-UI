@@ -61,10 +61,10 @@ export abstract class BaseCommunicationService {
 
 
 
-  protected executeSendGetRequest<TResult>(url: string, httpReqParam: HttpParams, allowNullResult: boolean = false, subscriptionURL: string = ""): Promise<TResult> {
+  protected executeSendGetRequest<TResult>(url: string, httpReqParam: HttpParams, httpHeaders?: HttpHeaders, allowNullResult: boolean = false, subscriptionURL: string = ""): Promise<TResult> {
     this.checkSubscriptions(subscriptionURL);
     return new Promise<TResult>((resolve, reject) => {
-      let subs: Subscription = this.http.get<TResult>(this.backendUrl + url, {params: httpReqParam, headers: BaseCommunicationService.prepareRequestHeaders()})
+      let subs: Subscription = this.http.get<TResult>(this.backendUrl + url, {params: httpReqParam, headers: (httpHeaders || BaseCommunicationService.prepareRequestHeaders())})
         .pipe(takeUntil(this.callReplay))
         .subscribe(response => {
             if (!allowNullResult && !response) {

@@ -25,13 +25,18 @@ export class RatingsComponent implements OnInit {
 
     let rating: Rating | undefined = this.editedRatings.filter(r => r.id === id).pop();
 
+    console.log(rating);
+
     if(!rating && id !== "-1"){
       this.editedRatings.push(this.ratings.filter(r => r.id === id).pop()!);
       rating = this.editedRatings[this.editedRatings.length-1];
     }
 
-    if (id=="-1" && !rating) {
-      rating = SampleRating;
+    if (id == "-1" && !rating) {
+      //TODO: uncomment
+      //rating = {} as Rating;
+      rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
+      rating.id = id;
       this.editedRatings.push(rating);
     }
 
@@ -47,9 +52,11 @@ export class RatingsComponent implements OnInit {
       console.log(this.editedRatings);
       console.log(this.ratings);
 
-      if (rating && result === "cancel"){
+      // if buttons are used to close dialog:
+      if (rating && result) {
         this.editedRatings.splice(this.editedRatings.indexOf(rating), 1)
       }
+
       console.log(result);
     });
 

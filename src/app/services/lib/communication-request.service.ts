@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpParams} from "@angular/common/http";
-import {BaseCommunicationService} from "./lib/base-communication.service";
+import {HttpHeaders, HttpParams} from "@angular/common/http";
+import {BaseCommunicationService} from "./base-communication.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export abstract class CommunicationRequestService<TParamInterface> extends BaseC
     return this.prepareRequestObjectParameter(reqParameter);
   }
 
+
   private errorLogging(error: any): void {
     console.error('[CommunicationRequestService] - An error occurred while preparing backend call', error);
     //this.notification.error("httpError.header.error", "httpError.msg.error", {timeOut: 3000});
@@ -18,9 +19,9 @@ export abstract class CommunicationRequestService<TParamInterface> extends BaseC
 
   protected abstract prepareRequestObjectParameter(reqParameter: TParamInterface): HttpParams;
 
-  public sendGetRequest<TResult>(url: string, reqParameter?: TParamInterface, allowNullResult: boolean = false, subscriptionURL: string = ""): Promise<TResult> {
+  public sendGetRequest<TResult>(url: string, reqParameter?: TParamInterface, reqHeader?: HttpHeaders, allowNullResult: boolean = false, subscriptionURL: string = ""): Promise<TResult> {
     try {
-      return super.executeSendGetRequest(url, this.handleHttpParameters(reqParameter), allowNullResult, subscriptionURL);
+      return super.executeSendGetRequest(url, this.handleHttpParameters(reqParameter), reqHeader, allowNullResult, subscriptionURL);
     } catch (error) {
       this.errorLogging(error);
       return Promise.reject(error);
