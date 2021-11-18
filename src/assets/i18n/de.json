@@ -40,7 +40,7 @@
   },
   "auth": {
     "forgot": "Passwort vergessen?",
-    "authFail": "Falsche Email/Benutzername oder Password",
+    "authFail": "Falsche Email/Benutzername oder Passwort",
     "enterPwd": "Passwort eingeben",
     "newPwd": "Neues Passwort eingeben",
     "repeatPwd": "Passwort wiederholen",
@@ -64,7 +64,9 @@
       "hasAccount": "Hast Du bereits einen Account?"
     },
     "login": {
-      "signIn": "Anmelden"
+      "signIn": "Anmelden",
+      "hasNoAccount": "Noch keinen Account?",
+      "rememberMe": "Angemeldet bleiben"
     }
   },
 

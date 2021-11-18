@@ -64,7 +64,9 @@
       "hasAccount": "Do you have an account?"
     },
     "login": {
-      "signIn": "Sign In"
+      "signIn": "Sign In",
+      "hasNoAccount": "Don’t have an account?",
+      "rememberMe": "Remember me"
     }
   },
 

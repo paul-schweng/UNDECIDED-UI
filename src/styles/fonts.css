@@ -19,7 +19,7 @@
 @font-face {
   font-family: FrederickatheGreat;
   src: local(FrederickatheGreat-Regular),
-    url(/Fredericka_the_Great/FrederickatheGreat-Regular.ttf) format("truetype");
+    url(/styles/fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -28,7 +28,7 @@
 @font-face {
   font-family: Roboto;
   src: local(Roboto-Regular),
-    url(/Roboto/Roboto-Regular.ttf) format("truetype");
+    url(/styles/fonts/Roboto/Roboto-Regular.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
   font-stretch: normal;
@@ -44,6 +44,41 @@
   letter-spacing: 23.28px;
   text-align: left;
   color: var(--white);
+}
+
+.Text-Style-17 {
+  font-family: Roboto, serif;
+  font-size: 1.393rem;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--brownish-grey);
+}
+.Text-Style-18 {
+  font-family: Roboto, serif;
+  font-size: 1.393rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--brownish-grey);
+}
+
+.Text-Style-16 {
+  font-family: Roboto, serif;
+  font-size: 2.322rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: var(--black);
 }
 
 .Text-Style-15 {

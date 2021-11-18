@@ -30,9 +30,11 @@ export class LoginComponent implements OnInit {
     value: ''
   };
 
+  rememberMe: boolean = false;
+
 
   loginClicked() {
-    this.auth.login({username: this.email.value, password: this.password.value}).then(res => {
+    this.auth.login({username: this.email.value, password: this.password.value, rememberMe: this.rememberMe}).then(res => {
       if(res)
         this.router.navigateByUrl('/');
       else

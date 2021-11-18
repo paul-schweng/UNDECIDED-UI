@@ -60,10 +60,22 @@ a.mat-button-base, a.mat-button-base:hover {
   border: 0;
 }
 
+.rounded{
+  border-radius: 10px !important;
+}
+
+.border-2{
+  border-width: 2px !important;
+}
+
 a{
   text-decoration: none!important;
   border: 0;
   transition: color 2s;
+}
+
+.d-inline-grid{
+  display: inline-grid;
 }
 
 a:hover{

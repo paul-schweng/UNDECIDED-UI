@@ -17,14 +17,13 @@ export const SampleUser: User = {
 }
 
 export const SampleProduct: Product = {
-  id: "", name: "SampleProduct", type: "Drink", brand: "Coco Cala"
+  id: "", name: "SampleProduct", type: ["Drink"], brand: "Coco Cola"
 }
 
 export const SampleRating: Rating = {
   id: "",
   product: SampleProduct,
   stars: 3.5,
-  timestamp: "",
   user: SampleUser,
   votes: 0,
   description: 'test description'
