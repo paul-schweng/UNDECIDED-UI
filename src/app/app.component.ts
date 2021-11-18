@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, OnDestroy{
   constructor(private translate: TranslateService,
               private readonly renderer: Renderer2,
               private readonly auth: AuthenticationService) {
-    
+
     this.userSub = this.auth.onUserChanges.subscribe(() => this.init())
   }
 
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy{
     this.translate.setDefaultLang('en');
 
     if(this.translate.getLangs().includes(this.auth.iAmUser?.language || '-1'))
-      this.translate.use(this.auth.iAmUser!.language);
+      this.translate.use(this.auth.iAmUser!.language!);
     else if(this.translate.getLangs().includes(this.translate.getBrowserLang()))
       this.translate.use(this.translate.getBrowserLang());
     else

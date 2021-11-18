@@ -48,6 +48,9 @@ import {initApp} from "./services/initApp";
 import { AuthComponent } from './components/auth/auth.component';
 import { MainFrameComponent } from './components/common/main-frame/main-frame.component';
 import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatExpansionModule} from "@angular/material/expansion";
 import { SettingsComponent } from './components/profile/settings/settings.component';
 import { InputEmailComponent } from './components/common/input-email/input-email.component';
 import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
@@ -113,6 +116,9 @@ import { MatNativeDateModule } from '@angular/material/core';
         NgxStarsModule,
         MatAutocompleteModule,
         FormsModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        MatExpansionModule,
         MatNativeDateModule
 
     ],

@@ -5,7 +5,7 @@ export interface Product {
   name: string,
   location?: GeoLocation,
   type: string[],
-  labels: Label[]
+  labels?: Label[]
   brand?: string
 }
 
