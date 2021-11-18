@@ -1,5 +1,5 @@
 <form class="d-inline-flex w-100">
-  <div class="w-50 mt-5 text-center">
+  <div class="w-50 pt-5 text-center">
     <div [formGroup]="formGroup" class="d-inline-grid w-75">
     <span class="text-style Text-Style-8 d-inline-grid pt-5">
       {{'auth.welcome' | translate}}
@@ -31,8 +31,9 @@
       </mat-form-field>
     </div>
   </div>
+
   <div class="Line-6 mb-auto mt-auto"></div>
-  <div class="w-50 mt-5 text-center">
+  <div class="w-50 pt-5 text-center">
     <div class="d-inline-grid w-75">
       <label class="text-style Text-Style-13 pt-4" translate>basics.email</label>
       <input-email class="d-inline-grid" (value)="user.email = $event" #email></input-email>
@@ -40,7 +41,7 @@
       <input-pwd class="d-inline-grid" (value)="user.password = $event" type="new" [disableCurrentPwdValidator]="true" #newPwd></input-pwd>
       <label class="text-style Text-Style-13 pt-4" translate>auth.repeatPwd</label>
       <input-pwd class="d-inline-grid" type="repeat" [repeatedPwd]="newPwd.formControl.value" #repeatPwd></input-pwd>
-      <button (click)="registerClicked()" class="sign-in-button mt-5 Text-Style-14"
+      <button (click)="registerClicked()" class="sign-up-button mt-5 Text-Style-14"
               type="submit" mat-raised-button translate="auth.register.signUp"
               [disabled]="isInvalid() || newPwd.formControl.invalid || repeatPwd.formControl.invalid"></button>
     </div>

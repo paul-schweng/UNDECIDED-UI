@@ -1,25 +1,33 @@
-<div class="w-50 pt-5 text-center">
-  <div class="d-inline-grid w-75">
-    <span class="text-style Text-Style-8 d-inline-grid pt-5">
-      {{'auth.welcome' | translate}}
-      <span class="Text-Style-10 pt-4">
-        {{'auth.login.hasNoAccount' | translate}}
-        <a routerLink="/register" class="Text-Style-9" translate>auth.register.signUp</a> <!--TODO:Router Link doesnt work-->
+<div class="d-inline-flex w-100">
+  <div class="w-50 pt-5 text-center">
+    <div class="d-inline-grid w-75">
+      <span class="text-style Text-Style-8 d-inline-grid pt-5">
+        {{'auth.welcome' | translate}}
+        <span class="Text-Style-10 pt-4">
+          {{'auth.login.hasNoAccount' | translate}}
+          <a routerLink="/register" class="Text-Style-9" translate>auth.register.signUp</a>
+        </span>
       </span>
-    </span>
 
-    <form class="d-inline-grid pt-5 pb-5" (submit)="loginClicked()">
-      <mat-error *ngIf="authFailed" translate>auth.authFail</mat-error>
-      <label class="text-style Text-Style-13 pt-4">Email</label>
-      <input-email class="d-inline-grid" (value)="email.value = $event" (invalid)="email.invalid = $event"></input-email>
+      <form class="d-inline-grid pt-5 pb-5" (submit)="loginClicked()">
+        <mat-error *ngIf="authFailed" translate>auth.authFail</mat-error>
+        <label class="text-style Text-Style-13 pt-4">Email</label>
+        <input-email class="d-inline-grid" (value)="email.value = $event" (invalid)="email.invalid = $event"></input-email>
 
-      <label class="text-style Text-Style-13 pt-4" translate>auth.register.password</label>
-      <input-pwd class="d-inline-grid" (value)="password.value = $event"
-                 (invalid)="password.invalid = $event">
-      </input-pwd>
-      <mat-checkbox class="text-style Text-Style-11" [(ngModel)]="rememberMe" name="rememberMe">{{'auth.login.rememberMe' | translate}}</mat-checkbox>
+        <label class="text-style Text-Style-13 pt-4" translate>auth.register.password</label>
+        <input-pwd class="d-inline-grid" (value)="password.value = $event"
+                   (invalid)="password.invalid = $event">
+        </input-pwd>
+        <mat-checkbox class="text-style Text-Style-11" [(ngModel)]="rememberMe" name="rememberMe">{{'auth.login.rememberMe' | translate}}</mat-checkbox>
 
-      <button class="sign-in-button mt-5 Text-Style-14" type="submit" [disabled]="isLoginDisabled()" mat-raised-button>{{'auth.login.signIn' | translate}}</button>
-    </form>
+        <button class="sign-in-button mt-5 Text-Style-14" type="submit" [disabled]="isLoginDisabled()" mat-raised-button>{{'auth.login.signIn' | translate}}</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="Line-6 mb-auto mt-auto"></div>
+
+  <div>
+    <img src="" alt="">
   </div>
 </div>

@@ -24,7 +24,8 @@
   },
   "profile": {
     "edit": "Profil bearbeiten",
-    "friends": "{{num}} Freunde",
+    "follower": "{{num}} Follower",
+    "following": "{{num}} Following",
     "ratings": "{{num}} Bewertungen",
     "settings": "Accounteinstellungen",
     "desc": "Beschreibung",
