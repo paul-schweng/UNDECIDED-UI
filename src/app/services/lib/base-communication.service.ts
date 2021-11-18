@@ -42,7 +42,7 @@ export abstract class BaseCommunicationService {
       this.notification.error(this.defaultErrorPath, "httpError.msg.badRequest");
     } else if (error.status === 401) {
       console.info('[BaseCommunicationService] - Unauthorized call to backend. Forwarding to unauthorized-page');
-      this.router.navigate(['/unauthorized']);
+      this.router.navigate(['/login']);
     } else if (error.status === 403) {
       console.info('[BaseCommunicationService] - Accessing resource forbidden');
      // this.notification.warn("httpError.header.forbidden", "httpError.msg.forbidden");

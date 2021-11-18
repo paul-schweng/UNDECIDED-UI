@@ -13,10 +13,8 @@ import {CommunicationRequestService} from "./lib/communication-request.service";
 })
 export class AuthenticationService extends CommunicationRequestService<User> {
 
-  protected readonly backendUrlExt = 'auth';
+  protected readonly backendUrl = '../auth/';
 
-  //TODO: this is temporary, remove when backend is setup
-  private readonly backendUrlAuth = 'user';
 
   public authenticated: boolean = false;
   private _onUserChanges: Subject<User> = new Subject<User>();
@@ -44,12 +42,11 @@ export class AuthenticationService extends CommunicationRequestService<User> {
 
 
   logout() {
-    this.http.post('/logout', {}).subscribe(() => {
+    super.sendPostRequest('logout', {}).then(() => {
       this.authenticated = false;
       localStorage.removeItem('credentials');
       this.router.navigateByUrl('/login');
-
-    });
+    })
   }
 
 
@@ -59,7 +56,7 @@ export class AuthenticationService extends CommunicationRequestService<User> {
       {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} :
       {authorization: ''});
 
-    return super.sendGetRequest(this.backendUrlAuth, undefined, headers)
+    return super.sendGetRequest('login', undefined, headers)
       .then((response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
@@ -77,7 +74,7 @@ export class AuthenticationService extends CommunicationRequestService<User> {
   }
 
   register(user: User): Promise<boolean>{
-    return super.sendPostRequest(this.backendUrlExt + '/register', user);
+    return super.sendPostRequest('register', user);
   }
 
   protected prepareRequestObjectParameter(reqParameter: User): HttpParams {

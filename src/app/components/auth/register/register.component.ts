@@ -16,6 +16,7 @@ import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 export class RegisterComponent implements OnInit {
 
   user: User = {} as User;
+  isBusy: boolean = false;
 
   formGroup: FormGroup = new FormGroup({
     name: new FormControl(),
@@ -36,7 +37,10 @@ export class RegisterComponent implements OnInit {
   }
 
   registerClicked() {
-    this.authService.register(this.user);
+    this.isBusy = true;
+    this.authService.register(this.user)
+      .then(() => this.authService.login({username: this.user.email, password: this.user.password}))
+      .finally(() => this.isBusy = false);
     console.log(this.user);
   }
 
