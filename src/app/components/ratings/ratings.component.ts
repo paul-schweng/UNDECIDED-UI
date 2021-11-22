@@ -41,8 +41,7 @@ export class RatingsComponent implements OnInit {
     }
 
     const frontDialog = this.dialog.open(NewRatingDialogComponent, {
-      width: '80%',
-      height: '30%',
+      width: '90%',
       data: rating,
       autoFocus: false
     });

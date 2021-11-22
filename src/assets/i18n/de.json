@@ -7,7 +7,8 @@
     "darkmode": "Darkmode",
     "lang": "Sprache",
     "chooseLang": "Sprache auswählen",
-    "email": "Email"
+    "email": "Email",
+    "cancel": "Abbrechen"
   },
   "home": {
 
@@ -16,7 +17,12 @@
 
   },
   "ratings": {
-
+    "choosePicture": "Bild auswählen",
+    "addLocation": "Ort hinzufügen",
+    "tagFriends": "Freunde verlinken",
+    "addTags": "Tags hinzufügen",
+    "newTags": "Neue tags...",
+    "post": "Posten!"
   },
   "product": {
     "product": "Produkt",

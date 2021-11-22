@@ -55,6 +55,8 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { InputEmailComponent } from './components/common/input-email/input-email.component';
 import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ChipsAutocompleteComponent } from './components/common/chips-autocomplete/chips-autocomplete.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 
 @NgModule({
@@ -77,6 +79,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     SettingsComponent,
     InputEmailComponent,
     InputPwdComponent,
+    ChipsAutocompleteComponent,
 
   ],
     imports: [
@@ -119,7 +122,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatRadioModule,
         MatCheckboxModule,
         MatExpansionModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatChipsModule
 
     ],
   providers: [

@@ -7,7 +7,8 @@
     "darkmode": "Darkmode",
     "lang": "Language",
     "chooseLang": "Choose language",
-    "email": "Email"
+    "email": "Email",
+    "cancel": "Cancel"
   },
   "home": {
 
@@ -16,7 +17,12 @@
 
   },
   "ratings": {
-
+    "choosePicture": "Choose picture",
+    "addLocation": "Add location",
+    "tagFriends": "Tag friends",
+    "addTags": "Add Tags",
+    "newTags": "New tags...",
+    "post": "Post it!"
   },
   "product": {
     "product": "Product",
