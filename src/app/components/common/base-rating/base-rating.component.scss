@@ -46,3 +46,9 @@
   top: -25px;
   left: -25px;
 }
+
+.remove-carousel-control {
+  ::ng-deep .carousel-control-next, ::ng-deep .carousel-control-prev, ::ng-deep .carousel-indicators {
+    display: none;
+  }
+}

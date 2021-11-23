@@ -15,6 +15,7 @@ export class BaseRatingComponent implements OnInit {
 
 
   _rating!: Rating;
+  remove: boolean = false;
 
   @Input() set rating(rating: Rating){
     this._rating = rating;
@@ -73,7 +74,12 @@ export class BaseRatingComponent implements OnInit {
     return this.brandOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-
+  removeCarouselControl(): boolean{
+    if (this.images.length > 0){
+      return this.remove;
+    }
+    return false;
+  }
 
   setStars(stars: number): void {
     this._rating.stars = stars;

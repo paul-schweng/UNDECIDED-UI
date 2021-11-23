@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {NewRatingDialogComponent} from "../dialogs/new-rating-dialog/new-rating-dialog.component";
+import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
 import {SampleRating} from "../../services/SampleData";
 
@@ -40,9 +40,9 @@ export class RatingsComponent implements OnInit {
       this.editedRatings.push(rating);
     }
 
-    const frontDialog = this.dialog.open(NewRatingDialogComponent, {
+    const frontDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
-      data: rating,
+      data: {rating: rating, editable: false},
       autoFocus: false
     });
 

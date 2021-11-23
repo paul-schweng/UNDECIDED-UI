@@ -37,7 +37,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
-import { NewRatingDialogComponent } from './components/dialogs/new-rating-dialog/new-rating-dialog.component';
+import {RatingDialogComponent } from './components/dialogs/rating-dialog/rating-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {NgxStarsModule} from "ngx-stars";
 import { BaseRatingComponent } from './components/common/base-rating/base-rating.component';
@@ -71,7 +71,7 @@ import {MatChipsModule} from "@angular/material/chips";
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
-    NewRatingDialogComponent,
+    RatingDialogComponent,
     BaseRatingComponent,
     AuthComponent,
     MainFrameComponent,

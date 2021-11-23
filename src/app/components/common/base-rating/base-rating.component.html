@@ -1,19 +1,9 @@
-<div *ngIf="!edit" class="row">
+<div *ngIf="edit" class="row">
   <div class="col flex-grow-0 toCorner">
-    <ngb-carousel *ngIf="images" [interval]="0">
-      <ng-template ngbSlide>
+    <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
+      <ng-template *ngFor="let image of images" ngbSlide>
         <div class="img-wrapper">
-          <img [src]="images[0]" alt="first slide">
-        </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <div class="img-wrapper">
-          <img [src]="images[1]" alt="second slide">
-        </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <div class="img-wrapper">
-          <img [src]="images[2]" alt="third slide">
+          <img [src]="image" alt="slide">
         </div>
       </ng-template>
     </ngb-carousel>
@@ -44,13 +34,9 @@
 
         <div class="row">
           <div *ngFor="let friend of _rating.friends" [style]="'background-image: url(/static/img/' + friend + ');'"></div>
-            <button mat-fab color="" aria-label="">
-              <mat-icon>add</mat-icon>
-            </button>
         </div>
 
         <div class="row">
-          <chips-autocomplete class="w-100"></chips-autocomplete>
         </div>
 
         <ngx-stars class="row" [size]="5" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
@@ -61,17 +47,15 @@
 
 
 
-<div *ngIf="edit" class="row">
+<div *ngIf="!edit" class="row">
 
   <div class="col flex-grow-0 toCorner">
-    <ngb-carousel *ngIf="images" [interval]="0">
-      <!--Added Images should appear here
-      <ng-template ngbSlide>
+    <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=0}" [interval]="0">
+      <ng-template *ngFor="let image of images" ngbSlide>
         <div class="img-wrapper">
-          <img [src]="images[0]" alt="first slide">
+          <img [src]="image" alt="slide">
         </div>
       </ng-template>
-      -->
       <ng-template ngbSlide>
         <div class="img-wrapper">
           <img src="assets/img/default_rate_pic.png" alt="first slide">
