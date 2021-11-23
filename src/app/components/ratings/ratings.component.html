@@ -1,2 +1,23 @@
-<p>ratings works!</p>
+
 <button (click)="openRatingDialog()" mat-raised-button>Dialog</button>
+<mat-form-field appearance="fill">
+  <mat-label>{{'basics.filter' | translate}}</mat-label>
+  <mat-select (selectionChange)="changeFilter()" [value] = "filters[0]">
+    <mat-option *ngFor="let filter of filters" [value]="filter">
+      {{filter | translate}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="ratings">
+  <mat-card *ngFor="let rating of ratings" (click)="openRatingDialog(rating.id)">
+    <img mat-card-image [src]="'/api/img/rating/' + rating.image">
+    <div>
+      <ngx-stars [size]="5" [initialStars]="rating.stars" color="black" [readonly]="true"></ngx-stars>
+      <div>{{rating.product.name}}</div>
+      <div>
+        <img *ngFor="let label of rating.labelList" [src]="'/assets/img/labels/' + label.icon">
+      </div>
+    </div>
+  </mat-card>
+
+</div>

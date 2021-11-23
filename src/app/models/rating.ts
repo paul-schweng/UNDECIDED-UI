@@ -1,6 +1,9 @@
 import {User} from "./user";
 import {Product} from "./product";
 import {Vote} from "./vote";
+import {GeoLocation} from "./location";
+import {Comment} from "./comment";
+import {Label} from "./label";
 
 export interface Rating {
   id: string,
@@ -11,5 +14,18 @@ export interface Rating {
   image?: string | File,
   product: Product,
   votes?: number | Vote[],
-  friends?: User[]
+  friends?: User[],
+  types?: string[],
+  location?: GeoLocation,
+  labels?: number[],
+  labelList?: Label[],
+  comments?: number | Comment[]
+
 }
+
+export interface RatingList{
+  ratings?: Rating[],
+  filter?: string
+}
+
+

@@ -7,7 +7,8 @@
     "darkmode": "Darkmode",
     "lang": "Language",
     "chooseLang": "Choose language",
-    "email": "Email"
+    "email": "Email",
+    "filter": "Sort by"
   },
   "home": {
 
@@ -16,6 +17,13 @@
 
   },
   "ratings": {
+    "filters": {
+      "latest": "latest ratings",
+      "highest": "highest ratings",
+      "comments": "most comments",
+      "likes": "most likes",
+      "worst": "worst ratings"
+    }
 
   },
   "product": {

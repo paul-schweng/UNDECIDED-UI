@@ -55,6 +55,7 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { InputEmailComponent } from './components/common/input-email/input-email.component';
 import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -119,7 +120,8 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatRadioModule,
         MatCheckboxModule,
         MatExpansionModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatCardModule
 
     ],
   providers: [
