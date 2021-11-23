@@ -14,14 +14,15 @@
     <input
       placeholder="{{'ratings.newTags' | translate}}"
       #tagsInput
+      *ngIf="tags.length<5"
       [formControl]="tagsCtrl"
       [matAutocomplete]="auto"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event)">
+      (matChipInputTokenEnd)="add($event.value, $event)">
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let tags of filteredtags | async" [value]="tags">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add($event.option.viewValue)">
+    <mat-option *ngFor="let tags of filteredTags" [value]="tags">
       {{tags}}
     </mat-option>
   </mat-autocomplete>

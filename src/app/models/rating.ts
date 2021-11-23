@@ -20,7 +20,6 @@ export interface Rating {
   labels?: number[],
   labelList?: Label[],
   comments?: number | Comment[]
-
 }
 
 export interface RatingList{

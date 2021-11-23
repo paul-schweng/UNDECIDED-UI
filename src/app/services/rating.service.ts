@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
 import {Rating, RatingList} from "../models/rating";
+import {Label, LABELS} from "../models/label";
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,19 @@ export class RatingService extends CommunicationRequestService<RatingList>{
   }
 
   public getMyRatings(filter: string): Promise<RatingList> {
-    return super.sendGetRequest(this.backendUrlExt, {filter: filter});
+    return super.sendGetRequest<RatingList>(this.backendUrlExt, {filter: filter}).then(ratingList => {
+      let ratings = ratingList.ratings || [];
+      ratings.forEach(rating => {
+        let labels: Label[] = [];
+        if (!rating.labels) return;
+        for (let i of rating.labels) {
+          labels.push(LABELS.find(label => label.id == i)!);
+        }
+        rating.labelList = labels;
+      });
+      ratingList.ratings = ratings;
+      return ratingList;
+    });
   }
 
 }

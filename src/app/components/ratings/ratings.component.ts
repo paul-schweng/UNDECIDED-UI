@@ -3,7 +3,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
 import {SampleRating} from "../../services/SampleData";
-import {Label, LABELS} from "../../models/label";
 import {RatingService} from "../../services/rating.service";
 
 @Component({
@@ -21,21 +20,11 @@ export class RatingsComponent implements OnInit {
               private readonly ratingService: RatingService) { }
 
   ngOnInit(): void {
-    this.ratingService.getMyRatings(this.filters[0])
-      .then(ratingList => {
-        this.ratings = ratingList.ratings || [];
-        this.ratings.forEach(rating => {
-          let labels: Label[] = [];
-          if(!rating.labels) return;
-          for( let i of rating.labels){
-            labels.push(LABELS[i]);
-          }
-          rating.labelList = labels;
-        });
-      }, ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
-      );
+    this.ratingService.getMyRatings(this.filters[0].split(".").pop()!).then(
+      (ratingList) => {this.ratings = ratingList.ratings!},
+      ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
+    );
   }
-
 
   openRatingDialog(id: string = "-1") {
 
@@ -58,7 +47,7 @@ export class RatingsComponent implements OnInit {
 
     const frontDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
-      data: {rating: rating, editable: false},
+      data: {rating: rating, editable: true},
       autoFocus: false
     });
 

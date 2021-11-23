@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Rating} from "../../../models/rating";
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
 import {GeoLocation} from "../../../models/location";
+import {Label, LABELS} from "../../../models/label";
+import {MatSelectionList, MatSelectionListChange} from "@angular/material/list";
 
 
 @Component({
@@ -13,14 +15,14 @@ import {GeoLocation} from "../../../models/location";
 })
 export class BaseRatingComponent implements OnInit {
 
-
   _rating!: Rating;
-  remove: boolean = false;
 
   @Input() set rating(rating: Rating){
     this._rating = rating;
   }
   @Input() edit: boolean = false;
+
+  @ViewChild('labels') labelsInput!: ElementRef<MatSelectionList>;
 
   constructor() {
   }
@@ -33,6 +35,7 @@ export class BaseRatingComponent implements OnInit {
   brandOptions: string[] = ['Nike', 'Samsung'];
   filteredOptionsProduct!: Observable<string[]>;
   filteredOptionsBrand!: Observable<string[]>;
+  LABELS: Label[] = LABELS.slice();
 
   ngOnInit() {
     if (!this._rating.product.location) this._rating.product.location = {} as GeoLocation;
@@ -51,7 +54,6 @@ export class BaseRatingComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.name)),
       map(name => (name ? this._filterBrand(name) : this.brandOptions.slice())),
     );
-
   }
 
   displayFnProduct = (product: string) => {
@@ -74,15 +76,23 @@ export class BaseRatingComponent implements OnInit {
     return this.brandOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  removeCarouselControl(): boolean{
-    if (this.images.length > 0){
-      return this.remove;
-    }
-    return false;
-  }
-
   setStars(stars: number): void {
     this._rating.stars = stars;
   }
 
+  isLabelSelected(label: Label): boolean {
+    return this._rating.labelList!.some(l => l.icon == label.icon);
+  }
+
+  changedLabel(event: MatSelectionListChange) {
+    event.options.forEach(opt => {
+      if (this._rating.labelList?.includes(opt.value)) {
+        let i = this._rating.labelList?.indexOf(opt.value);
+        this._rating.labelList?.splice(i,1);
+      }else {
+        this._rating.labelList?.push(opt.value);
+        this._rating.labelList?.sort((label1,label2) => label1.id - label2.id);
+      }
+    })
+  }
 }

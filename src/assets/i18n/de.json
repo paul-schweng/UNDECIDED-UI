@@ -22,7 +22,7 @@
     "addLocation": "Ort hinzufügen",
     "tagFriends": "Freunde verlinken",
     "addTags": "Tags hinzufügen",
-    "newTags": "Neue tags...",
+    "newTags": "Neue Tags...",
     "post": "Posten!",
 
     "filters": {
@@ -34,6 +34,15 @@
     }
 
   },
+
+  "label": {
+    "vegetarian": "Vegetarisch",
+    "vegan": "Vegan",
+    "alcoholic": "Alkoholisch",
+    "gluten": "Glutenfrei",
+    "lactose": "Laktosefrei"
+  },
+
   "product": {
     "product": "Produkt",
     "brand": "Marke"
