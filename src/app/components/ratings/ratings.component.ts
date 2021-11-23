@@ -21,7 +21,7 @@ export class RatingsComponent implements OnInit {
               private readonly ratingService: RatingService) { }
 
   ngOnInit(): void {
-    this.ratingService.getMyRatings(this.filters[0])
+    this.ratingService.getMyRatings(this.filters[0].split(".").pop()!)
       .then(ratingList => {
         this.ratings = ratingList.ratings || [];
         this.ratings.forEach(rating => {

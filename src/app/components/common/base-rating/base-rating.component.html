@@ -1,4 +1,4 @@
-<div *ngIf="edit" class="row">
+<div *ngIf="!edit" class="row">
   <div class="col flex-grow-0 toCorner">
     <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
       <ng-template *ngFor="let image of images" ngbSlide>
@@ -37,6 +37,7 @@
         </div>
 
         <div class="row">
+
         </div>
 
         <ngx-stars class="row" [size]="5" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
@@ -47,7 +48,7 @@
 
 
 
-<div *ngIf="!edit" class="row">
+<div *ngIf="edit" class="row">
 
   <div class="col flex-grow-0 toCorner">
     <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=0}" [interval]="0">

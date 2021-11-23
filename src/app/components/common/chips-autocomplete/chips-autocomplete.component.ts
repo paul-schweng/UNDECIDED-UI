@@ -5,6 +5,7 @@ import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {AutocompleteService} from "../../../services/autocomplete.service";
 
 @Component({
   selector: 'chips-autocomplete',
@@ -17,30 +18,59 @@ export class ChipsAutocompleteComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagsCtrl = new FormControl();
-  filteredtags: Observable<string[]>;
+  filteredTags: string[] = [];
   tags: string[] = [];
-  alltags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  allTags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
-  //bei tagsInput das "!" richtig?
   @ViewChild('tagsInput') tagsInput!: ElementRef<HTMLInputElement>;
 
-  constructor() {
-    this.filteredtags = this.tagsCtrl.valueChanges.pipe(
-      startWith(null),
-      map((tags: string | null) => (tags ? this._filter(tags) : this.alltags.slice())),
+  constructor(private readonly autocompleteService: AutocompleteService) {
+    this.tagsCtrl.valueChanges.subscribe( input =>
+      autocompleteService.getTags(input.toLowerCase())
+        .then(tags => {
+          let lowerCaseTags = tags.slice().map(tag => tag.toLowerCase());
+
+          this.tags.forEach(tag => {
+            let i = lowerCaseTags.indexOf(tag.toLowerCase());
+
+            if (i !== -1) tags.splice(i,1);
+          })
+          this.filteredTags = tags;
+        },()=>{ //TODO:Delete This
+          let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
+
+          this.tags.forEach(tag => {
+            let i = lowerCaseTags.indexOf(tag.toLowerCase());
+
+            if (i !== -1) this.allTags.splice(i,1);
+          })
+          this.filteredTags = this.allTags;
+        })
     );
   }
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+
+
+  add(input: string, event?: MatChipInputEvent): void {
+    const value = (input || '').trim();
+
+    let lowerCaseTags = this.tags.slice().map(tag => tag.toLowerCase());
 
     // Add our tags
-    if (value) {
+    if (value && !lowerCaseTags.includes(value.toLowerCase()) && this.tags.length<5) {
       this.tags.push(value);
+      this.tags.forEach(tag => {
+        let i = this.allTags.indexOf(tag);
+
+        if (i !== -1) this.allTags.splice(i,1);
+      })
     }
 
     // Clear the input value
-    event.chipInput!.clear();
+    if (event)
+      event.chipInput!.clear();
+    else
+      this.tagsInput.nativeElement.value = '';
 
     this.tagsCtrl.setValue(null);
   }
@@ -51,18 +81,6 @@ export class ChipsAutocompleteComponent implements OnInit {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.tagsInput.nativeElement.value = '';
-    this.tagsCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.alltags.filter(tags => tags.toLowerCase().includes(filterValue));
   }
 
   ngOnInit(): void {

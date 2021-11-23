@@ -3,15 +3,11 @@ export interface Label {
   icon: string
 }
 
-export interface LabelList {
-  [key: string]: Label
-}
 
-
-//important: do not switch the labels' order
+//important: do not switch the labels' order!!!!!!!!!!!!!!
 export const LABELS = [
-  {label: 'label.vegan', icon: 'plant'},
-  {label: 'label.alcoholic', icon: 'wine'}
+  {label: 'label.vegan', icon: 'plant.svg'},
+  {label: 'label.alcoholic', icon: 'wine.svg'}
 ] as const;
 
 
