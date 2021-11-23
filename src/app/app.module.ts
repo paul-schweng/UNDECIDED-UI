@@ -57,6 +57,7 @@ import { InputPwdComponent } from './components/common/input-pwd/input-pwd.compo
 import { MatNativeDateModule } from '@angular/material/core';
 import { ChipsAutocompleteComponent } from './components/common/chips-autocomplete/chips-autocomplete.component';
 import {MatChipsModule} from "@angular/material/chips";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -123,7 +124,8 @@ import {MatChipsModule} from "@angular/material/chips";
         MatCheckboxModule,
         MatExpansionModule,
         MatNativeDateModule,
-        MatChipsModule
+        MatChipsModule,
+        MatCardModule
 
     ],
   providers: [

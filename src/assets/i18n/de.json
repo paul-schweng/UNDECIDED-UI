@@ -8,7 +8,8 @@
     "lang": "Sprache",
     "chooseLang": "Sprache auswählen",
     "email": "Email",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "filter": "Sortieren"
   },
   "home": {
 
@@ -22,7 +23,16 @@
     "tagFriends": "Freunde verlinken",
     "addTags": "Tags hinzufügen",
     "newTags": "Neue tags...",
-    "post": "Posten!"
+    "post": "Posten!",
+
+    "filters": {
+      "latest": "neuste Bewertungen",
+      "highest": "beste Bewertungen",
+      "comments": "meiste Kommentare",
+      "likes": "meiste Likes",
+      "worst": "schlechteste Bewertungen"
+    }
+
   },
   "product": {
     "product": "Produkt",

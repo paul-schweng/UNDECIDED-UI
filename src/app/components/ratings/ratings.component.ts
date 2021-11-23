@@ -3,6 +3,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
 import {SampleRating} from "../../services/SampleData";
+import {Label, LABELS} from "../../models/label";
+import {RatingService} from "../../services/rating.service";
 
 @Component({
   selector: 'app-ratings',
@@ -11,13 +13,27 @@ import {SampleRating} from "../../services/SampleData";
 })
 export class RatingsComponent implements OnInit {
 
-  private ratings: Rating[] = [];
+  ratings: Rating[] = [];
   private editedRatings: Rating[] = [];
+  filters: string[] = ["ratings.filters.latest", "ratings.filters.highest", "ratings.filters.worst", "ratings.filters.likes", "ratings.filters.comments"];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              private readonly ratingService: RatingService) { }
 
   ngOnInit(): void {
-
+    this.ratingService.getMyRatings(this.filters[0])
+      .then(ratingList => {
+        this.ratings = ratingList.ratings || [];
+        this.ratings.forEach(rating => {
+          let labels: Label[] = [];
+          if(!rating.labels) return;
+          for( let i of rating.labels){
+            labels.push(LABELS[i]);
+          }
+          rating.labelList = labels;
+        });
+      }, ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
+      );
   }
 
 
@@ -63,4 +79,7 @@ export class RatingsComponent implements OnInit {
 
   }
 
+  changeFilter() {
+
+  }
 }

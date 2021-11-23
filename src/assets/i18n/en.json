@@ -8,7 +8,8 @@
     "lang": "Language",
     "chooseLang": "Choose language",
     "email": "Email",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "filter": "Sort by"
   },
   "home": {
 
@@ -22,7 +23,15 @@
     "tagFriends": "Tag friends",
     "addTags": "Add Tags",
     "newTags": "New tags...",
-    "post": "Post it!"
+    "post": "Post it!",
+    "filters": {
+      "latest": "latest ratings",
+      "highest": "highest ratings",
+      "comments": "most comments",
+      "likes": "most likes",
+      "worst": "worst ratings"
+    }
+
   },
   "product": {
     "product": "Product",
