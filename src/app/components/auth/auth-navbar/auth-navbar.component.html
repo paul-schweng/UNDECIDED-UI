@@ -1,1 +1,27 @@
-<p>auth-navbar works!</p>
+<div class="navbar Background-Nav">
+  <div>
+    <a class="navbar-brand" routerLink="/" href="#">
+      <embed src="/assets/img/Logo.svg" alt="UNDECIDED-Logo" style="height:15vh" >
+    </a>
+  </div>
+
+  <ul class="nav d-contents justify-content-end">
+    <li>
+      <a [routerLink]="router.url.includes('login') ? 'register' : 'login'" class="Text-Style-15">
+        {{(router.url.includes('login') ? 'auth.register.signUp' : 'auth.login.signIn') | translate}}</a>
+    </li>
+    <li>
+      <mat-expansion-panel style="box-shadow: none">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="Text-Style-15" translate="basics.lang"></mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-radio-group aria-label="language">
+          <mat-radio-button value="en" [checked]="true">English</mat-radio-button>
+          <mat-radio-button value="de">Deutsch</mat-radio-button>
+        </mat-radio-group>
+      </mat-expansion-panel>
+    </li>
+  </ul>
+</div>
+
+<div class="nav-bar-line"></div>

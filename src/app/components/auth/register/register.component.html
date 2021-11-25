@@ -1,1 +1,52 @@
-<p>register works!</p>
+<busy-div [busy]="isBusy">
+  <form (ngSubmit)="registerClicked()" class="d-inline-flex w-100">
+    <div class="w-50 pt-5 text-center">
+      <div [formGroup]="formGroup" class="d-inline-grid w-75">
+    <span class="text-style Text-Style-8 d-inline-grid pt-5">
+      {{'auth.welcome' | translate}}
+      <span class="Text-Style-10 pt-4">
+        {{'auth.register.hasAccount' | translate}}
+        <a routerLink="/login" class="Text-Style-9" translate>auth.login.signIn</a>
+      </span>
+    </span>
+
+        <label class="text-style Text-Style-13 pt-4" translate>auth.register.name</label>
+        <mat-form-field appearance="fill">
+          <mat-label>{{'auth.register.name' | translate}}</mat-label>
+          <input [(ngModel)]="user.name" matInput placeholder="{{'auth.register.name' | translate}}" formControlName="name" required>
+          <mat-error *ngIf="formGroup.controls['name'].invalid">{{'basics.required' | translate}}</mat-error>
+        </mat-form-field>
+        <label class="text-style Text-Style-13 pt-4" translate>auth.register.username</label>
+        <mat-form-field appearance="fill">
+          <mat-label>{{'auth.register.usernameLabel' | translate}}</mat-label>
+          <input [(ngModel)]="user.username" matInput placeholder="{{'auth.register.username' | translate}}" formControlName="username" required>
+          <mat-error *ngIf="formGroup.controls['username'].invalid">{{'basics.required' | translate}}</mat-error>
+        </mat-form-field>
+        <label class="text-style Text-Style-13 pt-4" translate>auth.register.birthdate</label>
+        <mat-form-field appearance="fill" class="example-form-field">
+          <mat-label>{{'auth.register.birthdate' | translate}}</mat-label>
+          <input (dateChange)="changeDate($event)" [matDatepickerFilter]="dateFilter" matInput [matDatepicker]="datepicker" formControlName="birthdate" required>
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+          <mat-error *ngIf="formGroup.controls['birthdate'].invalid">{{'basics.required' | translate}}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="Line-6 mb-auto mt-auto"></div>
+    <div class="w-50 pt-5 text-center">
+      <div class="d-inline-grid w-75">
+        <label class="text-style Text-Style-13 pt-4" translate>basics.email</label>
+        <input-email class="d-inline-grid" (value)="user.email = $event" #email></input-email>
+        <label class="text-style Text-Style-13 pt-4" translate>auth.register.password</label>
+        <input-pwd class="d-inline-grid" (value)="user.password = $event" type="new" [disableCurrentPwdValidator]="true" #newPwd></input-pwd>
+        <label class="text-style Text-Style-13 pt-4" translate>auth.repeatPwd</label>
+        <input-pwd class="d-inline-grid" type="repeat" [repeatedPwd]="newPwd.formControl.value" #repeatPwd></input-pwd>
+        <button class="sign-up-button mt-5 Text-Style-14"
+                type="submit" mat-raised-button translate="auth.register.signUp"
+                [disabled]="isInvalid() || newPwd.formControl.invalid || repeatPwd.formControl.invalid || email.formControl.invalid"></button>
+      </div>
+    </div>
+  </form>
+</busy-div>
+

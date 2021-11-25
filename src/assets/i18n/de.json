@@ -1,11 +1,18 @@
 {
   "basics": {
-    "required": "Darf nicht leer sein"
+    "required": "Darf nicht leer sein",
+    "change": "Ändern",
+    "friends": "Freunde",
+    "ratings": "Bewertungen",
+    "darkmode": "Darkmode",
+    "lang": "Sprache",
+    "chooseLang": "Sprache auswählen",
+    "email": "Email"
   },
-  "home" : {
+  "home": {
 
   },
-  "search" : {
+  "search": {
 
   },
   "ratings": {
@@ -17,15 +24,60 @@
   },
   "profile": {
     "edit": "Profil bearbeiten",
-    "friends" : "Freunde",
-    "settings": "Accounteinstellungen"
+    "follower": "{{num}} Follower",
+    "following": "{{num}} Following",
+    "ratings": "{{num}} Bewertungen",
+    "settings": "Accounteinstellungen",
+    "desc": "Beschreibung",
+    "defaultDesc": "Beschreibung...",
+    "descPlaceholder": "Erzähl etwas über dich...",
+    "accSettings": {
+      "email": "Email ändern",
+      "currentEmail": "Aktuelle Email eingeben",
+      "newEmail": "Neue Email eingeben",
+      "wrongEmail": "Falsche Email",
+      "pwd": "Passwort ändern"
+    }
   },
-  "login" : {
+  "auth": {
     "forgot": "Passwort vergessen?",
-    "authFail": "Falsche Email/Benutzername oder Password"
+    "authFail": "Falsche Email/Benutzername oder Passwort",
+    "enterPwd": "Passwort eingeben",
+    "newPwd": "Neues Passwort eingeben",
+    "repeatPwd": "Passwort wiederholen",
+    "wrongPwdRepeat": "Passwort stimmt nicht über ein",
+    "enterEmail": "Email eingeben",
+    "welcome": "Willkommen!",
+    "securePwd": {
+      "length": "Min. 8 Zeichen",
+      "lowercase": "Min. 1 Kleinbuchstabe",
+      "uppercase": "Min. 1 Großbuchstabe",
+      "number": "Min. 1 Zahl",
+      "samePwd": "Das neue Passwort darf nicht dem alten entsprechen."
+    },
+    "register": {
+      "name": "Name",
+      "username": "Username",
+      "usernameLabel": "Usernamen wählen",
+      "birthdate": "Geburtsdatum",
+      "password": "Passwort",
+      "signUp": "Registrieren",
+      "hasAccount": "Hast Du bereits einen Account?"
+    },
+    "login": {
+      "signIn": "Anmelden",
+      "hasNoAccount": "Noch keinen Account?",
+      "rememberMe": "Angemeldet bleiben"
+    }
   },
-  "register" : {
 
+  "httpError": {
+    "header": {
+      "error": "Error"
+    },
+    "msg": {
+      "error": "Es ist ein Fehler aufgetreten"
+    }
   },
   "hello": "Hallo Welt",
   "test": "TEST"

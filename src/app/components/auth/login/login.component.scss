@@ -1,0 +1,30 @@
+.text-style{
+    font-family: Roboto, serif;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-align: left;
+}
+
+.Line-6 {
+  width: 2px;
+  height: 30.438rem;
+  background-image: linear-gradient(0deg, rgba(192, 198, 201, 0) 0%, #c0c6c9 50%, rgba(192, 198, 201, 0) 100%);
+}
+
+.pt-4{
+  padding-top: 1.5vh !important;
+}
+
+.pt-5{
+  padding-top: 3vh !important;
+}
+
+.pb-5{
+  padding-bottom: 3vh !important;
+}
+
+.sign-in-button{
+  color: var(--white);
+  background-color: var(--black);
+}

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {NewRatingDialogComponent} from "../dialogs/new-rating-dialog/new-rating-dialog.component";
 import {Rating} from "../../models/rating";
-import {User} from "../../models/user";
-import {Product} from "../../models/product";
+import {SampleRating} from "../../services/SampleData";
 
 @Component({
   selector: 'app-ratings',
@@ -12,50 +11,56 @@ import {Product} from "../../models/product";
 })
 export class RatingsComponent implements OnInit {
 
+  private ratings: Rating[] = [];
+  private editedRatings: Rating[] = [];
+
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
   }
 
 
+  openRatingDialog(id: string = "-1") {
 
-  openNewRatingDialog() {
+    let rating: Rating | undefined = this.editedRatings.filter(r => r.id === id).pop();
 
-    let sampleUser: User = {
-      birthdate: new Date(),
-      description: "my description",
-      email: "",
-      isDarkTheme: false,
-      language: "de",
-      name: "Theophilus Junior Bestelmeyer",
-      profileImage: "",
-      registerDate: new Date(),
-      username: "",
-      usertype: "privat",
-      verified: false
+    console.log(rating);
+
+    if(!rating && id !== "-1"){
+      this.editedRatings.push(this.ratings.filter(r => r.id === id).pop()!);
+      rating = this.editedRatings[this.editedRatings.length-1];
     }
 
-    let sampleProduct: Product = {
-      id: "", name: "SampleProduct", type: "Drink", brand: "Coco Cala"
+    if (id == "-1" && !rating) {
+      //TODO: uncomment
+      //rating = {} as Rating;
+      rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
+      rating.id = id;
+      this.editedRatings.push(rating);
     }
-
-    let sampleRating: Rating = {
-      id: "",
-      product: sampleProduct,
-      stars: 3.5,
-      timestamp: "",
-      user: sampleUser,
-      votes: 0,
-      description: 'test description'
-    };
-
 
     const frontDialog = this.dialog.open(NewRatingDialogComponent, {
       width: '80%',
       height: '30%',
-      data: sampleRating,
+      data: rating,
       autoFocus: false
     });
+
+    frontDialog.afterClosed().subscribe((result)=> {
+      console.log(rating);
+      console.log(this.editedRatings);
+      console.log(this.ratings);
+
+      // if buttons are used to close dialog:
+      if (rating && result) {
+        this.editedRatings.splice(this.editedRatings.indexOf(rating), 1)
+      }
+
+      console.log(result);
+    });
+
+
 
   }
 

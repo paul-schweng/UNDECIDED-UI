@@ -1,14 +1,21 @@
 {
   "basics": {
-    "required": "Cannot be empty"
+    "required": "Cannot be empty",
+    "change": "Change",
+    "friends": "Friends",
+    "ratings": "Ratings",
+    "darkmode": "Darkmode",
+    "lang": "Language",
+    "chooseLang": "Choose language",
+    "email": "Email"
   },
-  "home" : {
+  "home": {
 
   },
-  "search" : {
+  "search": {
 
   },
-  "ratings" : {
+  "ratings": {
 
   },
   "product": {
@@ -16,16 +23,61 @@
     "brand": "Brand"
   },
   "profile": {
-    "edit" : "Edit profile",
-    "friends" : "Friends",
-    "settings": "Account settings"
+    "edit": "Edit profile",
+    "follower": "{{num}} Follower",
+    "following": "{{num}} Following",
+    "ratings": "{{num}} Ratings",
+    "settings": "Account settings",
+    "desc": "Description",
+    "defaultDesc": "Description...",
+    "descPlaceholder": "Tell something about yourself...",
+    "accSettings": {
+      "email": "Change email",
+      "currentEmail": "Enter current email",
+      "newEmail": "Enter new email",
+      "wrongEmail": "Wrong email",
+      "pwd": "Change Password"
+    }
   },
-  "login" : {
+  "auth": {
     "forgot": "Forgot password?",
-    "authFail": "Wrong email/username or password"
+    "authFail": "Wrong email/username or password",
+    "enterPwd": "Enter your password",
+    "newPwd": "Enter new password",
+    "repeatPwd": "Repeat password",
+    "wrongPwdRepeat": "Password does not match",
+    "enterEmail": "Enter your email",
+    "welcome": "Welcome!",
+    "securePwd": {
+      "length": "Min. 8 characters",
+      "lowercase": "At least 1 lowercase letter",
+      "uppercase": "At least 1 uppercase letter",
+      "number": "At least 1 number",
+      "samePwd": "Cannot use current password"
+    },
+    "register": {
+      "name": "Name",
+      "username": "Username",
+      "usernameLabel": "Choose your Username",
+      "birthdate": "Birthdate",
+      "password": "Password",
+      "signUp": "Sign Up",
+      "hasAccount": "Do you have an account?"
+    },
+    "login": {
+      "signIn": "Sign In",
+      "hasNoAccount": "Don’t have an account?",
+      "rememberMe": "Remember me"
+    }
   },
-  "register" : {
 
+  "httpError": {
+    "header": {
+      "error": "Error"
+    },
+    "msg": {
+      "error": "An error occurred"
+    }
   },
   "hello": "Hello World",
   "test": "TEST"
