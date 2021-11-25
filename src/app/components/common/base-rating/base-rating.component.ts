@@ -54,6 +54,7 @@ export class BaseRatingComponent implements OnInit {
 
   }
 
+
   displayFnProduct = (product: string) => {
     return product ? product : (this._rating.product.name || '');
   };

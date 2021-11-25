@@ -79,6 +79,37 @@
           </mat-autocomplete>
         </mat-form-field>
 
+        <script>
+          $(document).ready(function(){
+            $('[data-toggle="popover"]').popover({
+              placement : 'top',
+              html : true,
+              title : 'User Info <a href="#" class="close" data-dismiss="alert">&times;</a>',
+              content : '<div class="media"><img src="/examples/images/avatar-tiny.jpg" class="mr-3" alt="Sample Image"><div class="media-body"><h5 class="media-heading">Jhon Carter</h5><p>Excellent Bootstrap popover! I really love it.</p></div></div>'
+            });
+            $(document).on("click", ".popover .close" , function(){
+              $(this).parents(".popover").popover('hide');
+            });
+          });
+        </script>
+        <style>
+          .bs-example{
+            margin: 200px 150px 0;
+          }
+          .popover-title .close{
+            position: relative;
+            bottom: 3px;
+          }
+        </style>
+
+        <div class="bs-example">
+          <button type="button" class="btn btn-outline-secondary mr-2" placement="right" id="example"
+                  ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on right">
+            Popover on right
+          </button>
+        </div>
+
+
         <mat-form-field class="col" appearance="fill">
           <mat-label translate>product.brand</mat-label>
           <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
