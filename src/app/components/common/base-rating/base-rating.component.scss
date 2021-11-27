@@ -47,6 +47,18 @@
   left: -25px;
 }
 
+.isSelected{
+  background-color: #ccc;
+}
+
+::ng-deep.mat-pseudo-checkbox{
+  display: none!important;
+}
+
+::ng-deep.popover-body{
+  padding: 0;
+}
+
 .remove-carousel-control {
   ::ng-deep .carousel-control-next, ::ng-deep .carousel-control-prev, ::ng-deep .carousel-indicators {
     display: none;

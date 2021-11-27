@@ -68,7 +68,7 @@
 
   <div class="col">
     <div>
-      <form class="row">
+      <form class="row align-items-center">
         <mat-form-field class="col" appearance="fill">
           <mat-label translate>product.product</mat-label>
           <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
@@ -79,38 +79,28 @@
           </mat-autocomplete>
         </mat-form-field>
 
-        <script>
-          $(document).ready(function(){
-            $('[data-toggle="popover"]').popover({
-              placement : 'top',
-              html : true,
-              title : 'User Info <a href="#" class="close" data-dismiss="alert">&times;</a>',
-              content : '<div class="media"><img src="/examples/images/avatar-tiny.jpg" class="mr-3" alt="Sample Image"><div class="media-body"><h5 class="media-heading">Jhon Carter</h5><p>Excellent Bootstrap popover! I really love it.</p></div></div>'
-            });
-            $(document).on("click", ".popover .close" , function(){
-              $(this).parents(".popover").popover('hide');
-            });
-          });
-        </script>
-        <style>
-          .bs-example{
-            margin: 200px 150px 0;
-          }
-          .popover-title .close{
-            position: relative;
-            bottom: 3px;
-          }
-        </style>
 
-        <div class="bs-example">
-          <button type="button" class="btn btn-outline-secondary mr-2" placement="right" id="example"
-                  ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on right">
-            Popover on right
+
+        <div class="d-flex flex-grow-1 w-25 align-items-center">
+          <div class="d-flex">
+            <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
+          </div>
+          <ng-template #popContent>
+            <mat-selection-list class="m-auto" (selectionChange)="changedLabel($event)" #labels>
+              <mat-list-option *ngFor="let label of LABELS" [value]="label" [selected]="isLabelSelected(label)" [class.isSelected]="isLabelSelected(label)">
+                <mat-icon mat-list-icon class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
+                <div mat-line translate>{{label.label}}</div>
+                <mat-divider class="border-2"></mat-divider>
+              </mat-list-option>
+            </mat-selection-list>
+          </ng-template>
+          <button class="m-1" mat-mini-fab color="" placement="bottom" container="body" [ngbPopover]="popContent" [autoClose]="'outside'">
+            <mat-icon>loyalty</mat-icon>
           </button>
         </div>
 
 
-        <mat-form-field class="col" appearance="fill">
+        <mat-form-field class="col text-right" appearance="fill">
           <mat-label translate>product.brand</mat-label>
           <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
           <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
@@ -128,7 +118,7 @@
       <div class="col w-50 m-4 p-4 border border-2 rounded">
         <mat-form-field class="w-100 remove-underline">
           <mat-label>{{'profile.desc' | translate}}</mat-label>
-          <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="8" placeholder="I liked the most that..."
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="12" cdkAutosizeMaxRows="12"
                     [(ngModel)]="_rating.description" name="description"></textarea>
         </mat-form-field>
       </div>

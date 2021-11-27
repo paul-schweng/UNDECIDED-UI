@@ -31,8 +31,15 @@
       "likes": "most likes",
       "worst": "worst ratings"
     }
-
   },
+  "label": {
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "alcoholic": "Alcoholic",
+    "gluten": "Gluten free",
+    "lactose": "Lactose free"
+  },
+
   "product": {
     "product": "Product",
     "brand": "Brand"

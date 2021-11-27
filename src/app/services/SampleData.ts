@@ -25,6 +25,7 @@ export const SampleRating: Rating = {
   product: SampleProduct,
   stars: 3.5,
   user: SampleUser,
+  labelList: [],
   votes: 0,
   description: 'test description'
 };
