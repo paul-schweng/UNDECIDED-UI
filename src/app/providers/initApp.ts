@@ -1,4 +1,4 @@
-import {AuthenticationService} from "./authentication.service";
+import {AuthenticationService} from "../services/authentication.service";
 
 export function initApp(auth: AuthenticationService) {
   let storage = localStorage.getItem('credentials') || '';

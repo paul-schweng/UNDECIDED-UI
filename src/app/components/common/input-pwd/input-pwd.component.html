@@ -1,15 +1,30 @@
-<mat-form-field appearance="fill">
+<mat-form-field appearance="fill"
+                [ngbPopover]="popover" triggers="manual" container="body" placement="left" [autoClose]="false"
+                #p="ngbPopover" (focusin)="type === 'new' && p.open()" (focusout)="p.close()">
   <mat-label translate>{{label}}</mat-label>
   <input matInput [type]="hide ? 'password' : 'text'" [formControl]="formControl" required>
   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" type="button" [attr.aria-pressed]="hide">
     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
   </button>
-  <mat-hint *ngIf="forgotPwd" align="end" translate="auth.forgot" (click)="openForgotPassword()"></mat-hint>
+
   <mat-error *ngIf="!forgotPwd && formControl.hasError('required')" translate>basics.required</mat-error>
 
-
-  <mat-error *ngFor="let error of getPatternErrors()" [hidden]="type !== 'new'">{{error | translate}}</mat-error>
+  <!--
+  <mat-error *ngIf="type === 'new'">
+    <div *ngFor="let error of getPatternErrors()">{{error | translate}}</div>
+  </mat-error>
+  -->
 
   <mat-error *ngIf="type === 'new' && formControl.errors?.wrongRepeat" translate>auth.securePwd.samePwd</mat-error>
   <mat-error *ngIf="type === 'repeat' && formControl.errors?.wrongRepeat" translate>auth.wrongPwdRepeat</mat-error>
+
+  <mat-hint *ngIf="forgotPwd" align="end" translate="auth.forgot" (click)="openForgotPassword()"></mat-hint>
 </mat-form-field>
+
+<ng-template #popover>
+  <div class="d-flex align-items-center" *ngFor="let reg of securePasswordRegEx">
+    <mat-icon *ngIf="checkRegex(reg.regex)" class="color-green">check_circle_outline</mat-icon>
+    <mat-icon *ngIf="!checkRegex(reg.regex)" class="color-red">cancel</mat-icon>
+    <small class="ml-1" translate>{{reg.name}}</small>
+  </div>
+</ng-template>
