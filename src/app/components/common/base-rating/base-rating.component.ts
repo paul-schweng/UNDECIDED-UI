@@ -1,11 +1,11 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Rating} from "../../../models/rating";
 import {FormControl} from "@angular/forms";
-import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
+
 import {GeoLocation} from "../../../models/location";
 import {Label, LABELS} from "../../../models/label";
-import {MatSelectionList, MatSelectionListChange} from "@angular/material/list";
+import {MatSelectionListChange} from "@angular/material/list";
+import {AutocompleteService} from "../../../services/autocomplete.service";
 
 
 @Component({
@@ -22,27 +22,42 @@ export class BaseRatingComponent implements OnInit {
   }
   @Input() edit: boolean = false;
 
-  @ViewChild('labels') labelsInput!: ElementRef<MatSelectionList>;
-
-  constructor() {
+  constructor(private autocompleteService: AutocompleteService) {
+    this.productControl.valueChanges.subscribe(input =>
+      autocompleteService.getProduct(input.toLowerCase())
+        .then(tags => this.filteredOptionsProduct = tags)
+    );
+    this.brandControl.valueChanges.subscribe(input =>
+      autocompleteService.getBrand(input.toLowerCase())
+        .then(tags => this.filteredOptionsBrand = tags)
+    );
+    /*
+    this.locationControl.valueChanges.subscribe(input =>
+      autocompleteService.getTags(input.toLowerCase())
+        .then(tags => this.filteredOptionsLocation = tags)
+    );
+     */
   }
 
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   productControl = new FormControl();
   brandControl = new FormControl();
+  locationControl = new FormControl();
   productOptions: string[] = ['Fanta', 'Sprite'];
   brandOptions: string[] = ['Nike', 'Samsung'];
-  filteredOptionsProduct!: Observable<string[]>;
-  filteredOptionsBrand!: Observable<string[]>;
+  filteredOptionsProduct: string[] = [];
+  filteredOptionsBrand: string[] = [];
+  filteredOptionsLocation: string[] = [];
   LABELS: Label[] = LABELS.slice();
 
   ngOnInit() {
+
     if (!this._rating.product.location) this._rating.product.location = {} as GeoLocation;
 
     this.productControl.valueChanges.subscribe(change => this._rating.product.name = change);
     this.brandControl.valueChanges.subscribe(change => this._rating.product.brand = change);
 
+    /*
     this.filteredOptionsProduct = this.productControl.valueChanges.pipe(
       startWith(''),
       map(value => (typeof value === 'string' ? value : value.name)),
@@ -54,6 +69,9 @@ export class BaseRatingComponent implements OnInit {
       map(value => (typeof value === 'string' ? value : value.name)),
       map(name => (name ? this._filterBrand(name) : this.brandOptions.slice())),
     );
+
+     */
+
   }
 
   displayFnProduct = (product: string) => {
@@ -94,5 +112,25 @@ export class BaseRatingComponent implements OnInit {
         this._rating.labelList?.sort((label1,label2) => label1.id - label2.id);
       }
     })
+  }
+
+  onFileChanged(event: any) {
+    console.log(event)
+    if(!this._rating.images)
+      this._rating.images = [];
+
+    let url: any;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = (_event) => { // called once readAsDataURL is completed
+      url = _event.target?.result;
+      this._rating.images?.push({file: event.target.files[0], url: url});
+    }
+
+  }
+
+  getImage(image: any): string{
+    return typeof image == 'string' ? image : image.url;
   }
 }

@@ -56,7 +56,7 @@ export class AuthenticationService extends CommunicationRequestService<User> {
       {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} :
       {authorization: ''});
 
-    return super.sendGetRequest('user', undefined, headers)
+    return super.sendGetRequest('login', undefined, headers)
       .then((response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
@@ -80,8 +80,6 @@ export class AuthenticationService extends CommunicationRequestService<User> {
   protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
     return new HttpParams();
   }
-
-
 
 
 

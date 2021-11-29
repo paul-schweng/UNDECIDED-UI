@@ -58,6 +58,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ChipsAutocompleteComponent } from './components/common/chips-autocomplete/chips-autocomplete.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCardModule} from "@angular/material/card";
+import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialog.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import {MatCardModule} from "@angular/material/card";
     InputEmailComponent,
     InputPwdComponent,
     ChipsAutocompleteComponent,
+    MapsDialogComponent,
 
   ],
     imports: [

@@ -15,4 +15,16 @@ export class AutocompleteService extends CommunicationRequestService<any> {
   public getTags(input: string): Promise<string[]>{
     return super.sendPostRequest(this.backendUrlExt + '/tags', {input: input});
   }
+
+  public getProduct(input: string): Promise<string[]>{
+    return super.sendPostRequest(this.backendUrlExt + '/product', {input: input});
+  }
+
+  public getBrand(input: string): Promise<string[]>{
+    return super.sendPostRequest(this.backendUrlExt + '/brand', {input: input});
+  }
+
+  public getLocation(input: string): Promise<string[]>{
+    return super.sendPostRequest(this.backendUrlExt + '/location', {input: input});
+  }
 }

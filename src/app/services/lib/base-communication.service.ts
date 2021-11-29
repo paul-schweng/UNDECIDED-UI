@@ -5,6 +5,7 @@ import {environment} from "../../../environments/environment";
 import {Subject, Subscription} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {NotificationService} from "../notification.service";
+import {ImageService} from "../image.service";
 
 
 @Injectable({
@@ -12,6 +13,7 @@ import {NotificationService} from "../notification.service";
 })
 export abstract class BaseCommunicationService {
   constructor(protected notification: NotificationService,
+              protected imageService: ImageService,
               protected http: HttpClient,
               protected router: Router) {
   }

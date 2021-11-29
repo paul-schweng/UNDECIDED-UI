@@ -1,10 +1,7 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Component, OnInit,ElementRef, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {AutocompleteService} from "../../../services/autocomplete.service";
 
 @Component({
@@ -36,7 +33,9 @@ export class ChipsAutocompleteComponent implements OnInit {
             if (i !== -1) tags.splice(i,1);
           })
           this.filteredTags = tags;
-        },()=>{ //TODO:Delete This
+        },
+          //TODO:Delete This
+          ()=>{
           let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
 
           this.tags.forEach(tag => {

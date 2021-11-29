@@ -11,6 +11,8 @@ export class RatingService extends CommunicationRequestService<RatingList>{
   protected readonly backendUrlExt = 'rating';
 
   public postRating(rating: Rating){
+    if(rating.images)
+      this.imageService.postRatingImages(rating);
     return super.sendPostRequest(this.backendUrlExt, rating);
   }
 

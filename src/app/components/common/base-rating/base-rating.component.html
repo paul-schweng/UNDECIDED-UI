@@ -1,7 +1,7 @@
 <div *ngIf="!edit" class="row">
   <div class="col flex-grow-0 toCorner">
-    <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
-      <ng-template *ngFor="let image of images" ngbSlide>
+    <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
+      <ng-template *ngFor="let image of _rating.images" ngbSlide>
         <div class="img-wrapper">
           <img [src]="image" alt="slide">
         </div>
@@ -56,16 +56,21 @@
 <div *ngIf="edit" class="row">
 
   <div class="col flex-grow-0 toCorner">
-    <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=0}" [interval]="0">
-      <ng-template *ngFor="let image of images" ngbSlide>
+    <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=0}" [interval]="0">
+      <ng-template *ngFor="let image of _rating.images" ngbSlide>
         <div class="img-wrapper">
-          <img [src]="image" alt="slide">
+          <img [src]="getImage(image)" alt="slide">
         </div>
       </ng-template>
       <ng-template ngbSlide>
         <div class="img-wrapper">
           <img src="assets/img/default_rate_pic.png" alt="first slide">
-          <button mat-stroked-button>{{'ratings.choosePicture' | translate}}</button>
+          <input
+            style="display: none"
+            accept="image/*"
+            type="file" (change)="onFileChanged($event)"
+            #fileInput>
+          <button type="button" (click)="fileInput.click()" mat-stroked-button>{{'ratings.choosePicture' | translate}}</button>
         </div>
       </ng-template>
     </ngb-carousel>
@@ -78,7 +83,7 @@
           <mat-label translate>product.product</mat-label>
           <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
           <mat-autocomplete #autoProduct [displayWith]="displayFnProduct">
-            <mat-option *ngFor="let option of filteredOptionsProduct | async" [value]="option">
+            <mat-option *ngFor="let option of filteredOptionsProduct" [value]="option">
               {{option}}
             </mat-option>
           </mat-autocomplete>
@@ -106,7 +111,7 @@
           <mat-label translate>product.brand</mat-label>
           <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
           <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
-            <mat-option *ngFor="let option of filteredOptionsBrand | async" [value]="option">
+            <mat-option *ngFor="let option of filteredOptionsBrand" [value]="option">
               {{option}}
             </mat-option>
           </mat-autocomplete>
@@ -132,6 +137,7 @@
             <input matInput placeholder="Restaurant/bar/..."
                    [(ngModel)]="_rating.product.location!.name" name="location">
             <mat-icon matSuffix>location_on</mat-icon> <!--Druch klicken auf icon eine map öffnen-->
+
           </mat-form-field> <!--Wenn eine location gefunden wurde (durch vorschläge) dann soll obriges Format eingenommen werden-->
         </div>
 
