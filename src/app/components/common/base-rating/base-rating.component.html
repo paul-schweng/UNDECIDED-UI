@@ -12,6 +12,9 @@
   <div class="col">
     <div class="row Text-Style-16">
       <span class="col">{{_rating.product.name}}</span>
+        <div class="d-flex flex-grow-1 w-25 align-items-center">
+          <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
+        </div>
       <span class="col" style="text-align: end">{{_rating.product?.brand}}</span>
     </div>
 
@@ -37,7 +40,9 @@
         </div>
 
         <div class="row">
-
+          <mat-chip-list>
+            <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
+          </mat-chip-list>
         </div>
 
         <ngx-stars class="row" [size]="5" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
@@ -79,8 +84,6 @@
           </mat-autocomplete>
         </mat-form-field>
 
-
-
         <div class="d-flex flex-grow-1 w-25 align-items-center">
           <div class="d-flex">
             <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
@@ -98,7 +101,6 @@
             <mat-icon>loyalty</mat-icon>
           </button>
         </div>
-
 
         <mat-form-field class="col text-right" appearance="fill">
           <mat-label translate>product.brand</mat-label>
