@@ -11,6 +11,10 @@
     "cancel": "Cancel",
     "filter": "Sort by"
   },
+  "uploadImage": {
+    "takePhoto": "Take photo",
+    "gallery": "From gallery"
+  },
   "home": {
 
   },

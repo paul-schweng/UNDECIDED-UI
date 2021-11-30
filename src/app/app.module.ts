@@ -59,6 +59,9 @@ import { ChipsAutocompleteComponent } from './components/common/chips-autocomple
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCardModule} from "@angular/material/card";
 import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialog.component';
+import { ImageUploadDialogComponent } from './components/dialogs/image-upload-dialog/image-upload-dialog.component';
+import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam-dialog.component';
+import {WebcamModule} from "ngx-webcam";
 
 
 @NgModule({
@@ -83,6 +86,8 @@ import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialo
     InputPwdComponent,
     ChipsAutocompleteComponent,
     MapsDialogComponent,
+    ImageUploadDialogComponent,
+    WebcamDialogComponent,
 
   ],
     imports: [
@@ -127,7 +132,8 @@ import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialo
         MatExpansionModule,
         MatNativeDateModule,
         MatChipsModule,
-        MatCardModule
+        MatCardModule,
+        WebcamModule
 
     ],
   providers: [

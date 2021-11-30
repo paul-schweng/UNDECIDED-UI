@@ -6,6 +6,10 @@ import {GeoLocation} from "../../../models/location";
 import {Label, LABELS} from "../../../models/label";
 import {MatSelectionListChange} from "@angular/material/list";
 import {AutocompleteService} from "../../../services/autocomplete.service";
+import {MatDialog} from "@angular/material/dialog";
+import {MapsDialogComponent} from "../../dialogs/maps-dialog/maps-dialog.component";
+import {NgbCarousel} from "@ng-bootstrap/ng-bootstrap";
+import {ImageUploadDialogComponent} from "../../dialogs/image-upload-dialog/image-upload-dialog.component";
 
 
 @Component({
@@ -16,13 +20,16 @@ import {AutocompleteService} from "../../../services/autocomplete.service";
 export class BaseRatingComponent implements OnInit {
 
   _rating!: Rating;
+  readonly MAX_IMAGES: number = 5;
 
   @Input() set rating(rating: Rating){
     this._rating = rating;
   }
   @Input() edit: boolean = false;
 
-  constructor(private autocompleteService: AutocompleteService) {
+  constructor(private autocompleteService: AutocompleteService,
+              public dialog: MatDialog) {
+
     this.productControl.valueChanges.subscribe(input =>
       autocompleteService.getProduct(input.toLowerCase())
         .then(tags => this.filteredOptionsProduct = tags)
@@ -114,7 +121,7 @@ export class BaseRatingComponent implements OnInit {
     })
   }
 
-  onFileChanged(event: any) {
+  onFileChanged(event: any, carousel: NgbCarousel) {
     console.log(event)
     if(!this._rating.images)
       this._rating.images = [];
@@ -126,11 +133,28 @@ export class BaseRatingComponent implements OnInit {
     reader.onload = (_event) => { // called once readAsDataURL is completed
       url = _event.target?.result;
       this._rating.images?.push({file: event.target.files[0], url: url});
+
+      new Promise( resolve => setTimeout(resolve, 300) )
+        .then(()=>carousel.prev()
+        );
     }
 
   }
 
   getImage(image: any): string{
     return typeof image == 'string' ? image : image.url;
+  }
+
+  openMap() {
+    const mapDialog = this.dialog.open(MapsDialogComponent, {
+      autoFocus: false
+    });
+  }
+
+  uploadImage(fileInput: HTMLInputElement) {
+    const uploadDialog = this.dialog.open(ImageUploadDialogComponent, {
+      autoFocus: false,
+      data: {fileInput: fileInput}
+    });
   }
 }

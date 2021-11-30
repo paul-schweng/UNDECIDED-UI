@@ -11,6 +11,10 @@
     "cancel": "Abbrechen",
     "filter": "Sortieren"
   },
+  "uploadImage": {
+    "takePhoto": "Foto machen",
+    "gallery": "Aus Galerie"
+  },
   "home": {
 
   },
