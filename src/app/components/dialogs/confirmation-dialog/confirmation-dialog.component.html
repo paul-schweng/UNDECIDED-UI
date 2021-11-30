@@ -1,6 +1,9 @@
-<h1 mat-dialog-title>Confirm delete</h1>
+<h2 mat-dialog-title translate>dialog.delete.header</h2>
+<mat-divider></mat-divider>
 <div mat-dialog-content>
-  <div>Do you really want to delete this picture?</div>
-  <button color="primary" mat-raised-button>cancel</button>
-  <button color="warn" mat-raised-button>Delete</button>
+  <div class="mb-4 mt-4" translate>dialog.delete.content</div>
+  <div class="d-flex justify-content-end">
+    <button mat-dialog-close mat-raised-button translate="basics.cancel"></button>
+    <button mat-dialog-close="delete" class="ml-3" color="warn" mat-raised-button translate="basics.delete"></button>
+  </div>
 </div>

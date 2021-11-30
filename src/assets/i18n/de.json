@@ -9,7 +9,14 @@
     "chooseLang": "Sprache auswählen",
     "email": "Email",
     "cancel": "Abbrechen",
-    "filter": "Sortieren"
+    "filter": "Sortieren",
+    "delete": "Löschen"
+  },
+  "dialog": {
+    "delete": {
+      "header": "Löschen bestätigen",
+      "content": "Möchtest du dieses Bild wirklich löschen?"
+    }
   },
   "uploadImage": {
     "takePhoto": "Foto machen",

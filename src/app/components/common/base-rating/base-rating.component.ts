@@ -174,5 +174,12 @@ export class BaseRatingComponent implements OnInit {
     const uploadDialog = this.dialog.open(ConfirmationDialogComponent, {
       autoFocus: false
     });
+
+    uploadDialog.beforeClosed().subscribe(value => {
+      if(value)
+        this._rating.images?.splice(i,1);
+    });
   }
+
+
 }

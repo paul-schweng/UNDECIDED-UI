@@ -15,8 +15,8 @@ export class WebcamDialogComponent implements OnInit {
   public allowCameraSwitch = true;
   public multipleWebcamsAvailable = false;
   public videoOptions: MediaTrackConstraints = {
-    // width: {ideal: 1024},
-    // height: {ideal: 576}
+    width:{min:640,ideal:1920},
+    height:{min:480,ideal:1080}
   };
   public errors: WebcamInitError[] = [];
 
@@ -28,6 +28,8 @@ export class WebcamDialogComponent implements OnInit {
 
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+
+  public cameraMode: boolean = true;
 
 
   constructor(public dialogRef: MatDialogRef<WebcamDialogComponent>,
@@ -56,6 +58,7 @@ export class WebcamDialogComponent implements OnInit {
   }
 
   public triggerSnapshot(): void {
+    this.cameraMode = false;
     this.trigger.next();
   }
 
@@ -74,7 +77,7 @@ export class WebcamDialogComponent implements OnInit {
     this.errors.push(error);
   }
 
-  close() {
+  save() {
     this.dialogRef.close(this.webcamImage)
   }
 }

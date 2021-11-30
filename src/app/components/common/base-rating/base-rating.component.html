@@ -156,7 +156,7 @@
         </div>
 
         <div class="row">
-          <chips-autocomplete class="w-100"></chips-autocomplete>
+          <chips-autocomplete [(type)]="_rating.types" class="w-100"></chips-autocomplete>
         </div>
 
         <ngx-stars class="row" [size]="5" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black"></ngx-stars>
