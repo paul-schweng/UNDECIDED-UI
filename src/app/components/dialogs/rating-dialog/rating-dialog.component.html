@@ -1,0 +1,8 @@
+<busy-div [busy]="isBusy">
+  <base-rating [rating]="data.rating" [edit]="data.editable"></base-rating>
+  <div *ngIf="data.editable" class="rate-buttons">
+    <button mat-dialog-close="cancel" mat-raised-button>{{'basics.cancel' | translate}}</button>
+    <button (click)="postClicked()" color="accent" mat-raised-button class="float-right">{{'ratings.post' | translate}}</button>
+  </div>
+</busy-div>
+

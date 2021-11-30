@@ -1,0 +1,29 @@
+<mat-form-field class="background-color w-100" appearance="fill">
+  <mat-label>{{'ratings.addTags' | translate}}</mat-label>
+  <mat-chip-list #chipList aria-label="tags selection">
+    <mat-chip
+      *ngFor="let tags of tags"
+      [selectable]="selectable"
+      [removable]="removable"
+      (removed)="remove(tags)">
+      {{tags}}
+      <button matChipRemove *ngIf="removable">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip>
+    <input
+      placeholder="{{'ratings.newTags' | translate}}"
+      #tagsInput
+      *ngIf="tags.length<5"
+      [formControl]="tagsCtrl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="add($event.value, $event)">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add($event.option.viewValue)">
+    <mat-option *ngFor="let tags of filteredTags" [value]="tags">
+      {{tags}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

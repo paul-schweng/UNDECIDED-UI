@@ -37,7 +37,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
-import { NewRatingDialogComponent } from './components/dialogs/new-rating-dialog/new-rating-dialog.component';
+import {RatingDialogComponent } from './components/dialogs/rating-dialog/rating-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {NgxStarsModule} from "ngx-stars";
 import { BaseRatingComponent } from './components/common/base-rating/base-rating.component';
@@ -55,6 +55,14 @@ import { SettingsComponent } from './components/profile/settings/settings.compon
 import { InputEmailComponent } from './components/common/input-email/input-email.component';
 import { InputPwdComponent } from './components/common/input-pwd/input-pwd.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ChipsAutocompleteComponent } from './components/common/chips-autocomplete/chips-autocomplete.component';
+import {MatChipsModule} from "@angular/material/chips";
+import {MatCardModule} from "@angular/material/card";
+import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialog.component';
+import { ImageUploadDialogComponent } from './components/dialogs/image-upload-dialog/image-upload-dialog.component';
+import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam-dialog.component';
+import {WebcamModule} from "ngx-webcam";
+import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -69,7 +77,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     ProfileComponent,
     LoginComponent,
     RegisterComponent,
-    NewRatingDialogComponent,
+    RatingDialogComponent,
     BaseRatingComponent,
     AuthComponent,
     MainFrameComponent,
@@ -77,6 +85,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     SettingsComponent,
     InputEmailComponent,
     InputPwdComponent,
+    ChipsAutocompleteComponent,
+    MapsDialogComponent,
+    ImageUploadDialogComponent,
+    WebcamDialogComponent,
+    ConfirmationDialogComponent,
 
   ],
     imports: [
@@ -119,7 +132,10 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatRadioModule,
         MatCheckboxModule,
         MatExpansionModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatChipsModule,
+        MatCardModule,
+        WebcamModule
 
     ],
   providers: [
