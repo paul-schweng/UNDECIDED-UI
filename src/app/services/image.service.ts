@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {Rating} from "../models/rating";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {WebcamImage} from "ngx-webcam";
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +14,23 @@ export class ImageService {
   }
 
 
-  public postRatingImages(rating: Rating){
+  public postRatingImages(id: string, images: any[]){
     console.log("image upload...");
 
 
-    rating.images!.forEach((img, i) => {
+    images!.forEach((img, i) => {
       if('string' != typeof img){
 
         const uploadData = new FormData();
-        uploadData.append('image', img.file, img.file.name);
+
+        if(img.file)
+          uploadData.append('image', img.file);
+        else
+          uploadData.append('image', ImageService.base64ToFile(img.base64));
+
 
         let params = new HttpParams()
-          .set('rating', rating.id)
+          .set('rating', id)
           .set('index', i);
 
         this.http.post(this.backendUrl + 'rating', uploadData, {
@@ -41,6 +46,18 @@ export class ImageService {
       }
     })
 
+  }
+
+  static base64ToFile(base64: string): File {
+    const arr = base64.split(",");
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], 'webcam.jpeg', { type: mime })
   }
 
 

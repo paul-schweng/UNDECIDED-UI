@@ -134,7 +134,7 @@ export class BaseRatingComponent implements OnInit {
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = (_event) => { // called once readAsDataURL is completed
       url = _event.target?.result;
-      this._rating.images?.push({file: event.target.files[0], url: url});
+      this._rating.images?.push({file: event.target.files[0], base64: url});
 
       new Promise( resolve => setTimeout(resolve, 300) )
         .then(()=>carousel.prev()
@@ -144,7 +144,7 @@ export class BaseRatingComponent implements OnInit {
   }
 
   getImage(image: any): string{
-    return typeof image == 'string' ? image : image.url;
+    return typeof image == 'string' ? image : image.base64;
   }
 
   openMap() {
@@ -161,7 +161,7 @@ export class BaseRatingComponent implements OnInit {
 
     uploadDialog.afterClosed().subscribe((value: WebcamImage) => {
       if(value?.imageAsDataUrl){
-        this._rating.images?.push(value.imageAsDataUrl);
+        this._rating.images?.push({base64: value.imageAsDataUrl});
         new Promise( resolve => setTimeout(resolve, 300) )
           .then(()=>carousel.prev()
           );

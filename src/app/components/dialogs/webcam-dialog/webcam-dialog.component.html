@@ -3,8 +3,8 @@
           [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
           [videoOptions]="videoOptions"
           [imageQuality]="1"
-          (initError)="handleInitError($event)"
-  ></webcam>
+          (initError)="handleInitError($event)">
+  </webcam>
   <button class="actionBtn" (click)="triggerSnapshot();" mat-fab>
     <mat-icon>camera_alt</mat-icon>
   </button>

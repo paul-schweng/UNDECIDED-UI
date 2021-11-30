@@ -11,13 +11,25 @@ export class RatingService extends CommunicationRequestService<RatingList>{
   protected readonly backendUrlExt = 'rating';
 
   public postRating(rating: Rating){
-    if(rating.images)
-      this.imageService.postRatingImages(rating);
-    return super.sendPostRequest(this.backendUrlExt, rating);
+    let images = rating.images || [];
+    let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
+    delete ratingWithoutImages['images'];
+    return super.sendPostRequest<Rating>(this.backendUrlExt, ratingWithoutImages)
+      .then(resRating => {
+        if(rating.images)
+          this.imageService.postRatingImages(resRating.id, images);
+      });
   }
 
   public editRating(rating: Rating) {
-    return super.sendPutRequest(this.backendUrlExt, rating);
+    let images = rating.images || [];
+    let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
+    delete ratingWithoutImages['images'];
+    return super.sendPutRequest<Rating>(this.backendUrlExt, rating)
+      .then(resRating => {
+        if(images)
+          this.imageService.postRatingImages(resRating.id, images);
+      });
   }
 
   protected prepareRequestObjectParameter(reqParameter: RatingList): HttpParams {
