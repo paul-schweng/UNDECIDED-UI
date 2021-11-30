@@ -1,11 +1,11 @@
-<webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+<webcam [height]="1280" [width]="720" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
         [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
         [videoOptions]="videoOptions"
         [imageQuality]="1"
         (initError)="handleInitError($event)"
 ></webcam>
 <button class="actionBtn" (click)="triggerSnapshot();">Take A Snapshot</button>
-<br/>
+<button (click)="close()" mat-raised-button>save image</button>
 <button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button>
 <input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
 <br/>

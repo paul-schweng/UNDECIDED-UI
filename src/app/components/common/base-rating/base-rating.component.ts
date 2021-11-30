@@ -10,6 +10,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {MapsDialogComponent} from "../../dialogs/maps-dialog/maps-dialog.component";
 import {NgbCarousel} from "@ng-bootstrap/ng-bootstrap";
 import {ImageUploadDialogComponent} from "../../dialogs/image-upload-dialog/image-upload-dialog.component";
+import {WebcamImage} from "ngx-webcam";
+import {ConfirmationDialogComponent} from "../../dialogs/confirmation-dialog/confirmation-dialog.component";
 
 
 @Component({
@@ -151,10 +153,26 @@ export class BaseRatingComponent implements OnInit {
     });
   }
 
-  uploadImage(fileInput: HTMLInputElement) {
+  uploadImage(fileInput: HTMLInputElement, carousel: NgbCarousel) {
     const uploadDialog = this.dialog.open(ImageUploadDialogComponent, {
       autoFocus: false,
       data: {fileInput: fileInput}
+    });
+
+    uploadDialog.afterClosed().subscribe((value: WebcamImage) => {
+      if(value?.imageAsDataUrl){
+        this._rating.images?.push(value.imageAsDataUrl);
+        new Promise( resolve => setTimeout(resolve, 300) )
+          .then(()=>carousel.prev()
+          );
+      }
+
+    })
+  }
+
+  deleteImage(i: number) {
+    const uploadDialog = this.dialog.open(ConfirmationDialogComponent, {
+      autoFocus: false
     });
   }
 }

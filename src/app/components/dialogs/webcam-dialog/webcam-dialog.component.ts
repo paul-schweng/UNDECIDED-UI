@@ -39,7 +39,6 @@ export class WebcamDialogComponent implements OnInit {
     WebcamUtil.getAvailableVideoInputs()
       .then((mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-        alert(mediaDevices.length)
       });
   }
 
@@ -75,4 +74,7 @@ export class WebcamDialogComponent implements OnInit {
     this.errors.push(error);
   }
 
+  close() {
+    this.dialogRef.close(this.webcamImage)
+  }
 }

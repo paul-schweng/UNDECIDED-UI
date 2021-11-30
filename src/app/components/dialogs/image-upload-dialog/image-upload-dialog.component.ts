@@ -22,5 +22,9 @@ export class ImageUploadDialogComponent implements OnInit {
     const webcamDialog = this.dialog.open(WebcamDialogComponent, {
       autoFocus: false
     });
+
+    webcamDialog.beforeClosed().subscribe(value => {
+      this.dialogRef.close(value);
+    })
   }
 }

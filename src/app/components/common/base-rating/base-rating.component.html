@@ -60,17 +60,20 @@
       <ng-template *ngFor="let image of _rating.images; let i = index" ngbSlide>
         <div class="img-wrapper">
           <img [src]="getImage(image)" alt="slide">
+          <button (click)="deleteImage(i)" class="btn-delete m-2" mat-icon-button>
+            <mat-icon class="mr-2 ml-2 color-red">delete</mat-icon>
+          </button>
         </div>
       </ng-template>
       <ng-template *ngIf="_rating.images.length < MAX_IMAGES" ngbSlide>
         <div class="img-wrapper">
-          <img src="assets/img/default_rate_pic.png" alt="first slide">
+          <img src="assets/img/default_rate_pic.png" alt="last slide">
           <input
             style="display: none"
             accept="image/*"
             type="file" (change)="onFileChanged($event, carousel)"
             #fileInput>
-          <button type="button" (click)="uploadImage(fileInput)" mat-stroked-button>{{'ratings.choosePicture' | translate}}</button>
+          <button type="button" (click)="uploadImage(fileInput, carousel)" mat-stroked-button>{{'ratings.choosePicture' | translate}}</button>
         </div>
       </ng-template>
     </ngb-carousel>
@@ -103,7 +106,7 @@
             </mat-selection-list>
           </ng-template>
           <button class="m-1" mat-mini-fab color="" placement="bottom" container="body" [ngbPopover]="popContent" [autoClose]="'outside'">
-            <mat-icon>loyalty</mat-icon>
+            <mat-icon>local_offer</mat-icon>
           </button>
         </div>
 

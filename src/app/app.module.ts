@@ -62,6 +62,7 @@ import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialo
 import { ImageUploadDialogComponent } from './components/dialogs/image-upload-dialog/image-upload-dialog.component';
 import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam-dialog.component';
 import {WebcamModule} from "ngx-webcam";
+import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import {WebcamModule} from "ngx-webcam";
     MapsDialogComponent,
     ImageUploadDialogComponent,
     WebcamDialogComponent,
+    ConfirmationDialogComponent,
 
   ],
     imports: [
