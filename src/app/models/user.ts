@@ -3,13 +3,14 @@ export interface User {
   email?: string,
   name: string,
   birthdate?: Date,
-  usertype: 'privat' | 'business',
-  verified: boolean,
+  usertype?: 'privat' | 'business',
+  verified?: boolean,
   description?: string,
   profileImage?: string | File,
   registerDate?: Date,
   isDarkTheme?: boolean,
-  language?: string
-  password?: string
+  language?: string,
+  password?: string,
+  rememberMe?: boolean
 }
 

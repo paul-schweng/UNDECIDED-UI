@@ -1,10 +1,10 @@
 import {GeoLocation} from "./location";
 
 export interface Product {
-  id: string,
+  id?: string,
   name: string,
   location?: GeoLocation,
-  type: string[],
+  type?: string[],
   labels?: Label[]
   brand?: string
 }

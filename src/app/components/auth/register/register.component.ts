@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit {
 
   registerClicked() {
     this.isBusy = true;
+    this.user.rememberMe = true;
     this.authService.register(this.user)
       .then(() => this.authService.login({username: this.user.email, password: this.user.password}))
       .finally(() => this.isBusy = false);

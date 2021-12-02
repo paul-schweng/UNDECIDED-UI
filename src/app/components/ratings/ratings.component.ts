@@ -22,7 +22,7 @@ export class RatingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.ratingService.getMyRatings(this.filters[0].split(".").pop()!).then(
-      (ratingList) => {this.ratings = ratingList.ratings!},
+      (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
     );
   }
@@ -71,7 +71,7 @@ export class RatingsComponent implements OnInit {
 
   changeFilter(filter: MatSelectChange) {
     this.ratingService.getMyRatings(filter.value.split(".").pop()!).then(
-      (ratingList) => {this.ratings = ratingList.ratings!},
+      (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
     );
   }

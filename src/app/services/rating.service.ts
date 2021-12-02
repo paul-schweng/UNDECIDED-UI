@@ -38,9 +38,9 @@ export class RatingService extends CommunicationRequestService<RatingList>{
     return new HttpParams();
   }
 
-  public getMyRatings(filter: string): Promise<RatingList> {
-    return super.sendGetRequest<RatingList>(this.backendUrlExt, {filter: filter}).then(ratingList => {
-      let ratings = ratingList.ratings || [];
+  public getMyRatings(filter: string): Promise<Rating[]> {
+    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter}).then(ratingList => {
+      let ratings = ratingList || [];
       ratings.forEach(rating => {
         let labels: Label[] = [];
         if (!rating.labels) return;
@@ -49,8 +49,7 @@ export class RatingService extends CommunicationRequestService<RatingList>{
         }
         rating.labelList = labels;
       });
-      ratingList.ratings = ratings;
-      return ratingList;
+      return ratings;
     });
   }
 
