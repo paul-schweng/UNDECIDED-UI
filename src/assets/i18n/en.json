@@ -8,7 +8,19 @@
     "lang": "Language",
     "chooseLang": "Choose language",
     "email": "Email",
-    "filter": "Sort by"
+    "cancel": "Cancel",
+    "filter": "Sort by",
+    "delete": "Delete"
+  },
+  "dialog": {
+    "delete": {
+      "header": "Confirm delete",
+      "content": "Do you really want to delete this picture?"
+    }
+  },
+  "uploadImage": {
+    "takePhoto": "Take photo",
+    "gallery": "From gallery"
   },
   "home": {
 
@@ -17,6 +29,12 @@
 
   },
   "ratings": {
+    "choosePicture": "Choose picture",
+    "addLocation": "Add location",
+    "tagFriends": "Tag friends",
+    "addTags": "Add tags",
+    "newTags": "New tags...",
+    "post": "Post it!",
     "filters": {
       "latest": "latest ratings",
       "highest": "highest ratings",
@@ -24,8 +42,15 @@
       "likes": "most likes",
       "worst": "worst ratings"
     }
-
   },
+  "label": {
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "alcoholic": "Alcoholic",
+    "gluten": "Gluten free",
+    "lactose": "Lactose free"
+  },
+
   "product": {
     "product": "Product",
     "brand": "Brand"

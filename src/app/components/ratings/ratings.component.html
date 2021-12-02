@@ -1,23 +1,28 @@
+<div class="d-flex justify-content-center m-4">
+  <button (click)="openRatingDialog()" mat-fab color="">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 
-<button (click)="openRatingDialog()" mat-raised-button>Dialog</button>
 <mat-form-field appearance="fill">
   <mat-label>{{'basics.filter' | translate}}</mat-label>
-  <mat-select (selectionChange)="changeFilter()" [value] = "filters[0]">
+  <mat-select (selectionChange)="changeFilter($event)" [value] = "filters[0]">
     <mat-option *ngFor="let filter of filters" [value]="filter">
       {{filter | translate}}
     </mat-option>
   </mat-select>
 </mat-form-field>
+
 <div *ngIf="ratings">
   <mat-card *ngFor="let rating of ratings" (click)="openRatingDialog(rating.id)">
-    <img mat-card-image [src]="'/api/img/rating/' + rating.image">
+    <img *ngIf="rating.images && rating.images.length > 0" mat-card-image [src]="'/api/img/rating/' + rating.images[0]" alt="rating">
+    <img *ngIf="!rating.images || rating.images.length == 0" mat-card-image src="/assets/img/defaultImage.webp" alt="default">
     <div>
       <ngx-stars [size]="5" [initialStars]="rating.stars" color="black" [readonly]="true"></ngx-stars>
       <div>{{rating.product.name}}</div>
       <div>
-        <img *ngFor="let label of rating.labelList" [src]="'/assets/img/labels/' + label.icon">
+        <img *ngFor="let label of rating.labelList" [src]="'/assets/img/labels/' + label.icon" alt="label">
       </div>
     </div>
   </mat-card>
-
 </div>

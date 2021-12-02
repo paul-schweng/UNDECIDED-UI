@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewRatingDialogComponent } from './new-rating-dialog.component';
+import { RatingDialogComponent } from './rating-dialog.component';
 
-describe('NewRatingDialogComponent', () => {
-  let component: NewRatingDialogComponent;
-  let fixture: ComponentFixture<NewRatingDialogComponent>;
+describe('RatingDialogComponent', () => {
+  let component: RatingDialogComponent;
+  let fixture: ComponentFixture<RatingDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewRatingDialogComponent ]
+      declarations: [ RatingDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewRatingDialogComponent);
+    fixture = TestBed.createComponent(RatingDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

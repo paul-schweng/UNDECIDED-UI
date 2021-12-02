@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
 import {Rating, RatingList} from "../models/rating";
+import {Label, LABELS} from "../models/label";
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,25 @@ export class RatingService extends CommunicationRequestService<RatingList>{
   protected readonly backendUrlExt = 'rating';
 
   public postRating(rating: Rating){
-    return super.sendPostRequest(this.backendUrlExt, rating);
+    let images = rating.images || [];
+    let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
+    delete ratingWithoutImages['images'];
+    return super.sendPostRequest<Rating>(this.backendUrlExt, ratingWithoutImages)
+      .then(resRating => {
+        if(rating.images)
+          this.imageService.postRatingImages(resRating.id, images);
+      });
   }
 
   public editRating(rating: Rating) {
-    return super.sendPutRequest(this.backendUrlExt, rating);
+    let images = rating.images || [];
+    let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
+    delete ratingWithoutImages['images'];
+    return super.sendPutRequest<Rating>(this.backendUrlExt, rating)
+      .then(resRating => {
+        if(images)
+          this.imageService.postRatingImages(resRating.id, images);
+      });
   }
 
   protected prepareRequestObjectParameter(reqParameter: RatingList): HttpParams {
@@ -24,7 +39,19 @@ export class RatingService extends CommunicationRequestService<RatingList>{
   }
 
   public getMyRatings(filter: string): Promise<RatingList> {
-    return super.sendGetRequest(this.backendUrlExt, {filter: filter});
+    return super.sendGetRequest<RatingList>(this.backendUrlExt, {filter: filter}).then(ratingList => {
+      let ratings = ratingList.ratings || [];
+      ratings.forEach(rating => {
+        let labels: Label[] = [];
+        if (!rating.labels) return;
+        for (let i of rating.labels) {
+          labels.push(LABELS.find(label => label.id == i)!);
+        }
+        rating.labelList = labels;
+      });
+      ratingList.ratings = ratings;
+      return ratingList;
+    });
   }
 
 }
