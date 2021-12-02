@@ -1,7 +1,7 @@
 <div *ngIf="!edit" class="row">
   <div class="col flex-grow-0 toCorner">
-    <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
-      <ng-template *ngFor="let image of images" ngbSlide>
+    <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
+      <ng-template *ngFor="let image of _rating.images" ngbSlide>
         <div class="img-wrapper">
           <img [src]="image" alt="slide">
         </div>
@@ -56,16 +56,24 @@
 <div *ngIf="edit" class="row">
 
   <div class="col flex-grow-0 toCorner">
-    <ngb-carousel *ngIf="images" [ngClass]="{'remove-carousel-control': images.length<=0}" [interval]="0">
-      <ng-template *ngFor="let image of images" ngbSlide>
+    <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=0}" [interval]="0" #carousel="ngbCarousel">
+      <ng-template *ngFor="let image of _rating.images; let i = index" ngbSlide>
         <div class="img-wrapper">
-          <img [src]="image" alt="slide">
+          <img [src]="getImage(image)" alt="slide">
+          <button (click)="deleteImage(i)" class="btn-delete m-2" mat-icon-button>
+            <mat-icon class="mr-2 ml-2 color-red">delete</mat-icon>
+          </button>
         </div>
       </ng-template>
-      <ng-template ngbSlide>
+      <ng-template *ngIf="_rating.images.length < MAX_IMAGES" ngbSlide>
         <div class="img-wrapper">
-          <img src="assets/img/default_rate_pic.png" alt="first slide">
-          <button mat-stroked-button>{{'ratings.choosePicture' | translate}}</button>
+          <img src="assets/img/default_rate_pic.png" alt="last slide">
+          <input
+            style="display: none"
+            accept="image/*"
+            type="file" (change)="onFileChanged($event, carousel)"
+            #fileInput>
+          <button type="button" (click)="uploadImage(fileInput, carousel)" mat-stroked-button>{{'ratings.choosePicture' | translate}}</button>
         </div>
       </ng-template>
     </ngb-carousel>
@@ -78,7 +86,7 @@
           <mat-label translate>product.product</mat-label>
           <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
           <mat-autocomplete #autoProduct [displayWith]="displayFnProduct">
-            <mat-option *ngFor="let option of filteredOptionsProduct | async" [value]="option">
+            <mat-option *ngFor="let option of filteredOptionsProduct" [value]="option">
               {{option}}
             </mat-option>
           </mat-autocomplete>
@@ -98,7 +106,7 @@
             </mat-selection-list>
           </ng-template>
           <button class="m-1" mat-mini-fab color="" placement="bottom" container="body" [ngbPopover]="popContent" [autoClose]="'outside'">
-            <mat-icon>loyalty</mat-icon>
+            <mat-icon>local_offer</mat-icon>
           </button>
         </div>
 
@@ -106,7 +114,7 @@
           <mat-label translate>product.brand</mat-label>
           <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
           <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
-            <mat-option *ngFor="let option of filteredOptionsBrand | async" [value]="option">
+            <mat-option *ngFor="let option of filteredOptionsBrand" [value]="option">
               {{option}}
             </mat-option>
           </mat-autocomplete>
@@ -121,7 +129,8 @@
         <mat-form-field class="w-100 remove-underline">
           <mat-label>{{'profile.desc' | translate}}</mat-label>
           <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="12" cdkAutosizeMaxRows="12"
-                    [(ngModel)]="_rating.description" name="description"></textarea>
+                    #descr maxlength="350" [(ngModel)]="_rating.description" name="description"></textarea>
+          <mat-hint align="end">{{descr.value.length}} / 350</mat-hint>
         </mat-form-field>
       </div>
 
@@ -131,7 +140,10 @@
             <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
             <input matInput placeholder="Restaurant/bar/..."
                    [(ngModel)]="_rating.product.location!.name" name="location">
-            <mat-icon matSuffix>location_on</mat-icon> <!--Druch klicken auf icon eine map öffnen-->
+            <button (click)="openMap()" matSuffix mat-flat-button>
+              <mat-icon>location_on</mat-icon>
+            </button>
+
           </mat-form-field> <!--Wenn eine location gefunden wurde (durch vorschläge) dann soll obriges Format eingenommen werden-->
         </div>
 
@@ -144,7 +156,7 @@
         </div>
 
         <div class="row">
-          <chips-autocomplete class="w-100"></chips-autocomplete>
+          <chips-autocomplete [(type)]="_rating.types" class="w-100"></chips-autocomplete>
         </div>
 
         <ngx-stars class="row" [size]="5" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black"></ngx-stars>

@@ -24,9 +24,9 @@ export const SampleRating: Rating = {
   id: "",
   product: SampleProduct,
   stars: 3.5,
-  user: SampleUser,
   labelList: [],
   votes: 0,
-  description: 'test description'
+  description: 'test description',
+  images: [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`) //TODO: remove this
 };
 

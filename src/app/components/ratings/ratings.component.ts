@@ -4,6 +4,7 @@ import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.comp
 import {Rating} from "../../models/rating";
 import {SampleRating} from "../../services/SampleData";
 import {RatingService} from "../../services/rating.service";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-ratings',
@@ -68,7 +69,10 @@ export class RatingsComponent implements OnInit {
 
   }
 
-  changeFilter() {
-
+  changeFilter(filter: MatSelectChange) {
+    this.ratingService.getMyRatings(filter.value.split(".").pop()!).then(
+      (ratingList) => {this.ratings = ratingList.ratings!},
+      ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
+    );
   }
 }

@@ -43,8 +43,8 @@ import {NgxStarsModule} from "ngx-stars";
 import { BaseRatingComponent } from './components/common/base-rating/base-rating.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {AuthenticationService} from "./services/authentication.service";
-import {XhrInterceptor} from "./services/lib/xhr.interceptor";
-import {initApp} from "./services/initApp";
+import {XhrInterceptor} from "./providers/xhr.interceptor";
+import {initApp} from "./providers/initApp";
 import { AuthComponent } from './components/auth/auth.component';
 import { MainFrameComponent } from './components/common/main-frame/main-frame.component';
 import { AuthNavbarComponent } from './components/auth/auth-navbar/auth-navbar.component';
@@ -58,6 +58,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ChipsAutocompleteComponent } from './components/common/chips-autocomplete/chips-autocomplete.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCardModule} from "@angular/material/card";
+import { MapsDialogComponent } from './components/dialogs/maps-dialog/maps-dialog.component';
+import { ImageUploadDialogComponent } from './components/dialogs/image-upload-dialog/image-upload-dialog.component';
+import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam-dialog.component';
+import {WebcamModule} from "ngx-webcam";
+import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -81,6 +86,10 @@ import {MatCardModule} from "@angular/material/card";
     InputEmailComponent,
     InputPwdComponent,
     ChipsAutocompleteComponent,
+    MapsDialogComponent,
+    ImageUploadDialogComponent,
+    WebcamDialogComponent,
+    ConfirmationDialogComponent,
 
   ],
     imports: [
@@ -125,7 +134,8 @@ import {MatCardModule} from "@angular/material/card";
         MatExpansionModule,
         MatNativeDateModule,
         MatChipsModule,
-        MatCardModule
+        MatCardModule,
+        WebcamModule
 
     ],
   providers: [

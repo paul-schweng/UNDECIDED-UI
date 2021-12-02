@@ -1,18 +1,22 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, OnInit,ElementRef, ViewChild} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import {AutocompleteService} from "../../../services/autocomplete.service";
 
 @Component({
   selector: 'chips-autocomplete',
   templateUrl: './chips-autocomplete.component.html',
-  styleUrls: ['./chips-autocomplete.component.scss']
+  styleUrls: ['./chips-autocomplete.component.scss'],
 })
 export class ChipsAutocompleteComponent implements OnInit {
+
+  @Input('type') set value(tags: string[] | undefined){
+    this.tags = tags || [];
+  }
+  @Output('typeChange') tagsChange = new EventEmitter<string[]>();
+
+  @Input('maxTags') MAX_TAGS: number = 5;
 
   selectable = true;
   removable = true;
@@ -25,28 +29,31 @@ export class ChipsAutocompleteComponent implements OnInit {
   @ViewChild('tagsInput') tagsInput!: ElementRef<HTMLInputElement>;
 
   constructor(private readonly autocompleteService: AutocompleteService) {
-    this.tagsCtrl.valueChanges.subscribe( input =>
-      autocompleteService.getTags(input.toLowerCase())
-        .then(tags => {
-          let lowerCaseTags = tags.slice().map(tag => tag.toLowerCase());
+    this.tagsCtrl.valueChanges.subscribe( input => {
+      if(input)
+        autocompleteService.getTags(input.toLowerCase())
+          .then(tags => {
+              let lowerCaseTags = tags.slice().map(tag => tag.toLowerCase());
 
-          this.tags.forEach(tag => {
-            let i = lowerCaseTags.indexOf(tag.toLowerCase());
+              this.tags.forEach(tag => {
+                let i = lowerCaseTags.indexOf(tag.toLowerCase());
 
-            if (i !== -1) tags.splice(i,1);
-          })
-          this.filteredTags = tags;
-        },()=>{ //TODO:Delete This
-          let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
+                if (i !== -1) tags.splice(i,1);
+              })
+              this.filteredTags = tags;
+            },
+            //TODO:Delete This
+            ()=>{
+              let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
 
-          this.tags.forEach(tag => {
-            let i = lowerCaseTags.indexOf(tag.toLowerCase());
+              this.tags.forEach(tag => {
+                let i = lowerCaseTags.indexOf(tag.toLowerCase());
 
-            if (i !== -1) this.allTags.splice(i,1);
-          })
-          this.filteredTags = this.allTags;
-        })
-    );
+                if (i !== -1) this.allTags.splice(i,1);
+              })
+              this.filteredTags = this.allTags;
+            })
+    });
   }
 
 
@@ -57,13 +64,9 @@ export class ChipsAutocompleteComponent implements OnInit {
     let lowerCaseTags = this.tags.slice().map(tag => tag.toLowerCase());
 
     // Add our tags
-    if (value && !lowerCaseTags.includes(value.toLowerCase()) && this.tags.length<5) {
+    if (value && !lowerCaseTags.includes(value.toLowerCase()) && this.tags.length < this.MAX_TAGS) {
       this.tags.push(value);
-      this.tags.forEach(tag => {
-        let i = this.allTags.indexOf(tag);
-
-        if (i !== -1) this.allTags.splice(i,1);
-      })
+      this.tagsChange.emit(this.tags);
     }
 
     // Clear the input value
@@ -80,6 +83,7 @@ export class ChipsAutocompleteComponent implements OnInit {
 
     if (index >= 0) {
       this.tags.splice(index, 1);
+      this.tagsChange.emit(this.tags);
     }
   }
 
