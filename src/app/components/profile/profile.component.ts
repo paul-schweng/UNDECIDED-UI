@@ -28,8 +28,5 @@ export class ProfileComponent implements OnInit {
       this.edit = (val as NavigationEnd).url?.includes('edit');
     });
   }
-
   edit: boolean = false;
-
-
 }

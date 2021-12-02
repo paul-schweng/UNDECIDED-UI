@@ -10,7 +10,7 @@ export class UserService extends CommunicationRequestService<User>{
   protected readonly backendUrlExt = 'user';
 
   public changeEmail(currentEmail: string, newEmail: string): Promise<User> {
-    return super.sendPostRequest(this.backendUrlExt + '/email', {current: currentEmail, new: newEmail});
+    return super.sendPutRequest(this.backendUrlExt + '/email', {current: currentEmail, new: newEmail});
   }
 
 
