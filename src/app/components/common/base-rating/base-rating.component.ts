@@ -23,6 +23,7 @@ export class BaseRatingComponent implements OnInit {
 
   _rating!: Rating;
   readonly MAX_IMAGES: number = 5;
+  private readonly TIMEOUT_AUTOCOMPLETE: number = 800;
 
   @Input() set rating(rating: Rating){
     this._rating = rating;
@@ -32,14 +33,36 @@ export class BaseRatingComponent implements OnInit {
   constructor(private autocompleteService: AutocompleteService,
               public dialog: MatDialog) {
 
-    this.productControl.valueChanges.subscribe(input =>
-      autocompleteService.getProduct(input.toLowerCase())
-        .then(tags => this.filteredOptionsProduct = tags)
-    );
-    this.brandControl.valueChanges.subscribe(input =>
-      autocompleteService.getBrand(input.toLowerCase())
-        .then(tags => this.filteredOptionsBrand = tags)
-    );
+    let timeoutProduct: number;
+    let timeoutBrand: number;
+
+    /*
+    On new user input:
+    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds.
+    A new timeout (service call) is ONLY created IF the old timeout is finished!
+
+    In other words: If the user keeps typing the backend is called every TIMEOUT_AUTOCOMPLETE ms.
+    */
+    this.productControl.valueChanges.subscribe(input => {
+      input = input.trim();
+      if (!timeoutProduct && input)
+        timeoutProduct = setTimeout(() => {
+            this.autocompleteService.getProduct(input.toLowerCase())
+              .then(tags => this.filteredOptionsProduct = tags)
+          timeoutProduct = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+    });
+
+    this.brandControl.valueChanges.subscribe(input => {
+      input = input.trim();
+      if (!timeoutBrand && input)
+        timeoutBrand = setTimeout(() => {
+            this.autocompleteService.getBrand(input.toLowerCase())
+              .then(tags => this.filteredOptionsBrand = tags);
+          timeoutBrand = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+    });
+
     /*
     this.locationControl.valueChanges.subscribe(input =>
       autocompleteService.getTags(input.toLowerCase())
@@ -47,6 +70,7 @@ export class BaseRatingComponent implements OnInit {
     );
      */
   }
+
 
 
   productControl = new FormControl();
