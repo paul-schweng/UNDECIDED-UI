@@ -1,16 +1,12 @@
-import {GeoLocation} from "./location";
+import {Label} from "./label";
 
 export interface Product {
   id?: string,
   name: string,
-  location?: GeoLocation,
-  type?: string[],
-  labels?: Label[]
-  brand?: string
+  types?: string[],
+  labelList?: Label[],
+  labels?: number[],
+  brand?: string,
+  avgStars?: number
 }
 
-export interface Label {
-  en: string,
-  de: string,
-  icon: string
-}

@@ -1,15 +1,31 @@
 import { Injectable } from '@angular/core';
 import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
-import {Rating, RatingList} from "../models/rating";
+import {Rating} from "../models/rating";
 import {LABELS} from "../models/label";
 import {SampleProduct} from "./SampleData";
+import {Converter} from "./converter";
 
 @Injectable({
   providedIn: 'root'
 })
-export class RatingService extends CommunicationRequestService<RatingList>{
+export class RatingService extends CommunicationRequestService<any>{
   protected readonly backendUrlExt = 'rating';
+
+  protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
+    if(reqParameter.filter)
+      return new HttpParams().set('filter', reqParameter.filter);
+    if(reqParameter.id)
+      return new HttpParams().set('id', reqParameter.id);
+    return new HttpParams();
+  }
+
+  public getRating(id: string): Promise<Rating> {
+    return super.sendGetRequest<Rating>(this.backendUrlExt, {id: id})
+      .then(rating => {
+        return Converter.convertLabel<Rating>(rating);
+      });
+  }
 
   public postRating(rating: Rating){
     let images = rating.images || [];
@@ -41,22 +57,11 @@ export class RatingService extends CommunicationRequestService<RatingList>{
       });
   }
 
-  protected prepareRequestObjectParameter(reqParameter: RatingList): HttpParams {
-    if(reqParameter.filter)
-      return new HttpParams().set('filter', reqParameter.filter);
-    return new HttpParams();
-  }
+
 
   public getMyRatings(filter: string): Promise<Rating[]> {
     return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter}).then(ratingList => {
-      //convert label numbers to actual labels
-      let ratings = ratingList || [];
-      ratings.forEach(rating => {
-        rating.labelList = rating.labels?.flatMap(i => LABELS.find(label => label.id == i) || [] );
-        rating.labelList?.sort((label1,label2) => label1.id - label2.id);
-        delete rating['labels'];
-      });
-      return ratings;
+        return Converter.convertLabel(ratingList);
     }, //TODO: delete this mockdata from here
       () => {
       let ratingList: Rating[] = [{

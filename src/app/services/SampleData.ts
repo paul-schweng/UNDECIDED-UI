@@ -18,7 +18,12 @@ export const SampleUser: User = {
 }
 
 export const SampleProduct: Product = {
-  id: "", name: "SampleProduct", type: ["Drink"], brand: "Coco Cola"
+  id: "",
+  name: "SampleProduct",
+  types: ["Drink"],
+  brand: "Coco Cola",
+  labels: [1,69,3],
+  avgStars: 5
 }
 
 export const SampleRating: Rating = {
@@ -35,9 +40,8 @@ export const EmptyProduct: Product = {
   brand: "",
   id: "",
   labels: [],
-  location: undefined,
   name: "",
-  type: []
+  types: []
 }
 
 export const EmptyLocation: GeoLocation = {

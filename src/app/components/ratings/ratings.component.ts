@@ -7,6 +7,7 @@ import {RatingService} from "../../services/rating.service";
 import {MatSelectChange} from "@angular/material/select";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {clone} from "../../services/clone";
 
 @Component({
   selector: 'app-ratings',
@@ -18,80 +19,92 @@ export class RatingsComponent implements OnInit, OnDestroy {
   ratings: Rating[] = [];
   private editedRatings: Rating[] = [];
   filters: string[] = ["ratings.filters.latest", "ratings.filters.highest", "ratings.filters.worst", "ratings.filters.likes", "ratings.filters.comments"];
-  private routeQueryParams$: Subscription;
+  private routeQueryParams$!: Subscription;
 
   constructor(public dialog: MatDialog,
               private readonly ratingService: RatingService,
               private route: ActivatedRoute,
               private router: Router) {
-    this.routeQueryParams$ = route.queryParams.subscribe(params => {
-      if (params['id'])
-        this.openRatingDialog(params['id']);
-      else
-        this.router.navigate(['.'], {relativeTo: this.route});
-    });
   }
 
   ngOnInit(): void {
-   this.changeFilter();
+   this.changeFilter()
+     .then( () => {
+
+       this.routeQueryParams$ = this.route.queryParams.subscribe(params => {
+
+         this.getRating(params['id']).then(
+           rating => this.openRatingDialog(rating),
+           () => this.router.navigate(['.'], {relativeTo: this.route})
+           );
+
+       });
+
+     });
   }
 
-  private openRatingDialog(id: string) {
+  private async getRating(id?: string): Promise<Rating> {
+
+    if(!id)
+      throw null;
 
     let rating: Rating | undefined = this.editedRatings.filter(r => r.id === id).pop();
 
-    console.log(rating);
+    console.log('found edited rating?', rating);
 
     if(!rating && id !== "-1"){
-      let r = this.ratings.filter(r => r.id === id).pop();
-      console.log(r);
+      let r = this.ratings.filter(r => r.id == id).pop();
       if(r){
-        this.editedRatings.push(r);
+        this.editedRatings.push(clone(r));
         rating = this.editedRatings[this.editedRatings.length-1];
       }
     }
 
     if (id == "-1" && !rating) {
-      //TODO: uncomment
-      rating = EmptyRating;
+      rating = clone(EmptyRating);
       //rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
       rating.id = id;
       this.editedRatings.push(rating);
     }
 
-    if(!rating){
-      this.router.navigate(['.'], {relativeTo: this.route});
-      return;
-    }
+    console.log('finally found rating?', rating);
 
+    if(!rating)
+      return await this.ratingService.getRating(id).then(
+        r => {return r},
+        () => {throw null;}
+      );
+    else
+      return rating;
 
-    const frontDialog = this.dialog.open(RatingDialogComponent, {
+  }
+
+  private openRatingDialog(rating: Rating) {
+    const ratingDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
       data: {rating: rating, editable: true},
       autoFocus: false
     });
 
-    frontDialog.afterClosed().subscribe((result)=> {
-      console.log(rating);
-      console.log(this.editedRatings);
-      console.log(this.ratings);
+    ratingDialog.afterClosed().subscribe((result) => {
+      console.log('rating', rating);
+      console.log('edited ratings', this.editedRatings);
+      console.log('ratings', this.ratings);
+      console.log('action:', result);
 
       // if buttons are used to close dialog:
       if (rating && result) {
-        this.editedRatings.splice(this.editedRatings.indexOf(rating), 1)
+        this.editedRatings.splice(this.editedRatings.indexOf(rating), 1);
+        console.log('edited ratings after delete', this.editedRatings);
       }
+
       this.router.navigate(['.'], {relativeTo: this.route});
-
-      console.log(result);
     });
-
-
-
   }
 
   changeFilter(filter?: MatSelectChange) {
     let value = filter?.value || this.filters[0];
-    this.ratingService.getMyRatings(value.split(".").pop()!).then(
+    return this.ratingService.getMyRatings(value.split(".").pop()!).then(
       (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
     );
@@ -100,4 +113,5 @@ export class RatingsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.routeQueryParams$.unsubscribe();
   }
+
 }

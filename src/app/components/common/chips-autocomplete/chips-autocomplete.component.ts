@@ -45,7 +45,7 @@ export class ChipsAutocompleteComponent implements OnInit {
       input = input.trim();
       if (!timeout && input)
         timeout = setTimeout(() => {
-            autocompleteService.getTags(input.toLowerCase())
+            autocompleteService.getType(input.toLowerCase())
               .then(tags => {
                   let lowerCaseTags = tags.slice().map(tag => tag.toLowerCase());
 
@@ -55,9 +55,9 @@ export class ChipsAutocompleteComponent implements OnInit {
                     if (i !== -1) tags.splice(i, 1);
                   })
                   this.filteredTags = tags;
-                },
+                }
                 //TODO:Delete This
-                () => {
+                ,() => {
                   let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
 
                   this.tags.forEach(tag => {
@@ -92,7 +92,7 @@ export class ChipsAutocompleteComponent implements OnInit {
     else
       this.tagsInput.nativeElement.value = '';
 
-    this.tagsCtrl.setValue(null);
+    this.tagsCtrl.setValue('');
   }
 
   remove(tags: string): void {
