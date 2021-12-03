@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
-import {SampleRating} from "../../services/SampleData";
+import {EmptyRating, SampleRating} from "../../services/SampleData";
 import {RatingService} from "../../services/rating.service";
 import {MatSelectChange} from "@angular/material/select";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -33,10 +33,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.ratingService.getMyRatings(this.filters[0].split(".").pop()!).then(
-      (ratingList) => {this.ratings = ratingList},
-      ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
-    );
+   this.changeFilter();
   }
 
   private openRatingDialog(id: string) {
@@ -47,16 +44,17 @@ export class RatingsComponent implements OnInit, OnDestroy {
 
     if(!rating && id !== "-1"){
       let r = this.ratings.filter(r => r.id === id).pop();
+      console.log(r);
       if(r){
-        this.editedRatings.push();
+        this.editedRatings.push(r);
         rating = this.editedRatings[this.editedRatings.length-1];
       }
     }
 
     if (id == "-1" && !rating) {
       //TODO: uncomment
-      //rating = {} as Rating;
-      rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
+      rating = EmptyRating;
+      //rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
       rating.id = id;
       this.editedRatings.push(rating);
     }
@@ -91,8 +89,9 @@ export class RatingsComponent implements OnInit, OnDestroy {
 
   }
 
-  changeFilter(filter: MatSelectChange) {
-    this.ratingService.getMyRatings(filter.value.split(".").pop()!).then(
+  changeFilter(filter?: MatSelectChange) {
+    let value = filter?.value || this.filters[0];
+    this.ratingService.getMyRatings(value.split(".").pop()!).then(
       (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
     );

@@ -1,6 +1,7 @@
 import {User} from "../models/user";
 import {Product} from "../models/product";
 import {Rating} from "../models/rating";
+import {GeoLocation} from "../models/location";
 
 
 export const SampleUser: User = {
@@ -25,8 +26,33 @@ export const SampleRating: Rating = {
   product: SampleProduct,
   stars: 3.5,
   labelList: [],
-  votes: 0,
+  voteNum: 0,
   description: 'test description',
   images: [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`) //TODO: remove this
 };
+
+export const EmptyProduct: Product = {
+  brand: "",
+  id: "",
+  labels: [],
+  location: undefined,
+  name: "",
+  type: []
+}
+
+export const EmptyLocation: GeoLocation = {
+  name: ""
+}
+
+export const EmptyRating: Rating = {
+  description: "",
+  friends: [],
+  id: "",
+  images: [],
+  labelList: [],
+  location: EmptyLocation,
+  product: EmptyProduct,
+  stars: 0,
+  types: [],
+}
 
