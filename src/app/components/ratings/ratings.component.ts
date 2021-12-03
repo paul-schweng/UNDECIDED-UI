@@ -1,24 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
 import {SampleRating} from "../../services/SampleData";
 import {RatingService} from "../../services/rating.service";
 import {MatSelectChange} from "@angular/material/select";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-ratings',
   templateUrl: './ratings.component.html',
   styleUrls: ['./ratings.component.scss']
 })
-export class RatingsComponent implements OnInit {
+export class RatingsComponent implements OnInit, OnDestroy {
 
   ratings: Rating[] = [];
   private editedRatings: Rating[] = [];
   filters: string[] = ["ratings.filters.latest", "ratings.filters.highest", "ratings.filters.worst", "ratings.filters.likes", "ratings.filters.comments"];
+  private routeQueryParams$: Subscription;
 
   constructor(public dialog: MatDialog,
-              private readonly ratingService: RatingService) { }
+              private readonly ratingService: RatingService,
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.routeQueryParams$ = route.queryParams.subscribe(params => {
+      if (params['id'])
+        this.openRatingDialog(params['id']);
+      else
+        this.router.navigate(['.'], {relativeTo: this.route});
+    });
+  }
 
   ngOnInit(): void {
     this.ratingService.getMyRatings(this.filters[0].split(".").pop()!).then(
@@ -27,15 +39,18 @@ export class RatingsComponent implements OnInit {
     );
   }
 
-  openRatingDialog(id: string = "-1") {
+  private openRatingDialog(id: string) {
 
     let rating: Rating | undefined = this.editedRatings.filter(r => r.id === id).pop();
 
     console.log(rating);
 
     if(!rating && id !== "-1"){
-      this.editedRatings.push(this.ratings.filter(r => r.id === id).pop()!);
-      rating = this.editedRatings[this.editedRatings.length-1];
+      let r = this.ratings.filter(r => r.id === id).pop();
+      if(r){
+        this.editedRatings.push();
+        rating = this.editedRatings[this.editedRatings.length-1];
+      }
     }
 
     if (id == "-1" && !rating) {
@@ -45,6 +60,12 @@ export class RatingsComponent implements OnInit {
       rating.id = id;
       this.editedRatings.push(rating);
     }
+
+    if(!rating){
+      this.router.navigate(['.'], {relativeTo: this.route});
+      return;
+    }
+
 
     const frontDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
@@ -61,6 +82,7 @@ export class RatingsComponent implements OnInit {
       if (rating && result) {
         this.editedRatings.splice(this.editedRatings.indexOf(rating), 1)
       }
+      this.router.navigate(['.'], {relativeTo: this.route});
 
       console.log(result);
     });
@@ -74,5 +96,9 @@ export class RatingsComponent implements OnInit {
       (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
     );
+  }
+
+  ngOnDestroy(): void {
+    this.routeQueryParams$.unsubscribe();
   }
 }
