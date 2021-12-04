@@ -15,7 +15,8 @@
   "dialog": {
     "delete": {
       "header": "Confirm delete",
-      "content": "Do you really want to delete this picture?"
+      "image": "Do you really want to delete this picture?",
+      "rating": "Do you really want to delete this rating?"
     }
   },
   "uploadImage": {

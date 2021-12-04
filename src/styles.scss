@@ -121,6 +121,12 @@ a:hover{
   background: rgb(68, 0, 0);
 }
 
+.dialogFullSize {
+  mat-dialog-container {
+    padding: 0;
+  }
+}
+
 
 
 

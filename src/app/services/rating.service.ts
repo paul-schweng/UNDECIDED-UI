@@ -83,4 +83,7 @@ export class RatingService extends CommunicationRequestService<any>{
     );
   }
 
+  deleteRating(id: string): Promise<Rating> {
+    return super.sendDeleteRequest(this.backendUrlExt, {id: id});
+  }
 }

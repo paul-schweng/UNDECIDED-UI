@@ -1,8 +1,22 @@
-<busy-div [busy]="isBusy">
+<busy-div [busy]="isBusy" class="w-100">
   <base-rating [rating]="data.rating" (valid)="valid = $event" [edit]="data.editable"></base-rating>
-  <div *ngIf="data.editable" class="rate-buttons">
-    <button mat-dialog-close="cancel" mat-raised-button>{{'basics.cancel' | translate}}</button>
-    <button (click)="postClicked()" [disabled]="!isValid()" color="accent" mat-raised-button class="float-right">{{(data.rating.id == -1 ? 'ratings.post' : 'ratings.edit') | translate}}</button>
+  <div *ngIf="data.editable" class="w-100 d-flex padding" [class.justify-content-between]="data.rating.id != -1" [class.justify-content-end]="data.rating.id == -1">
+
+    <div *ngIf="data.rating.id != -1">
+      <button (click)="deleteClicked()" color="warn" mat-raised-button>
+        {{'basics.delete' | translate}}
+      </button>
+    </div>
+
+    <div>
+      <button mat-dialog-close="cancel" mat-raised-button>
+        {{'basics.cancel' | translate}}
+      </button>
+      <button (click)="postClicked()" [disabled]="!isValid()" color="accent" mat-raised-button class="float-right ml-4">
+        {{(data.rating.id == -1 ? 'ratings.post' : 'ratings.edit') | translate}}
+      </button>
+    </div>
+
   </div>
 </busy-div>
 

@@ -83,7 +83,8 @@ export class RatingsComponent implements OnInit, OnDestroy {
     const ratingDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
       data: {rating: rating, editable: true},
-      autoFocus: false
+      autoFocus: false,
+      panelClass: 'dialogFullSize'
     });
 
     ratingDialog.afterClosed().subscribe((result) => {
@@ -96,6 +97,9 @@ export class RatingsComponent implements OnInit, OnDestroy {
       if (rating && result) {
         this.editedRatings.splice(this.editedRatings.indexOf(rating), 1);
         console.log('edited ratings after delete', this.editedRatings);
+
+        if(result == 'delete')
+          this.ratings.splice(this.ratings.indexOf(rating), 1);
       }
 
       this.router.navigate(['.'], {relativeTo: this.route});
