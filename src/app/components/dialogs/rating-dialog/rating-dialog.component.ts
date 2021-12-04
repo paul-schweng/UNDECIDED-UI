@@ -12,7 +12,7 @@ import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-d
 })
 export class RatingDialogComponent implements OnInit {
 
-  isBusy: boolean = true;
+  isBusy: boolean = false;
   valid: boolean = false;
   clonedRating: Rating;
 
