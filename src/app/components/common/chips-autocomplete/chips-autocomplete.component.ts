@@ -25,34 +25,51 @@ export class ChipsAutocompleteComponent implements OnInit {
   filteredTags: string[] = [];
   tags: string[] = [];
   allTags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  private readonly TIMEOUT_AUTOCOMPLETE: number = 800;
 
   @ViewChild('tagsInput') tagsInput!: ElementRef<HTMLInputElement>;
 
   constructor(private readonly autocompleteService: AutocompleteService) {
+
+    let timeout: number;
+
+    /*
+    On new user input:
+    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds.
+    A new timeout (service call) is ONLY created IF the old timeout is finished!
+
+    In other words: If the user keeps typing the backend is called every TIMEOUT_AUTOCOMPLETE ms.
+    */
     this.tagsCtrl.valueChanges.subscribe( input => {
-      if(input)
-        autocompleteService.getTags(input.toLowerCase())
-          .then(tags => {
-              let lowerCaseTags = tags.slice().map(tag => tag.toLowerCase());
 
-              this.tags.forEach(tag => {
-                let i = lowerCaseTags.indexOf(tag.toLowerCase());
+      input = input.trim();
+      if (!timeout && input)
+        timeout = setTimeout(() => {
+            autocompleteService.getType(input.toLowerCase())
+              .then(tags => {
+                  let lowerCaseTags = tags.slice().map(tag => tag.toLowerCase());
 
-                if (i !== -1) tags.splice(i,1);
-              })
-              this.filteredTags = tags;
-            },
-            //TODO:Delete This
-            ()=>{
-              let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
+                  this.tags.forEach(tag => {
+                    let i = lowerCaseTags.indexOf(tag.toLowerCase());
 
-              this.tags.forEach(tag => {
-                let i = lowerCaseTags.indexOf(tag.toLowerCase());
+                    if (i !== -1) tags.splice(i, 1);
+                  })
+                  this.filteredTags = tags;
+                }
+                //TODO:Delete This
+                ,() => {
+                  let lowerCaseTags = this.allTags.slice().map(tag => tag.toLowerCase());
 
-                if (i !== -1) this.allTags.splice(i,1);
-              })
-              this.filteredTags = this.allTags;
-            })
+                  this.tags.forEach(tag => {
+                    let i = lowerCaseTags.indexOf(tag.toLowerCase());
+
+                    if (i !== -1) this.allTags.splice(i, 1);
+                  })
+                  this.filteredTags = this.allTags;
+                });
+            timeout = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+
     });
   }
 
@@ -75,7 +92,7 @@ export class ChipsAutocompleteComponent implements OnInit {
     else
       this.tagsInput.nativeElement.value = '';
 
-    this.tagsCtrl.setValue(null);
+    this.tagsCtrl.setValue('');
   }
 
   remove(tags: string): void {

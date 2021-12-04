@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center m-4">
-  <button (click)="openRatingDialog()" mat-fab color="">
+  <button routerLink="./" [queryParams]="{id: -1}" mat-fab color="">
     <mat-icon>add</mat-icon>
   </button>
 </div>
@@ -14,7 +14,7 @@
 </mat-form-field>
 
 <div *ngIf="ratings">
-  <mat-card *ngFor="let rating of ratings" (click)="openRatingDialog(rating.id)">
+  <mat-card *ngFor="let rating of ratings" routerLink="./" [queryParams]="{id: rating.id}">
     <img *ngIf="rating.images && rating.images.length > 0" mat-card-image [src]="'/api/img/rating/' + rating.images[0]" alt="rating">
     <img *ngIf="!rating.images || rating.images.length == 0" mat-card-image src="/assets/img/defaultImage.webp" alt="default">
     <div>

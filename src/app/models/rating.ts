@@ -13,13 +13,15 @@ export interface Rating {
   timestamp?: Date,
   images?: any[],
   product: Product,
-  votes?: number | Vote[],
+  votes?: Vote[],
+  voteNum?: number,
   friends?: User[],
   types?: string[],
   location?: GeoLocation,
   labels?: number[],
   labelList?: Label[],
-  comments?: number | Comment[]
+  comments?: Comment[],
+  commentNum?: number
 }
 
 export interface RatingList{

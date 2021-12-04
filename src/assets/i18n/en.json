@@ -35,6 +35,7 @@
     "addTags": "Add tags",
     "newTags": "New tags...",
     "post": "Post it!",
+    "edit": "Edit",
     "filters": {
       "latest": "latest ratings",
       "highest": "highest ratings",

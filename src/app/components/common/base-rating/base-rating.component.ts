@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Rating} from "../../../models/rating";
 import {FormControl} from "@angular/forms";
 
@@ -12,6 +12,9 @@ import {NgbCarousel} from "@ng-bootstrap/ng-bootstrap";
 import {ImageUploadDialogComponent} from "../../dialogs/image-upload-dialog/image-upload-dialog.component";
 import {WebcamImage} from "ngx-webcam";
 import {ConfirmationDialogComponent} from "../../dialogs/confirmation-dialog/confirmation-dialog.component";
+import {Product} from "../../../models/product";
+import {NgxStarsComponent} from "ngx-stars";
+import {clone} from "../../../services/clone";
 
 
 @Component({
@@ -23,23 +26,53 @@ export class BaseRatingComponent implements OnInit {
 
   _rating!: Rating;
   readonly MAX_IMAGES: number = 5;
+  private readonly TIMEOUT_AUTOCOMPLETE: number = 800;
 
   @Input() set rating(rating: Rating){
     this._rating = rating;
+    this.productControl.setValue(this._rating.product);
   }
   @Input() edit: boolean = false;
+  @ViewChild('stars') starsInput!: NgxStarsComponent;
+  @Output() valid = new EventEmitter<boolean>();
+
 
   constructor(private autocompleteService: AutocompleteService,
               public dialog: MatDialog) {
 
-    this.productControl.valueChanges.subscribe(input =>
-      autocompleteService.getProduct(input.toLowerCase())
-        .then(tags => this.filteredOptionsProduct = tags)
-    );
-    this.brandControl.valueChanges.subscribe(input =>
-      autocompleteService.getBrand(input.toLowerCase())
-        .then(tags => this.filteredOptionsBrand = tags)
-    );
+    let timeoutProduct: number;
+    let timeoutBrand: number;
+
+    /*
+    On new user input:
+    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds.
+    A new timeout (service call) is ONLY created IF the old timeout is finished!
+
+    In other words: If the user keeps typing the backend is called every TIMEOUT_AUTOCOMPLETE ms.
+    */
+    this.productControl.valueChanges.subscribe(input => {
+      if(typeof input != 'string')
+        return;
+
+      input = input.trim();
+      if (!timeoutProduct && input)
+        timeoutProduct = setTimeout(() => {
+            this.autocompleteService.getProduct(input.toLowerCase())
+              .then(products => this.filteredOptionsProduct = products);
+          timeoutProduct = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+    });
+
+    this.brandControl.valueChanges.subscribe(input => {
+      input = input.trim();
+      if (!timeoutBrand && input)
+        timeoutBrand = setTimeout(() => {
+            this.autocompleteService.getBrand(input.toLowerCase())
+              .then(tags => this.filteredOptionsBrand = tags);
+          timeoutBrand = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+    });
+
     /*
     this.locationControl.valueChanges.subscribe(input =>
       autocompleteService.getTags(input.toLowerCase())
@@ -54,17 +87,34 @@ export class BaseRatingComponent implements OnInit {
   locationControl = new FormControl();
   productOptions: string[] = ['Fanta', 'Sprite'];
   brandOptions: string[] = ['Nike', 'Samsung'];
-  filteredOptionsProduct: string[] = [];
+  filteredOptionsProduct: Product[] = [];
   filteredOptionsBrand: string[] = [];
-  filteredOptionsLocation: string[] = [];
+  filteredOptionsLocation: Location[] = [];
   LABELS: Label[] = LABELS.slice();
 
   ngOnInit() {
+    this.valid.emit(this.productControl.value.name);
+    if (!this._rating.location) this._rating.location = {} as GeoLocation;
 
-    if (!this._rating.product.location) this._rating.product.location = {} as GeoLocation;
+    this.productControl.valueChanges.subscribe(change => {
+      console.log("heeereeee")
+      this.valid.emit(this.productControl.valid);
+      if(typeof change == 'string')
+        this._rating.product.name = change;
+      else {
+        this._rating.product = clone(change);
 
-    this.productControl.valueChanges.subscribe(change => this._rating.product.name = change);
-    this.brandControl.valueChanges.subscribe(change => this._rating.product.brand = change);
+        this._rating.labelList = this._rating.product.labelList;
+        this._rating.types = this._rating.product.types;
+        this.brandControl.setValue(this._rating.product.brand);
+
+        this._rating.stars = this._rating.product.avgStars!;
+        this.starsInput.setRating(this._rating.product.avgStars!);
+
+      }
+
+    });
+    //this.brandControl.valueChanges.subscribe(change => this._rating.product.brand = change);
 
     /*
     this.filteredOptionsProduct = this.productControl.valueChanges.pipe(
@@ -83,8 +133,8 @@ export class BaseRatingComponent implements OnInit {
 
   }
 
-  displayFnProduct = (product: string) => {
-    return product ? product : (this._rating.product.name || '');
+  displayFnProduct = (product: Product) => {
+    return product ? product.name : (this._rating.product.name || '');
   };
 
   displayFnBrand = (brand: string) => {

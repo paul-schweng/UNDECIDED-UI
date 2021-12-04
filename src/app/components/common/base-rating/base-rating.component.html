@@ -31,8 +31,8 @@
 <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
             <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
           </span>
-          <mat-icon *ngIf="_rating.product.location?.name">location_on</mat-icon>
-          <mat-icon *ngIf="!_rating.product.location?.name">location_off</mat-icon>
+          <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
+          <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>
         </div>
 
         <div class="row">
@@ -86,8 +86,8 @@
           <mat-label translate>product.product</mat-label>
           <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
           <mat-autocomplete #autoProduct [displayWith]="displayFnProduct">
-            <mat-option *ngFor="let option of filteredOptionsProduct" [value]="option">
-              {{option}}
+            <mat-option *ngFor="let product of filteredOptionsProduct" [value]="product">
+              {{product.name}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -139,7 +139,7 @@
           <mat-form-field>
             <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
             <input matInput placeholder="Restaurant/bar/..."
-                   [(ngModel)]="_rating.product.location!.name" name="location">
+                   [(ngModel)]="_rating.location!.name" name="location">
             <button (click)="openMap()" matSuffix mat-flat-button>
               <mat-icon>location_on</mat-icon>
             </button>
@@ -159,7 +159,7 @@
           <chips-autocomplete [(type)]="_rating.types" class="w-100"></chips-autocomplete>
         </div>
 
-        <ngx-stars class="row" [size]="5" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black"></ngx-stars>
+        <ngx-stars class="row" [size]="5" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black" #stars></ngx-stars>
       </div>
     </div>
   </div>
