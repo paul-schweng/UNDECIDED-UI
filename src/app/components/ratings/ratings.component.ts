@@ -82,6 +82,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
   private openRatingDialog(rating: Rating) {
     const ratingDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
+      maxWidth: '',
       data: {rating: rating, editable: true},
       autoFocus: false
     });

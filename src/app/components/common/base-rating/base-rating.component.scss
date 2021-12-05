@@ -59,11 +59,6 @@
   border-radius: 10px;
 }
 
-.toCorner{
-  top: -25px;
-  left: -25px;
-}
-
 .isSelected{
   background-color: #ccc;
 }
@@ -80,4 +75,8 @@
   ::ng-deep .carousel-control-next, ::ng-deep .carousel-control-prev, ::ng-deep .carousel-indicators {
     display: none;
   }
+}
+
+.row{
+  margin: unset;
 }

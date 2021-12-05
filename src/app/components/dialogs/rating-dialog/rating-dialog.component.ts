@@ -15,12 +15,12 @@ export class RatingDialogComponent implements OnInit {
   valid: boolean = false;
   clonedRating: Rating;
 
+
   constructor(public dialogRef: MatDialogRef<RatingDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private readonly ratingService: RatingService) {
     this.clonedRating = clone(data.rating);
   }
-
 
   postClicked(): void {
     this.isBusy = true;
@@ -33,8 +33,6 @@ export class RatingDialogComponent implements OnInit {
       this.ratingService.editRating(this.data.rating)
         .then(() => this.dialogRef.close('post'))
         .finally(() => this.isBusy = false);
-
-
   }
 
   ngOnInit(): void {
