@@ -71,13 +71,8 @@ export class RatingService extends CommunicationRequestService<any>{
         labels: [0,4,8,2],
         images: []
       }]
-      //convert label numbers to actual labels
       let ratings = ratingList || [];
-      ratings.forEach(rating => {
-        rating.labelList = rating.labels?.flatMap(i => LABELS.find(label => label.id == i) || [] );
-        rating.labelList?.sort((label1,label2) => label1.id - label2.id);
-        delete rating['labels'];
-      });
+      ratings.forEach( rating => Converter.convertLabel(rating) );
       return ratings;
     } //until here
     );

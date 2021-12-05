@@ -133,11 +133,11 @@ export class BaseRatingComponent implements OnInit {
   }
 
   displayFnProduct = (product: Product) => {
-    return product ? product.name : (this._rating.product.name || '');
+    return product ? product.name : (this._rating.product.name ?? '');
   };
 
   displayFnBrand = (brand: string) => {
-    return brand ? brand : (this._rating.product.brand || '');
+    return brand ? brand : (this._rating.product.brand ?? '');
   }
 
   private _filterProduct(name: string): string[] {
