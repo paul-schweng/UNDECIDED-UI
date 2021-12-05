@@ -85,7 +85,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
       maxWidth: '',
       data: {rating: rating, editable: true},
       autoFocus: false,
-      panelClass: 'dialogFullSize'
+
     });
 
     ratingDialog.afterClosed().subscribe((result) => {
