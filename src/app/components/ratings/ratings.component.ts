@@ -107,7 +107,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
   }
 
   changeFilter(filter?: MatSelectChange) {
-    let value = filter?.value || this.filters[0];
+    let value = filter?.value ?? this.filters[0];
     return this.ratingService.getMyRatings(value.split(".").pop()!).then(
       (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
