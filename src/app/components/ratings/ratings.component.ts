@@ -84,7 +84,8 @@ export class RatingsComponent implements OnInit, OnDestroy {
       width: '90%',
       maxWidth: '',
       data: {rating: rating, editable: true},
-      autoFocus: false
+      autoFocus: false,
+      panelClass: 'dialogFullSize'
     });
 
     ratingDialog.afterClosed().subscribe((result) => {
@@ -97,6 +98,9 @@ export class RatingsComponent implements OnInit, OnDestroy {
       if (rating && result) {
         this.editedRatings.splice(this.editedRatings.indexOf(rating), 1);
         console.log('edited ratings after delete', this.editedRatings);
+
+        if(result == 'delete')
+          this.ratings.splice(this.ratings.indexOf(rating), 1);
       }
 
       this.router.navigate(['.'], {relativeTo: this.route});
@@ -104,7 +108,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
   }
 
   changeFilter(filter?: MatSelectChange) {
-    let value = filter?.value || this.filters[0];
+    let value = filter?.value ?? this.filters[0];
     return this.ratingService.getMyRatings(value.split(".").pop()!).then(
       (ratingList) => {this.ratings = ratingList},
       ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating

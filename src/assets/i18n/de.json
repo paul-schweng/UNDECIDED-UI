@@ -15,7 +15,8 @@
   "dialog": {
     "delete": {
       "header": "Löschen bestätigen",
-      "content": "Möchtest du dieses Bild wirklich löschen?"
+      "image": "Möchtest du dieses Bild wirklich löschen?",
+      "rating": "Möchtest du diese Bewertung wirklich löschen?"
     }
   },
   "uploadImage": {
