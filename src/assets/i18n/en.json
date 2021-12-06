@@ -97,7 +97,8 @@
       "birthdate": "Birthdate",
       "password": "Password",
       "signUp": "Sign Up",
-      "hasAccount": "Do you have an account?"
+      "hasAccount": "Do you have an account?",
+      "allowedChars": "Allowed characters: a-z 0-9 . - _"
     },
     "login": {
       "signIn": "Sign In",

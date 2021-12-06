@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {User} from "../../../models/user";
 import {DateAdapter} from "@angular/material/core";
@@ -20,9 +20,9 @@ export class RegisterComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
     name: new FormControl(),
-    username: new FormControl(),
+    username: new FormControl('', [Validators.pattern(/^[a-z0-9.\-_]+$/), Validators.pattern(/^(?!.*[._\-]{2}).+$/)]),
     birthdate: new FormControl(),
-  }, { updateOn: 'blur' });
+  });
   dateFilter!: (d: (Date | null)) => boolean;
 
   constructor(private readonly authService: AuthenticationService,
@@ -34,6 +34,13 @@ export class RegisterComponent implements OnInit {
     this.dateFilter = (d: Date | null): boolean => {
       return new Date() > (d || new Date());
     };
+
+    this.formGroup.controls['name'].valueChanges.subscribe(value => this.user.name = value);
+    this.formGroup.controls['username'].valueChanges.subscribe(value => {
+      this.user.username = value?.toLowerCase();
+      this.formGroup.controls['username'].setValue(this.user.username, {emitEvent: false});
+    });
+
   }
 
   registerClicked() {
@@ -53,6 +60,10 @@ export class RegisterComponent implements OnInit {
 
   changeDate(date: MatDatepickerInputEvent<Date>) {
     this.user.birthdate = date.value!;
+  }
+
+  toLowerCase(event: any) {
+    this.user.username = event?.toLowerCase();
   }
 }
 
