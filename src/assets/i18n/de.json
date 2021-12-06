@@ -44,9 +44,7 @@
       "likes": "meiste Likes",
       "worst": "schlechteste Bewertungen"
     }
-
   },
-
   "label": {
     "vegetarian": "Vegetarisch",
     "vegan": "Vegan",
@@ -99,7 +97,8 @@
       "birthdate": "Geburtsdatum",
       "password": "Passwort",
       "signUp": "Registrieren",
-      "hasAccount": "Hast Du bereits einen Account?"
+      "hasAccount": "Hast Du bereits einen Account?",
+      "allowedChars": "Erlaubte Zeichen: a-z 0-9 . - _"
     },
     "login": {
       "signIn": "Anmelden",
