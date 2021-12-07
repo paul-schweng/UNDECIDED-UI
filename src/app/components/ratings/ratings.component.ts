@@ -61,7 +61,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
     }
 
     if (id == "-1" && !rating) {
-      rating = clone(EmptyRating);
+      rating = clone(SampleRating); //TODO: change to EmptyRating
       //rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
       rating.id = id;
       this.editedRatings.push(rating);
@@ -85,7 +85,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
       maxWidth: '',
       data: {rating: rating, editable: true},
       autoFocus: false,
-
+      panelClass: 'dialogFullSize'
     });
 
     ratingDialog.afterClosed().subscribe((result) => {

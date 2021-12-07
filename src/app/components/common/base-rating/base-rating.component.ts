@@ -15,6 +15,7 @@ import {ConfirmationDialogComponent} from "../../dialogs/confirmation-dialog/con
 import {Product} from "../../../models/product";
 import {NgxStarsComponent} from "ngx-stars";
 import {clone} from "../../../services/clone";
+import {User} from "../../../models/user";
 
 
 @Component({
@@ -85,10 +86,12 @@ export class BaseRatingComponent implements OnInit {
   productControl = new FormControl();
   brandControl = new FormControl();
   locationControl = new FormControl();
+  friendsControl = new FormControl();
   productOptions: string[] = ['Fanta', 'Sprite'];
   brandOptions: string[] = ['Nike', 'Samsung'];
   filteredOptionsProduct: Product[] = [];
   filteredOptionsBrand: string[] = [];
+  filteredOptionsFriends: User[] = [];
   filteredOptionsLocation: Location[] = [];
   LABELS: Label[] = LABELS.slice();
 
@@ -138,6 +141,10 @@ export class BaseRatingComponent implements OnInit {
 
   displayFnBrand = (brand: string) => {
     return brand ? brand : (this._rating.product.brand ?? '');
+  }
+
+  displayFnFriends = (friend: User) => {
+    return friend ? friend.username : '';
   }
 
   private _filterProduct(name: string): string[] {

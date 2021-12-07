@@ -20,7 +20,7 @@
         <mat-form-field appearance="fill">
           <mat-label>{{'auth.register.usernameLabel' | translate}}</mat-label>
           <input [(ngModel)]="user.username" matInput placeholder="{{'auth.register.username' | translate}}" formControlName="username" required>
-          <mat-error *ngIf="formGroup.controls['username'].invalid">{{'basics.required' | translate}}</mat-error>
+          <mat-error *ngIf="formGroup.controls['username'].errors">{{'basics.required' | translate}}</mat-error>
         </mat-form-field>
         <label class="text-style Text-Style-13 pt-4" translate>auth.register.birthdate</label>
         <mat-form-field appearance="fill" class="example-form-field">

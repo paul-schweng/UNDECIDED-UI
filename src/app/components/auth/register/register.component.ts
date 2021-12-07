@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {User} from "../../../models/user";
 import {DateAdapter} from "@angular/material/core";
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   formGroup: FormGroup = new FormGroup({
     name: new FormControl(),
-    username: new FormControl(),
+    username: new FormControl(Validators.pattern('^[a-z0-9_\-.]+$')),
     birthdate: new FormControl(),
   }, { updateOn: 'blur' });
   dateFilter!: (d: (Date | null)) => boolean;
@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
   }
 
   isInvalid() {
+    console.log(this.formGroup.controls['username'].errors)
     return this.formGroup.controls['name'].invalid ||
       this.formGroup.controls['username'].invalid ||
       this.formGroup.controls['birthdate'].invalid;

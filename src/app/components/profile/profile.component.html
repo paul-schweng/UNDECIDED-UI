@@ -1,17 +1,17 @@
-<span class="profile-member-date position-absolute pt-1">undecided since 13-11-21</span>
+<span class="profile-member-date position-absolute pt-1">{{'profile.since' | translate: {date: iAmUser.registerDate!.toLocaleDateString()} }}</span>
 <div class="profile-background-content position-absolute d-inline-flex align-items-center">
   <div class="profile-picture" style="background-image: url('/assets/img/default-user.png')"></div>
   <span class="profile-name">
-    name
-    <span class="profile-username">username</span>
+    {{iAmUser.name}}
+    <span class="profile-username">{{iAmUser.username}}</span>
   </span>
 </div>
 <div class="w-100 profile-background" style="background-image: url('/assets/img/default-banner.png')"></div>
 
 <div class="profile-stats m-auto py-4 d-flex align-items-center justify-content-between border-bottom border-2">
-  <span translate [translateParams]="{num: 21}">profile.ratings</span>
-  <span translate [translateParams]="{num: 420}">profile.follower</span>
-  <span translate [translateParams]="{num: 69}">profile.following</span>
+  <span translate [translateParams]="{num: iAmUser.ratingsNum}">profile.ratings</span>
+  <span translate [translateParams]="{num: iAmUser.followerNum}">profile.follower</span>
+  <span translate [translateParams]="{num: iAmUser.followingNum}">profile.following</span>
 </div>
 
 <div class="d-flex">
