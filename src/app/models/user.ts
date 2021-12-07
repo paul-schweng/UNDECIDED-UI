@@ -11,6 +11,9 @@ export interface User {
   isDarkTheme?: boolean,
   language?: string,
   password?: string,
-  rememberMe?: boolean
+  rememberMe?: boolean,
+  followerNum?: number,
+  followingNum?: number,
+  ratingsNum?: number
 }
 

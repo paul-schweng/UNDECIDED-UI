@@ -1,22 +1,20 @@
 <busy-div [busy]="isBusy" class="w-100">
   <base-rating [rating]="data.rating" (valid)="valid = $event" [edit]="data.editable"></base-rating>
-  <div *ngIf="data.editable" class="w-100 d-flex padding" [class.justify-content-between]="data.rating.id != -1" [class.justify-content-end]="data.rating.id == -1">
-
-    <div *ngIf="data.rating.id != -1">
-      <button (click)="deleteClicked()" color="warn" mat-raised-button>
-        {{'basics.delete' | translate}}
-      </button>
-    </div>
-
-    <div>
-      <button mat-dialog-close="cancel" mat-raised-button>
-        {{'basics.cancel' | translate}}
-      </button>
-      <button (click)="postClicked()" [disabled]="!isValid()" color="accent" mat-raised-button class="float-right ml-4">
-        {{(data.rating.id == -1 ? 'ratings.post' : 'ratings.edit') | translate}}
-      </button>
-    </div>
-
-  </div>
 </busy-div>
+
+<div class="left-50 mt-3 position-absolute d-flex justify-content-center">
+  <div *ngIf="data.editable" class="position-fixed background-color p-2 rounded d-flex justify-content-center">
+    <div *ngIf="data.rating.id != -1" class="mx-5">
+        <button (click)="deleteClicked()" color="warn" mat-raised-button>
+          {{'basics.delete' | translate}}
+        </button>
+    </div>
+    <button mat-dialog-close="cancel" class="mx-5" mat-raised-button>
+      {{'basics.cancel' | translate}}
+    </button>
+    <button (click)="postClicked()" [disabled]="!isValid()" color="accent" mat-raised-button class="mx-5">
+      {{(data.rating.id == -1 ? 'ratings.post' : 'ratings.edit') | translate}}
+    </button>
+  </div>
+</div>
 

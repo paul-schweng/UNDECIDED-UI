@@ -72,6 +72,10 @@ a.mat-button-base, a.mat-button-base:hover {
   height: 100%;
 }
 
+.left-50{
+  left: 50%;
+}
+
 a{
   text-decoration: none!important;
   border: 0;
@@ -123,7 +127,7 @@ a:hover{
 
 .dialogFullSize {
   mat-dialog-container {
-    padding: 0;
+    padding: unset;
   }
 }
 

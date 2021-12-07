@@ -1,14 +1,19 @@
-<div *ngIf="cameraMode">
-  <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+<div *ngIf="cameraMode" class="col">
+  <webcam class="row" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
           [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
           [videoOptions]="videoOptions"
           [imageQuality]="1"
           (initError)="handleInitError($event)">
   </webcam>
-  <button class="actionBtn" (click)="triggerSnapshot();" mat-fab>
-    <mat-icon>camera_alt</mat-icon>
-  </button>
-  <button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable" mat-raised-button>Next Webcam</button>
+
+  <div class="d-inline-grid justify-content-center">
+    <button (click)="triggerSnapshot();" mat-fab>
+      <mat-icon>camera_alt</mat-icon>
+    </button>
+    <button (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable" mat-raised-button>
+      Next Webcam
+    </button>
+  </div>
 </div>
 
 <div *ngIf="!cameraMode">

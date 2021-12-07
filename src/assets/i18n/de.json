@@ -66,6 +66,7 @@
     "desc": "Beschreibung",
     "defaultDesc": "Beschreibung...",
     "descPlaceholder": "Erzähl etwas über dich...",
+    "since": "undecided seit {{date}}",
     "accSettings": {
       "email": "Email ändern",
       "currentEmail": "Aktuelle Email eingeben",

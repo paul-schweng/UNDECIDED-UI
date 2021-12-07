@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
+import {clone} from "../../services/clone";
+import {SampleRating} from "../../services/SampleData";
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,8 @@ import {AuthenticationService} from "../../services/authentication.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  ratings = new Array(5).fill(clone(SampleRating));
 
   constructor(private auth: AuthenticationService) { }
 
