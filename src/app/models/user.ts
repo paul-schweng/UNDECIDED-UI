@@ -1,4 +1,5 @@
 export interface User {
+  id: string,
   username: string,
   email?: string,
   name: string,
@@ -6,7 +7,7 @@ export interface User {
   usertype?: 'privat' | 'business',
   verified?: boolean,
   description?: string,
-  profileImage?: string | File,
+  profileImage?: any,
   registerDate?: Date,
   isDarkTheme?: boolean,
   language?: string,
@@ -14,6 +15,7 @@ export interface User {
   rememberMe?: boolean,
   followerNum?: number,
   followingNum?: number,
-  ratingsNum?: number
+  ratingsNum?: number,
+  bannerImage?: number,
 }
 

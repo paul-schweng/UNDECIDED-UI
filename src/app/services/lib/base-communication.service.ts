@@ -23,44 +23,12 @@ export abstract class BaseCommunicationService {
   protected headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private subscriptionMap = new Map();
 
-  private readonly defaultErrorPath: string = "httpError.header.error";
 
   public interruptBackendCalls(): void {
     this.callReplay.next(true);
     this.callReplay.complete();
     this.callReplay = new Subject<boolean>();
   }
-
-
-  protected handleHttpError(error: any): void {
-     //let notificationSettings: Partial<IndividualConfig> = {timeOut: 3000};
-
-    if (!error) {
-      console.info('[BaseCommunicationService] - An undefined error occurred while calling backend');
-      this.notification.error(this.defaultErrorPath, "httpError.msg.error");
-    }
-    else if (error.status === 400) {
-      console.info('[BaseCommunicationService] - Bad request was sent to backend');
-      this.notification.error(this.defaultErrorPath, "httpError.msg.badRequest");
-    } else if (error.status === 401) {
-      console.info('[BaseCommunicationService] - Unauthorized call to backend. Forwarding to unauthorized-page');
-      this.router.navigate(['/login']);
-    } else if (error.status === 403) {
-      console.info('[BaseCommunicationService] - Accessing resource forbidden');
-     // this.notification.warn("httpError.header.forbidden", "httpError.msg.forbidden");
-    } else if (error.status === 404) {
-      console.info('[BaseCommunicationService] - Unknown backend call');
-      if (error.hasOwnProperty("error") && error.error !== null){
-        console.info('[BaseCommunicationService] - error msg: ', error.error);
-        this.notification.error(this.defaultErrorPath, "httpError.msg.error");
-      }
-    } else {
-      console.info( '[BaseCommunicationService] - An error occurred while calling backend:\n', error.message);
-      this.notification.error(this.defaultErrorPath, "httpError.msg.error");
-    }
-  }
-
-
 
 
   protected executeSendGetRequest<TResult>(url: string, httpReqParam: HttpParams, httpHeaders?: HttpHeaders, allowNullResult: boolean = false, subscriptionURL: string = ""): Promise<TResult> {
@@ -75,7 +43,7 @@ export abstract class BaseCommunicationService {
             }
             resolve(response);
           }, error => {
-            this.handleHttpError(error);
+            this.notification.handleHttpError(error);
             reject(error);
           }
         );
@@ -93,7 +61,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            this.handleHttpError(error);
+            this.notification.handleHttpError(error);
             reject(error);
           }
         );
@@ -109,7 +77,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            this.handleHttpError(error);
+            this.notification.handleHttpError(error);
             reject(error);
           }
         );
@@ -125,7 +93,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            this.handleHttpError(error);
+            this.notification.handleHttpError(error);
             reject(error);
           }
         );

@@ -62,8 +62,5 @@ export class RegisterComponent implements OnInit {
     this.user.birthdate = date.value!;
   }
 
-  toLowerCase(event: any) {
-    this.user.username = event?.toLowerCase();
-  }
 }
 

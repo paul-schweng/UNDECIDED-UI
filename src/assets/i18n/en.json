@@ -67,6 +67,7 @@
     "defaultDesc": "Description...",
     "descPlaceholder": "Tell something about yourself...",
     "since": "undecided since {{date}}",
+    "save": "Save changes",
     "accSettings": {
       "email": "Change email",
       "currentEmail": "Enter current email",

@@ -6,11 +6,18 @@ import {clone} from "./clone";
 
 
 export const SampleUser: User = {
+  id: '41341',
   birthdate: new Date(),
   email: "",
   isDarkTheme: false,
   language: "de",
   name: "Theophilus Junior Bestelmeyer",
+  description:
+`Justus von Gelsenberchen ist mein bester Freund :) (Grüße gehen raus)
+Ebenso genieße ich das beste Essen, was mir diese App hier bietet, denn solch Meisterwerk einer App können noch nicht einmal die Ingenieure bei Google übertreffen!
+
+Liebe Grüße,
+Euer Theophilius <3`,
   profileImage: "https://picsum.photos/200/200?random=1",
   registerDate: new Date(),
   username: "best.username.4ever",
@@ -19,6 +26,7 @@ export const SampleUser: User = {
   followerNum: 69,
   followingNum: 420,
   ratingsNum: 42,
+  bannerImage: 0
 }
 
 export const SampleProduct: Product = {
