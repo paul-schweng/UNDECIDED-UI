@@ -238,5 +238,7 @@ export class BaseRatingComponent implements OnInit {
     });
   }
 
-
+  removeFriend(friend: User) {
+    this._rating.friends?.splice(this._rating.friends?.indexOf(friend),1);
+  }
 }

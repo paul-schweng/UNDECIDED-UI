@@ -1,4 +1,4 @@
-<div *ngIf="cameraMode" class="col">
+<div *ngIf="cameraMode" class="d-inline-grid">
   <webcam class="row" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
           [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
           [videoOptions]="videoOptions"
@@ -6,8 +6,8 @@
           (initError)="handleInitError($event)">
   </webcam>
 
-  <div class="d-inline-grid justify-content-center">
-    <button (click)="triggerSnapshot();" mat-fab>
+  <div class="d-inline-grid justify-items-center">
+    <button class="m-3" (click)="triggerSnapshot();" mat-fab>
       <mat-icon>camera_alt</mat-icon>
     </button>
     <button (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable" mat-raised-button>
@@ -16,8 +16,10 @@
   </div>
 </div>
 
-<div *ngIf="!cameraMode">
+<div *ngIf="!cameraMode" class="d-inline-grid justify-items-center">
   <img class="w-75" [src]="webcamImage!.imageAsDataUrl" alt="snapshot">
-  <button (click)="cameraMode = true" mat-raised-button>cancel</button>
-  <button (click)="save()" mat-raised-button>save image</button>
+  <div>
+    <button class="m-3" (click)="cameraMode = true" mat-raised-button>cancel</button>
+    <button class="m-3" (click)="save()" mat-raised-button>save image</button>
+  </div>
 </div>
