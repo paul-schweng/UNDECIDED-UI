@@ -3,7 +3,7 @@ export interface User {
   username: string,
   email?: string,
   name: string,
-  birthdate?: Date,
+  birthdate?: Date | string,
   usertype?: 'privat' | 'business',
   verified?: boolean,
   description?: string,
