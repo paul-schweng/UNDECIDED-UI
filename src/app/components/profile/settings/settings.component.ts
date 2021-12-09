@@ -50,4 +50,8 @@ export class SettingsComponent implements OnInit{
   toggleDarkTheme(){
 
   }
+
+  logout() {
+    this.auth.logout();
+  }
 }

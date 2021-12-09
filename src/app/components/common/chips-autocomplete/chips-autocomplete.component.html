@@ -1,7 +1,7 @@
 <mat-form-field class="background-color w-100" appearance="fill">
   <mat-label>{{'ratings.addTags' | translate}}</mat-label>
   <mat-chip-list #chipList aria-label="tags selection">
-    <mat-chip
+    <mat-chip class="min-height"
       *ngFor="let tags of tags"
       [selectable]="selectable"
       [removable]="removable"
@@ -11,7 +11,7 @@
         <mat-icon>cancel</mat-icon>
       </button>
     </mat-chip>
-    <input
+    <input class=""
       placeholder="{{'ratings.newTags' | translate}}"
       #tagsInput
       *ngIf="tags.length<5"

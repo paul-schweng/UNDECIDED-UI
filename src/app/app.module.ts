@@ -63,6 +63,7 @@ import { ImageUploadDialogComponent } from './components/dialogs/image-upload-di
 import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam-dialog.component';
 import {WebcamModule} from "ngx-webcam";
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
@@ -135,7 +136,8 @@ import { ConfirmationDialogComponent } from './components/dialogs/confirmation-d
         MatNativeDateModule,
         MatChipsModule,
         MatCardModule,
-        WebcamModule
+        WebcamModule,
+        MatBadgeModule
 
     ],
   providers: [
