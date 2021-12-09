@@ -13,8 +13,7 @@ export const SampleUser: User = {
   language: "de",
   name: "Theophilus Junior Bestelmeyer",
   description:
-`Justus von Gelsenberchen ist mein bester Freund :) (Grüße gehen raus)
-Ebenso genieße ich das beste Essen, was mir diese App hier bietet, denn solch Meisterwerk einer App können noch nicht einmal die Ingenieure bei Google übertreffen!
+`Hier genieße ich das beste Essen, was mir diese App bietet, denn solch Meisterwerk einer App können noch nicht einmal die Ingenieure bei Google übertreffen!
 
 Liebe Grüße,
 Euer Theophilius <3`,
@@ -39,7 +38,7 @@ export const SampleProduct: Product = {
 }
 
 export const SampleRating: Rating = {
-  id: "",
+  id: "2",
   product: SampleProduct,
   stars: 3.5,
   labelList: [],

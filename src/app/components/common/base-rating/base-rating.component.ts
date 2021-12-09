@@ -169,9 +169,11 @@ export class BaseRatingComponent implements OnInit {
 
   changedLabel(event: MatSelectionListChange) {
     event.options.forEach(opt => {
-      if (this._rating.labelList?.includes(opt.value)) {
+      //if the label is selected: deselect it
+      if (this._rating.labelList?.some(label => label.id == opt.value.id)) {
         let i = this._rating.labelList?.indexOf(opt.value);
         this._rating.labelList?.splice(i,1);
+        //else select it and sort the labels
       }else {
         this._rating.labelList?.push(opt.value);
         this._rating.labelList?.sort((label1,label2) => label1.id - label2.id);
