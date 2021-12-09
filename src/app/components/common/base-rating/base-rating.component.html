@@ -56,7 +56,7 @@
         </div>
         <!--friends-->
         <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
-          <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + friend.profileImage + ');'"></div>
+          <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
         </div>
         <!--stars/rating-->
         <ngx-stars class="row justify-content-center" [size]="3" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
@@ -173,7 +173,7 @@
         <!--friends-->
         <div class="row d-flex m-auto justify-content-center w-100">
           <div class="d-inline-flex align-items-center">
-            <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + friend.profileImage + ');'">
+            <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'">
               <mat-icon mat-ripple (click)="removeFriend(friend)" class="close-badge" aria-hidden="false" aria-label="Example home icon">close</mat-icon>
             </div>
           </div>
