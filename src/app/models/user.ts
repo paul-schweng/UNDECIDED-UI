@@ -1,16 +1,21 @@
 export interface User {
+  id: string,
   username: string,
   email?: string,
   name: string,
-  birthdate?: Date,
+  birthdate?: Date | string,
   usertype?: 'privat' | 'business',
   verified?: boolean,
   description?: string,
-  profileImage?: string | File,
+  profileImage?: any,
   registerDate?: Date,
   isDarkTheme?: boolean,
   language?: string,
   password?: string,
-  rememberMe?: boolean
+  rememberMe?: boolean,
+  followerNum?: number,
+  followingNum?: number,
+  ratingsNum?: number,
+  bannerImage?: number,
 }
 

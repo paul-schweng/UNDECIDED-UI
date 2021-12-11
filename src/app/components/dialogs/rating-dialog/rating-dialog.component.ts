@@ -1,8 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {RatingService} from "../../../services/rating.service";
 import {Rating} from "../../../models/rating";
 import {clone} from "../../../services/clone";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'rating-dialog',
@@ -15,12 +16,13 @@ export class RatingDialogComponent implements OnInit {
   valid: boolean = false;
   clonedRating: Rating;
 
+
   constructor(public dialogRef: MatDialogRef<RatingDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
-              private readonly ratingService: RatingService) {
+              private readonly ratingService: RatingService,
+              public dialog: MatDialog) {
     this.clonedRating = clone(data.rating);
   }
-
 
   postClicked(): void {
     this.isBusy = true;
@@ -33,15 +35,32 @@ export class RatingDialogComponent implements OnInit {
       this.ratingService.editRating(this.data.rating)
         .then(() => this.dialogRef.close('post'))
         .finally(() => this.isBusy = false);
-
-
   }
 
   ngOnInit(): void {
   }
 
   isValid(): boolean {
-    return this.valid && (this.data.rating.id != -1 && JSON.stringify(this.clonedRating) != JSON.stringify(this.data.rating));
+    if(this.data.rating.id != -1)
+      return JSON.stringify(this.clonedRating) != JSON.stringify(this.data.rating);
+    else
+      return this.valid;
   }
 
+  deleteClicked() {
+    const deleteRatingDialog = this.dialog.open(ConfirmationDialogComponent, {
+      autoFocus: false,
+      data: {content: 'dialog.delete.rating'}
+    });
+
+    deleteRatingDialog.beforeClosed().subscribe(confirmed => {
+      if(confirmed){
+        this.isBusy = true;
+        this.ratingService.deleteRating(this.data.rating.id)
+          .then( () => this.dialogRef.close('delete') )
+          .finally(() => this.isBusy = false);
+      }
+
+    });
+  }
 }

@@ -1,6 +1,6 @@
 .profile-member-date{
   z-index: 2;
-  right: 15px;
+  right: 24px;
   font-family: FrederickatheGreat, cursive;
   font-size: 1rem;
   font-weight: normal;
@@ -9,6 +9,11 @@
   line-height: normal;
   letter-spacing: 1px;
   color: var(--white);
+}
+
+.edit-banner{
+ background-color: #474747!important;
+  z-index: 10;
 }
 
 .profile-background {
@@ -49,9 +54,21 @@
   display: inline-grid;
 }
 
+input.profile-name{
+  background-color: rgba(71, 71, 71, 0.74);
+  border: dashed 3px rgba(53, 53, 53, 0.74);
+  border-radius: 15px;
+  padding: 0.563rem 1rem 0.625rem;
+  margin-left: -1rem;
+}
+
 .profile-username{
   font-size: 2.25rem;
   letter-spacing: 17.46px;
+}
+
+input + .profile-username{
+  padding-top: 0.5rem;
 }
 
 .profile-stats{
@@ -61,3 +78,44 @@
   font-size: 1.175rem;
   letter-spacing: 14.55px;
 }
+
+input:focus{
+  outline: none;
+}
+
+.color-green {
+  background: var(--green);
+  color: var(--black);
+}
+
+.color-grey{
+  background: var(--light-grey);
+  color: var(--black);
+}
+
+.rounded-btn{
+  border-radius: 2rem;
+}
+
+
+.small-banner{
+  width: 34.8rem;
+  height: 8rem;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+}
+
+.checked-banner{
+  border-radius: 50%;
+  background: var(--green);
+  width: 2rem;
+  height: 2rem;
+}
+
+.choose-image-btn{
+  border-radius: 10px;
+  border: white 3px solid;
+}
+
+

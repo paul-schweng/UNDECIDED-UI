@@ -72,6 +72,10 @@ a.mat-button-base, a.mat-button-base:hover {
   height: 100%;
 }
 
+.left-50{
+  left: 50%;
+}
+
 a{
   text-decoration: none!important;
   border: 0;
@@ -121,6 +125,25 @@ a:hover{
   background: rgb(68, 0, 0);
 }
 
+.dialogFullSize {
+  mat-dialog-container {
+    padding: unset;
+  }
+}
 
+.respect-new-line{
+  white-space: pre-wrap;
+}
 
-
+.banner-popover {
+  max-width: none;
+  max-height: 50vh;
+  background: #3d3d3d;
+  .popover-body {
+    overflow-y: scroll;
+    max-height: 50vh;
+  }
+  .arrow::after, .bs-popover-auto[x-placement^="bottom"] > .arrow::after {
+    border-bottom-color: #3d3d3d!important;
+  }
+}

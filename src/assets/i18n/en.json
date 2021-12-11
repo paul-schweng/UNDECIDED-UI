@@ -15,7 +15,8 @@
   "dialog": {
     "delete": {
       "header": "Confirm delete",
-      "content": "Do you really want to delete this picture?"
+      "image": "Do you really want to delete this picture?",
+      "rating": "Do you really want to delete this rating?"
     }
   },
   "uploadImage": {
@@ -65,6 +66,8 @@
     "desc": "Description",
     "defaultDesc": "Description...",
     "descPlaceholder": "Tell something about yourself...",
+    "since": "undecided since {{date}}",
+    "save": "Save changes",
     "accSettings": {
       "email": "Change email",
       "currentEmail": "Enter current email",
@@ -82,6 +85,7 @@
     "wrongPwdRepeat": "Password does not match",
     "enterEmail": "Enter your email",
     "welcome": "Welcome!",
+    "usernameTaken": "This username is already taken!",
     "securePwd": {
       "length": "Min. 8 characters",
       "lowercase": "At least 1 lowercase letter",
@@ -96,7 +100,8 @@
       "birthdate": "Birthdate",
       "password": "Password",
       "signUp": "Sign Up",
-      "hasAccount": "Do you have an account?"
+      "hasAccount": "Do you have an account?",
+      "allowedChars": "Allowed characters: a-z 0-9 . - _"
     },
     "login": {
       "signIn": "Sign In",

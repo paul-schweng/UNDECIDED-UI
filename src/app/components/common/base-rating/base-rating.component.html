@@ -1,5 +1,9 @@
+<!--Base Rating-->
+
+<!--The whole base rating-->
 <div *ngIf="!edit" class="row">
-  <div class="col flex-grow-0 toCorner">
+  <!--First column, the picture carousel-->
+  <div class="col p-0 flex-grow-0 m-auto">
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
       <ng-template *ngFor="let image of _rating.images" ngbSlide>
         <div class="img-wrapper">
@@ -9,24 +13,40 @@
     </ngb-carousel>
   </div>
 
-  <div class="col">
-    <div class="row Text-Style-16">
+  <!--The second column, whole content of the rating-->
+  <div class="col m-1 d-inline-grid">
+    <!--The first row of the second column, with product, label and brand-->
+    <div class="row align-items-center Text-Style-16">
+      <!--product-->
       <span class="col">{{_rating.product.name}}</span>
-        <div class="d-flex flex-grow-1 w-25 align-items-center">
-          <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
-        </div>
-      <span class="col" style="text-align: end">{{_rating.product?.brand}}</span>
+      <!--label-->
+      <div class="d-flex flex-grow-1 align-items-center">
+        <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
+      </div>
+      <!--brand-->
+      <span class="col text-right">{{_rating.product?.brand}}</span>
     </div>
 
-    <div class="line my-1"></div>
+    <div class="line"></div>
 
+    <!--The second row of the second column, with the rest of the content-->
     <div class="row">
-      <div class="col w-50 m-4 p-4 border border-2 rounded">
-        {{_rating.description}}
+      <!--First column of second row, with tags and description-->
+      <div class="col mx-2 p-1">
+        <!--tags-->
+        <mat-chip-list class="row w-100">
+          <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
+        </mat-chip-list>
+        <!--description-->
+        <div class="row w-100 p-2 border border-2 rounded">
+          {{_rating.description}}
+        </div>
       </div>
 
-      <div class="col list-margin">
-        <div class="row align-items-center">
+      <!--Second column of second row, with location, friends, stars-->
+      <div class="col list-margin d-inline-grid">
+        <!--location-->
+        <div class="row justify-content-center align-items-center">
           <span class="d-inline-grid pr-5 Text-Style-17">REWE, 12345 Altrip
 <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
             <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
@@ -34,18 +54,12 @@
           <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
           <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>
         </div>
-
-        <div class="row">
-          <div *ngFor="let friend of _rating.friends" [style]="'background-image: url(/static/img/' + friend + ');'"></div>
+        <!--friends-->
+        <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
+          <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
         </div>
-
-        <div class="row">
-          <mat-chip-list>
-            <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
-          </mat-chip-list>
-        </div>
-
-        <ngx-stars class="row" [size]="5" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
+        <!--stars/rating-->
+        <ngx-stars class="row justify-content-center" [size]="3" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
       </div>
     </div>
   </div>
@@ -53,9 +67,15 @@
 
 
 
-<div *ngIf="edit" class="row">
 
-  <div class="col flex-grow-0 toCorner">
+
+
+<!--Edit Base Rating-->
+
+<!--The whole base rating-->
+<div *ngIf="edit" class="row">
+  <!--First column, the picture carousel-->
+  <div class="col p-0 flex-grow-0 m-auto">
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=0}" [interval]="0" #carousel="ngbCarousel">
       <ng-template *ngFor="let image of _rating.images; let i = index" ngbSlide>
         <div class="img-wrapper">
@@ -79,87 +99,96 @@
     </ngb-carousel>
   </div>
 
-  <div class="col">
-    <div>
-      <form class="row align-items-center">
-        <mat-form-field class="col" appearance="fill">
-          <mat-label translate>product.product</mat-label>
-          <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
-          <mat-autocomplete #autoProduct [displayWith]="displayFnProduct">
-            <mat-option *ngFor="let product of filteredOptionsProduct" [value]="product">
-              {{product.name}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-
-        <div class="d-flex flex-grow-1 w-25 align-items-center">
-          <div class="d-flex">
-            <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
-          </div>
-          <ng-template #popContent>
-            <mat-selection-list class="m-auto" (selectionChange)="changedLabel($event)" #labels>
-              <mat-list-option *ngFor="let label of LABELS" [value]="label" [selected]="isLabelSelected(label)" [class.isSelected]="isLabelSelected(label)">
-                <mat-icon mat-list-icon class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
-                <div mat-line translate>{{label.label}}</div>
-                <mat-divider class="border-2"></mat-divider>
-              </mat-list-option>
-            </mat-selection-list>
-          </ng-template>
-          <button class="m-1" mat-mini-fab color="" placement="bottom" container="body" [ngbPopover]="popContent" [autoClose]="'outside'">
-            <mat-icon>local_offer</mat-icon>
-          </button>
+  <!--The second column, whole content of the rating-->
+  <div class="col m-1 d-inline-grid">
+    <!--The first row of the second column, with product, label and brand-->
+    <form class="row align-items-center">
+      <!--product input field-->
+      <mat-form-field class="col" appearance="fill">
+        <mat-label translate>product.product</mat-label>
+        <input type="text" matInput [matAutocomplete]="autoProduct" [formControl]="productControl" name="product" required>
+        <mat-autocomplete #autoProduct [displayWith]="displayFnProduct">
+          <mat-option *ngFor="let product of filteredOptionsProduct" [value]="product">
+            {{product.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <!--label selection-->
+      <div class="d-flex flex-grow-1 align-items-center">
+        <div class="d-flex">
+          <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
         </div>
+        <ng-template #popContent>
+          <mat-selection-list class="m-auto" (selectionChange)="changedLabel($event)" #labels>
+            <mat-list-option *ngFor="let label of LABELS" [value]="label" [selected]="isLabelSelected(label)" [class.isSelected]="isLabelSelected(label)">
+              <mat-icon mat-list-icon class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
+              <div mat-line translate>{{label.label}}</div>
+              <mat-divider class="border-2"></mat-divider>
+            </mat-list-option>
+          </mat-selection-list>
+        </ng-template>
+        <button class="m-1" mat-mini-fab color="" placement="bottom" container="body" [ngbPopover]="popContent" [autoClose]="'outside'">
+          <mat-icon>local_offer</mat-icon>
+        </button>
+      </div>
+      <!--brand input field-->
+      <mat-form-field class="col text-right" appearance="fill">
+        <mat-label translate>product.brand</mat-label>
+        <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
+        <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
+          <mat-option *ngFor="let option of filteredOptionsBrand" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
 
-        <mat-form-field class="col text-right" appearance="fill">
-          <mat-label translate>product.brand</mat-label>
-          <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
-          <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
-            <mat-option *ngFor="let option of filteredOptionsBrand" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-    </div>
+    <div class="line"></div>
 
-    <div class="line my-1"></div>
-
+    <!--The second row of the second column, with the rest of the content-->
     <div class="row">
-      <div class="col w-50 m-4 p-4 border border-2 rounded">
-        <mat-form-field class="w-100 remove-underline">
+      <!--First column of second row, with tags and description-->
+      <div class="col mx-2 p-1 ">
+        <!--tags-->
+        <chips-autocomplete [(type)]="_rating.types" class="row w-100 remove-underline"></chips-autocomplete>
+        <!--description-->
+        <mat-form-field class="row w-100 p-2 border border-2 rounded remove-underline">
           <mat-label>{{'profile.desc' | translate}}</mat-label>
-          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="12" cdkAutosizeMaxRows="12"
+          <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="8"
                     #descr maxlength="350" [(ngModel)]="_rating.description" name="description"></textarea>
           <mat-hint align="end">{{descr.value.length}} / 350</mat-hint>
         </mat-form-field>
       </div>
-
-      <div class="col list-margin">
-        <div class="row align-items-center">
-          <mat-form-field>
-            <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
-            <input matInput placeholder="Restaurant/bar/..."
-                   [(ngModel)]="_rating.location!.name" name="location">
-            <button (click)="openMap()" matSuffix mat-flat-button>
-              <mat-icon>location_on</mat-icon>
-            </button>
-
-          </mat-form-field> <!--Wenn eine location gefunden wurde (durch vorschläge) dann soll obriges Format eingenommen werden-->
-        </div>
-
-        <div class="row">
-          <div *ngFor="let friend of _rating.friends" [style]="'background-image: url(/static/img/' + friend + ');'"></div>
-          <button mat-fab color="">
-            <mat-icon>add</mat-icon>
+      <!--Second column of second row, with location, friends, stars-->
+      <div class="col list-margin d-inline-grid">
+        <!--location-->
+        <mat-form-field class="row w-100 align-items-center">
+          <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
+          <input matInput placeholder="Restaurant/bar/..."
+                 [(ngModel)]="_rating.location!.name" name="location">
+          <button (click)="openMap()" matSuffix mat-flat-button>
+            <mat-icon>location_on</mat-icon>
           </button>
-          <span class="d-flex align-items-center m-2" translate>ratings.tagFriends</span>
+        </mat-form-field><!--Wenn eine location gefunden wurde (durch vorschläge) dann soll obriges Format eingenommen werden-->
+        <!--friends-->
+        <div class="row d-flex m-auto justify-content-center w-100">
+          <div class="d-inline-flex align-items-center">
+            <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'">
+              <mat-icon mat-ripple (click)="removeFriend(friend)" class="close-badge" aria-hidden="false" aria-label="Example home icon">close</mat-icon>
+            </div>
+          </div>
+          <mat-form-field *ngIf="_rating.friends!.length < 6" class="w-50" appearance="fill">
+            <mat-label translate>ratings.tagFriends</mat-label>
+            <input type="text" matInput [formControl]="friendsControl" [matAutocomplete]="autoFriends" name="friends">
+            <mat-autocomplete #autoFriends [displayWith]="displayFnFriends">
+              <mat-option *ngFor="let option of filteredOptionsFriends" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
-
-        <div class="row">
-          <chips-autocomplete [(type)]="_rating.types" class="w-100"></chips-autocomplete>
-        </div>
-
-        <ngx-stars class="row" [size]="5" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black" #stars></ngx-stars>
+        <!--stars/rating-->
+        <ngx-stars class="row justify-content-center" [size]="3" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black" #stars></ngx-stars>
       </div>
     </div>
   </div>

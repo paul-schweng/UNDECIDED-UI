@@ -15,6 +15,7 @@ import {ConfirmationDialogComponent} from "../../dialogs/confirmation-dialog/con
 import {Product} from "../../../models/product";
 import {NgxStarsComponent} from "ngx-stars";
 import {clone} from "../../../services/clone";
+import {User} from "../../../models/user";
 
 
 @Component({
@@ -85,10 +86,12 @@ export class BaseRatingComponent implements OnInit {
   productControl = new FormControl();
   brandControl = new FormControl();
   locationControl = new FormControl();
+  friendsControl = new FormControl();
   productOptions: string[] = ['Fanta', 'Sprite'];
   brandOptions: string[] = ['Nike', 'Samsung'];
   filteredOptionsProduct: Product[] = [];
   filteredOptionsBrand: string[] = [];
+  filteredOptionsFriends: User[] = [];
   filteredOptionsLocation: Location[] = [];
   LABELS: Label[] = LABELS.slice();
 
@@ -97,7 +100,6 @@ export class BaseRatingComponent implements OnInit {
     if (!this._rating.location) this._rating.location = {} as GeoLocation;
 
     this.productControl.valueChanges.subscribe(change => {
-      console.log("heeereeee")
       this.valid.emit(this.productControl.valid);
       if(typeof change == 'string')
         this._rating.product.name = change;
@@ -134,11 +136,15 @@ export class BaseRatingComponent implements OnInit {
   }
 
   displayFnProduct = (product: Product) => {
-    return product ? product.name : (this._rating.product.name || '');
+    return product ? product.name : (this._rating.product.name ?? '');
   };
 
   displayFnBrand = (brand: string) => {
-    return brand ? brand : (this._rating.product.brand || '');
+    return brand ? brand : (this._rating.product.brand ?? '');
+  }
+
+  displayFnFriends = (friend: User) => {
+    return friend ? friend.username : '';
   }
 
   private _filterProduct(name: string): string[] {
@@ -163,9 +169,11 @@ export class BaseRatingComponent implements OnInit {
 
   changedLabel(event: MatSelectionListChange) {
     event.options.forEach(opt => {
-      if (this._rating.labelList?.includes(opt.value)) {
+      //if the label is selected: deselect it
+      if (this._rating.labelList?.some(label => label.id == opt.value.id)) {
         let i = this._rating.labelList?.indexOf(opt.value);
         this._rating.labelList?.splice(i,1);
+        //else select it and sort the labels
       }else {
         this._rating.labelList?.push(opt.value);
         this._rating.labelList?.sort((label1,label2) => label1.id - label2.id);
@@ -222,14 +230,17 @@ export class BaseRatingComponent implements OnInit {
 
   deleteImage(i: number) {
     const uploadDialog = this.dialog.open(ConfirmationDialogComponent, {
-      autoFocus: false
+      autoFocus: false,
+      data: {content: 'dialog.delete.image'}
     });
 
-    uploadDialog.beforeClosed().subscribe(value => {
-      if(value)
+    uploadDialog.beforeClosed().subscribe(confirmed => {
+      if(confirmed)
         this._rating.images?.splice(i,1);
     });
   }
 
-
+  removeFriend(friend: User) {
+    this._rating.friends?.splice(this._rating.friends?.indexOf(friend),1);
+  }
 }

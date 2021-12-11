@@ -50,7 +50,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
 
     let rating: Rating | undefined = this.editedRatings.filter(r => r.id === id).pop();
 
-    console.log('found edited rating?', rating);
+    console.log('found edited rating?', rating ?? 'no');
 
     if(!rating && id !== "-1"){
       let r = this.ratings.filter(r => r.id == id).pop();
@@ -61,13 +61,12 @@ export class RatingsComponent implements OnInit, OnDestroy {
     }
 
     if (id == "-1" && !rating) {
-      rating = clone(EmptyRating);
-      //rating = JSON.parse(JSON.stringify(SampleRating)) as Rating;
+      rating = clone(SampleRating); //TODO: change to EmptyRating
       rating.id = id;
       this.editedRatings.push(rating);
     }
 
-    console.log('finally found rating?', rating);
+    console.log('finally found rating?', rating ?? 'no');
 
     if(!rating)
       return await this.ratingService.getRating(id).then(
@@ -82,8 +81,10 @@ export class RatingsComponent implements OnInit, OnDestroy {
   private openRatingDialog(rating: Rating) {
     const ratingDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
+      maxWidth: '',
       data: {rating: rating, editable: true},
-      autoFocus: false
+      autoFocus: false,
+      panelClass: 'dialogFullSize'
     });
 
     ratingDialog.afterClosed().subscribe((result) => {
@@ -96,6 +97,9 @@ export class RatingsComponent implements OnInit, OnDestroy {
       if (rating && result) {
         this.editedRatings.splice(this.editedRatings.indexOf(rating), 1);
         console.log('edited ratings after delete', this.editedRatings);
+
+        if(result == 'delete')
+          this.ratings.splice(this.ratings.indexOf(rating), 1);
       }
 
       this.router.navigate(['.'], {relativeTo: this.route});
@@ -103,10 +107,9 @@ export class RatingsComponent implements OnInit, OnDestroy {
   }
 
   changeFilter(filter?: MatSelectChange) {
-    let value = filter?.value || this.filters[0];
+    let value = filter?.value ?? this.filters[0];
     return this.ratingService.getMyRatings(value.split(".").pop()!).then(
-      (ratingList) => {this.ratings = ratingList},
-      ()=> this.ratings = [SampleRating, SampleRating, SampleRating, SampleRating, SampleRating] //TODO remove sample rating
+      (ratingList) => {this.ratings = ratingList}
     );
   }
 

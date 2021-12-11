@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {WebcamImage} from "ngx-webcam";
+import {User} from "../models/user";
+import {NotificationService} from "./notification.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import {WebcamImage} from "ngx-webcam";
 export class ImageService {
   private backendUrl = `../${environment.backendPrefix}/img/`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private notification: NotificationService) {
 
   }
 
@@ -58,6 +60,28 @@ export class ImageService {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new File([u8arr], 'webcam.jpeg', { type: mime })
+  }
+
+
+  postUserImage(img: any): Promise<User> {
+    console.log("image upload...");
+    const uploadData = new FormData();
+
+    if(img.file)
+      uploadData.append('image', img.file);
+    else
+      uploadData.append('image', ImageService.base64ToFile(img.base64));
+
+    return new Promise<User>((resolve, reject) => {
+      this.http.post<User>(this.backendUrl + 'user', uploadData).subscribe(event => {
+          console.log(event); // handle event here
+          resolve(event);
+        }, error => {
+        this.notification.handleHttpError(error);
+        reject(error);
+      });
+    })
+
   }
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
 import {User} from "../models/user";
+import {clone} from "./clone";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,25 @@ export class UserService extends CommunicationRequestService<User>{
 
 
   public updateUser(user: User): Promise<User> {
-    return super.sendPutRequest(this.backendUrlExt, user);
+    let image = user.profileImage;
+    let userWithoutImages: User = clone(user);
+    delete userWithoutImages['profileImage'];
+
+    if(user.profileImage){
+      //if only profile image was changed
+      if(JSON.stringify(userWithoutImages) == JSON.stringify({}))
+        return this.imageService.postUserImage(image);
+      //if profile image and something else was changed
+      else
+        return super.sendPutRequest<User>(this.backendUrlExt, userWithoutImages)
+          .then(user1 =>
+              this.imageService.postUserImage(image)
+                .then(user2 => {return user2;}, () => {return user1;})
+          );
+    }
+    //if profile image wasn't changed
+    else
+      return super.sendPutRequest<User>(this.backendUrlExt, userWithoutImages);
   }
 
 

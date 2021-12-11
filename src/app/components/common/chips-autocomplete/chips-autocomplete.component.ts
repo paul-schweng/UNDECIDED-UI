@@ -12,7 +12,7 @@ import {AutocompleteService} from "../../../services/autocomplete.service";
 export class ChipsAutocompleteComponent implements OnInit {
 
   @Input('type') set value(tags: string[] | undefined){
-    this.tags = tags || [];
+    this.tags = tags ?? [];
   }
   @Output('typeChange') tagsChange = new EventEmitter<string[]>();
 
