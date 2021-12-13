@@ -118,6 +118,10 @@
       "error": "An error occurred"
     }
   },
+  "imageError": {
+    "header": "Upload failed",
+    "msg": "File size exceeded:\nMaximum file size is 5 MB"
+  },
   "hello": "Hello World",
   "test": "TEST"
 }

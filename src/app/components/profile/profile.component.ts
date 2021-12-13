@@ -9,6 +9,7 @@ import {UserService} from "../../services/user.service";
 import {ImageUploadDialogComponent} from "../dialogs/image-upload-dialog/image-upload-dialog.component";
 import {WebcamImage} from "ngx-webcam";
 import {MatDialog} from "@angular/material/dialog";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +29,8 @@ export class ProfileComponent implements OnInit {
               private readonly auth: AuthenticationService,
               private readonly router: Router,
               private readonly userService: UserService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public readonly notification: NotificationService) {
 
     //TODO: remove SampleUser
     this.iAmUser = this.auth.iAmUser || SampleUser;
@@ -100,6 +102,13 @@ export class ProfileComponent implements OnInit {
   onFileChanged(event: any) {
     console.log(event)
 
+    //bigger than 5 MB
+    if(event.target.files[0].size > 5 * 2**20){
+      this.notification.error('imageError.header','imageError.msg')
+      return;
+    }
+
+
     let url: any;
 
     const reader = new FileReader();
@@ -108,6 +117,7 @@ export class ProfileComponent implements OnInit {
       url = _event.target?.result;
       this.clonedIAmUser.profileImage = {file: event.target.files[0], base64: url};
     }
+
 
   }
 
