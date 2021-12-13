@@ -21,8 +21,8 @@ export class ProfileComponent implements OnInit {
   clonedIAmUser: User;
   isBusy = false;
   //TODO: uncomment the other line, comment this
-  BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner-0.png`);
-  // BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner-${i}.png`);
+  //BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner/banner-1.jpg`);
+  BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner/banner-${i}.jpg`);
 
   constructor(private translate: TranslateService,
               private readonly auth: AuthenticationService,

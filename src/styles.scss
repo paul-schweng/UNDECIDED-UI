@@ -47,6 +47,8 @@ $dark-theme: mat.define-dark-theme(
 
 html, body {
   height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(202, 0, 0) #f1f1f1;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -81,8 +83,12 @@ a.mat-button-base, a.mat-button-base:hover {
   width: -moz-fit-content;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
 a{
-  text-decoration: none!important;
+  text-decoration: none !important;
   border: 0;
   transition: color 2s;
 }
