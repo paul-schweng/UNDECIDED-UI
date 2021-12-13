@@ -22,6 +22,7 @@
           <input matInput placeholder="{{'auth.register.username' | translate}}" maxlength="20" formControlName="username" required>
           <mat-error *ngIf="formGroup.controls['username'].hasError('required')">{{'basics.required' | translate}}</mat-error>
           <mat-error *ngIf="formGroup.controls['username'].hasError('pattern')">{{'auth.register.allowedChars' | translate}}</mat-error>
+          <mat-error *ngIf="formGroup.controls['username'].hasError('unavailable')">{{'auth.usernameTaken' | translate}}</mat-error>
         </mat-form-field>
         <label class="text-style Text-Style-13 pt-4" translate>auth.register.birthdate</label>
         <mat-form-field appearance="fill" class="example-form-field">

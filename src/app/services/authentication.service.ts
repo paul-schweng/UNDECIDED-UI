@@ -11,7 +11,7 @@ import {CommunicationRequestService} from "./lib/communication-request.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService extends CommunicationRequestService<User> {
+export class AuthenticationService extends CommunicationRequestService<any> {
 
   protected readonly backendUrl = '../auth/';
 
@@ -74,12 +74,21 @@ export class AuthenticationService extends CommunicationRequestService<User> {
   }
 
   register(user: User): Promise<boolean>{
+    user.birthdate = (<Date>user.birthdate)?.toISOString().split("T")[0];
     return super.sendPostRequest('register', user);
   }
 
-  protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
+  public isUsernameAvailable(username: string): Promise<{available: boolean}> {
+    return super.sendGetRequest('user-available', {partUsername: username});
+  }
+
+
+  protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
     if(reqParameter.rememberMe)
       return new HttpParams().set('rememberMe', reqParameter.rememberMe);
+    if(reqParameter.partUsername)
+      return new HttpParams().set('u', reqParameter.partUsername)
+
     return new HttpParams();
   }
 

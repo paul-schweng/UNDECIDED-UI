@@ -85,6 +85,7 @@
     "wrongPwdRepeat": "Password does not match",
     "enterEmail": "Enter your email",
     "welcome": "Welcome!",
+    "usernameTaken": "This username is already taken!",
     "securePwd": {
       "length": "Min. 8 characters",
       "lowercase": "At least 1 lowercase letter",
