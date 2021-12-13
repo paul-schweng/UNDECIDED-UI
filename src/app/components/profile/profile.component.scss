@@ -31,8 +31,8 @@
 }
 
 .profile-picture {
-  width: 17.25rem;
-  height: 17.25rem;
+  width: 100px;
+  height: 100px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -72,11 +72,9 @@ input + .profile-username{
 }
 
 .profile-stats{
-  padding-left: 10vw;
-  padding-right: 10vw;
   font-family: Roboto, serif;
   font-size: 1.175rem;
-  letter-spacing: 14.55px;
+  letter-spacing: 6px;
 }
 
 input:focus{

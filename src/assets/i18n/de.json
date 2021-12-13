@@ -118,6 +118,10 @@
       "error": "Es ist ein Fehler aufgetreten"
     }
   },
+  "imageError": {
+    "header": "Upload fehlgeschlagen",
+    "msg": "Dateigröße überschritten:<br/>Maximale Dateigröße ist 5 MB"
+  },
   "hello": "Hallo Welt",
   "test": "TEST"
 }

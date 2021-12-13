@@ -19,7 +19,7 @@ export class NotificationService {
   }
 
   public error(header: string, msg: string) {
-    this.toastr.error(this.translate.instant(msg), this.translate.instant(header));
+    this.toastr.error(this.translate.instant(msg), this.translate.instant(header),{enableHtml: true});
   }
 
   public handleHttpError(error: any): void {

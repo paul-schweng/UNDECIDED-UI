@@ -16,6 +16,7 @@ import {Product} from "../../../models/product";
 import {NgxStarsComponent} from "ngx-stars";
 import {clone} from "../../../services/clone";
 import {User} from "../../../models/user";
+import {NotificationService} from "../../../services/notification.service";
 
 
 @Component({
@@ -39,7 +40,8 @@ export class BaseRatingComponent implements OnInit {
 
 
   constructor(private autocompleteService: AutocompleteService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              private readonly notification: NotificationService) {
 
     let timeoutProduct: number;
     let timeoutBrand: number;
@@ -183,6 +185,13 @@ export class BaseRatingComponent implements OnInit {
 
   onFileChanged(event: any, carousel: NgbCarousel) {
     console.log(event)
+
+    //bigger than 5 MB
+    if(event.target.files[0].size > 5 * 2**20){
+      this.notification.error('imageError.header','imageError.msg')
+      return;
+    }
+
     if(!this._rating.images)
       this._rating.images = [];
 
