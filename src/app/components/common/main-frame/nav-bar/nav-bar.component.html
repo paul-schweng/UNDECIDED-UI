@@ -1,7 +1,7 @@
 <div class="navbar px-2 Background-Nav">
   <div>
     <a class="" routerLink="/" href="#">
-      <embed src="/assets/img/Logo.svg" alt="UNDECIDED-Logo">
+      <embed src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo">
     </a>
   </div>
 
@@ -17,7 +17,7 @@
     </li>
     <li>
       <a routerLink="profile">
-        <img src="/assets/img/default-user.png" class="nav-bar-profile" alt="PROFILE">
+        <img [src]="iAmUser.profileImage || '/assets/img/default-user.png'" class="nav-bar-profile" alt="PROFILE">
       </a>
     </li>
   </ul>
