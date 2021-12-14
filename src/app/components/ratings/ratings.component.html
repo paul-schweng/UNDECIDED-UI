@@ -14,7 +14,7 @@
     </button>
   </div>
 
-  <div class="mt-5 d-flex" *ngIf="ratings; else empty">
+  <div class="mt-5 d-flex flex-wrap" *ngIf="ratings; else empty">
     <mat-card class="card m-4" [style]="'background-image: url(\'' + (rating.images![0] || '/assets/img/defaultImage.webp') + '\')'" *ngFor="let rating of ratings" routerLink="./" [queryParams]="{id: rating.id}">
       <div class="card-content">
         <h2 class="card-title">{{rating.product.name}}</h2>
