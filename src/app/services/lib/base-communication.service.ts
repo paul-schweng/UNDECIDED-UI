@@ -18,6 +18,7 @@ export abstract class BaseCommunicationService {
               protected router: Router) {
   }
 
+
   protected backendUrl = `../${environment.backendPrefix}/`;
   protected callReplay: Subject<boolean> = new Subject<boolean>();
   protected headers: HttpHeaders = new HttpHeaders({'Content-Type': 'application/json'});

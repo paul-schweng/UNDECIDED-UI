@@ -118,7 +118,7 @@ export class BaseRatingComponent implements OnInit {
       }
 
     });
-    //this.brandControl.valueChanges.subscribe(change => this._rating.product.brand = change);
+    this.brandControl.valueChanges.subscribe(change => this._rating.product.brand = change);
 
     /*
     this.filteredOptionsProduct = this.productControl.valueChanges.pipe(
@@ -166,14 +166,14 @@ export class BaseRatingComponent implements OnInit {
   }
 
   isLabelSelected(label: Label): boolean {
-    return this._rating.labelList!.some(l => l.icon == label.icon);
+    return this._rating.labelList!.some(l => l.id == label.id);
   }
 
   changedLabel(event: MatSelectionListChange) {
     event.options.forEach(opt => {
       //if the label is selected: deselect it
       if (this._rating.labelList?.some(label => label.id == opt.value.id)) {
-        let i = this._rating.labelList?.indexOf(opt.value);
+        let i = this._rating.labelList?.findIndex(l => l.id == opt.value.id);
         this._rating.labelList?.splice(i,1);
         //else select it and sort the labels
       }else {

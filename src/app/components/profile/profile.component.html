@@ -1,6 +1,6 @@
 <busy-div [busy]="isBusy">
   <!--profile member date-->
-  <span class="profile-member-date position-absolute pt-1">{{'profile.since' | translate: {date: iAmUser.registerDate!.toLocaleDateString()} }}</span>
+  <span class="profile-member-date position-absolute pt-1">{{'profile.since' | translate: {date: iAmUser.registerDate?.toLocaleDateString()} }}</span>
 
   <!--profile content-->
   <div class="row w-100 profile-background-content position-absolute align-items-center">
@@ -52,7 +52,7 @@
   </ng-template>
 
   <!--edit banner button-->
-  <button *ngIf="edit" class="edit-banner" mat-mini-fab color="" placement="bottom-left right left" container="body" popoverClass="banner-popover" [ngbPopover]="popContent" [autoClose]="'outside'">
+  <button *ngIf="edit" class="edit-banner" mat-mini-fab color="" placement="left-top left-bottom" container="body" popoverClass="banner-popover" [ngbPopover]="popContent" [autoClose]="'outside'">
     <mat-icon>edit</mat-icon>
   </button>
 

@@ -1,7 +1,7 @@
 
   <mat-form-field class="position-absolute m-4" appearance="fill">
     <mat-label>{{'basics.filter' | translate}}</mat-label>
-    <mat-select (selectionChange)="changeFilter($event)" [value] = "filters[0]">
+    <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
       <mat-option *ngFor="let filter of filters" [value]="filter">
         {{filter | translate}}
       </mat-option>

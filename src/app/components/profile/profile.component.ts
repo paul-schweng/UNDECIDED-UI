@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   isBusy = false;
   //TODO: uncomment the other line, comment this
   //BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner/banner-1.jpg`);
-  BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner/banner-${i}.jpg`);
+  BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/profileBg/bg-${i}.jpg`);
 
   constructor(private translate: TranslateService,
               private readonly auth: AuthenticationService,
@@ -123,7 +123,7 @@ export class ProfileComponent implements OnInit {
 
   getProfileImage(): string {
     return (this.edit ?
-      (this.clonedIAmUser.profileImage.base64 ?? this.clonedIAmUser.profileImage) : this.iAmUser.profileImage)
+      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : this.iAmUser.profileImage)
       || '/assets/img/default-user.png';
   }
 
