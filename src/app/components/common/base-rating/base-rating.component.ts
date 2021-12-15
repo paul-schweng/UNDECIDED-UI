@@ -33,6 +33,7 @@ export class BaseRatingComponent implements OnInit {
   @Input() set rating(rating: Rating){
     this._rating = rating;
     this.productControl.setValue(this._rating.product);
+    this._rating.images = rating.imageNum ? [...new Array(rating.imageNum).keys()] : [];
   }
   @Input() edit: boolean = false;
   @ViewChild('stars') starsInput!: NgxStarsComponent;
@@ -211,7 +212,7 @@ export class BaseRatingComponent implements OnInit {
   }
 
   getImage(image: any): string{
-    return typeof image == 'string' ? image : image.base64;
+    return typeof image == 'string' ? '' : image.base64;
   }
 
   openMap() {
