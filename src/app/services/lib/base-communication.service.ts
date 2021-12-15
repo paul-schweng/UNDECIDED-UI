@@ -44,7 +44,7 @@ export abstract class BaseCommunicationService {
             }
             resolve(response);
           }, error => {
-            this.notification.handleHttpError(error);
+
             reject(error);
           }
         );
@@ -62,7 +62,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            this.notification.handleHttpError(error);
+
             reject(error);
           }
         );
@@ -78,7 +78,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            this.notification.handleHttpError(error);
+
             reject(error);
           }
         );
@@ -94,7 +94,7 @@ export abstract class BaseCommunicationService {
         .subscribe(response => {
             resolve(response);
           }, error => {
-            this.notification.handleHttpError(error);
+
             reject(error);
           }
         );

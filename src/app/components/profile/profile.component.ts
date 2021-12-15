@@ -49,22 +49,9 @@ export class ProfileComponent implements OnInit {
 
   saveChangesClicked() {
     let tempUser: User = clone(this.clonedIAmUser);
-    Object.keys(this.iAmUser).forEach(key => {
-      // @ts-ignore
-      if(JSON.stringify(this.iAmUser[key]) == JSON.stringify(tempUser[key])){
-        // @ts-ignore
-        delete tempUser[key]
-      }
-
-    })
-    this.isBusy = true;
-    this.userService.updateUser(tempUser).then(user => {
-      if(user){
-        this.iAmUser = user;
-        this.clonedIAmUser = clone(user);
-        this.router.navigateByUrl('/profile');
-      }
-    }).finally(() => this.isBusy = false);
+    this.iAmUser = tempUser;
+    this.router.navigateByUrl('/profile');
+    this.auth.iAmUser = tempUser;
   }
 
   changedBanner(i: number) {
@@ -123,7 +110,7 @@ export class ProfileComponent implements OnInit {
 
   getProfileImage(): string {
     return (this.edit ?
-      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : this.iAmUser.profileImage)
+      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : (this.iAmUser.profileImage?.base64 ?? this.iAmUser.profileImage))
       || '/assets/img/default-user.png';
   }
 

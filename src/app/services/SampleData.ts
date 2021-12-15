@@ -31,10 +31,9 @@ Euer Theophilius <3`,
 export const SampleProduct: Product = {
   id: "",
   name: "SampleProduct",
-  types: ["Drink"],
-  brand: "Coco Cola",
+  brand: "Coca Cola",
   labels: [1,69,3],
-  avgStars: 5
+  avgStars: 4.5
 }
 
 export const SampleRating: Rating = {
@@ -43,6 +42,7 @@ export const SampleRating: Rating = {
   stars: 3.5,
   labelList: [],
   voteNum: 0,
+  imageNum: 2,
   description: 'test description',
   images: [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`), //TODO: remove this
   friends: new Array(5).fill(clone(SampleUser))

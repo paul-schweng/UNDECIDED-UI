@@ -7,7 +7,7 @@
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
       <ng-template *ngFor="let image of _rating.images" ngbSlide>
         <div class="img-wrapper">
-          <img [src]="image" alt="slide">
+          <img src="/assets/img/default_rate_pic.png" alt="slide">
         </div>
       </ng-template>
     </ngb-carousel>

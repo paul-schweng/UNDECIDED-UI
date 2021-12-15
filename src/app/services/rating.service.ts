@@ -28,6 +28,10 @@ export class RatingService extends CommunicationRequestService<any>{
   }
 
   public postRating(rating: Rating){
+    delete rating.product['avgStars'];
+    delete rating.product['labelList'];
+    delete rating.product['labels'];
+
     let images = rating.images || [];
     let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
     delete ratingWithoutImages['images'];
