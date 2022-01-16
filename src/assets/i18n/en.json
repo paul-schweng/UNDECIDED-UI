@@ -73,7 +73,8 @@
       "currentEmail": "Enter current email",
       "newEmail": "Enter new email",
       "wrongEmail": "Wrong email",
-      "pwd": "Change Password"
+      "pwd": "Change password",
+      "moreSettings": "More settings"
     }
   },
   "auth": {
