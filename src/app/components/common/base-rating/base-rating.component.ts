@@ -147,7 +147,7 @@ export class BaseRatingComponent implements OnInit {
   }
 
   displayFnFriends = (friend: User) => {
-    return friend ? friend.username : '';
+    return friend && friend.username ? friend.username : '';
   }
 
   private _filterProduct(name: string): string[] {

@@ -1,8 +1,8 @@
 export interface User {
-  id: string,
-  username: string,
+  id?: string,
+  username?: string,
   email?: string,
-  name: string,
+  name?: string,
   birthdate?: Date | string,
   usertype?: 'privat' | 'business',
   verified?: boolean,
