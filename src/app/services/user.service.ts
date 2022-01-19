@@ -20,8 +20,8 @@ export class UserService extends CommunicationRequestService<User>{
   }
 
 
-  public getUser(): Promise<User> {
-    return super.sendGetRequest(this.backendUrlExt);
+  public getUser(username?: string): Promise<User> {
+    return super.sendGetRequest(username ? this.backendUrlExt + '/u/' + username : this.backendUrlExt);
   }
 
 

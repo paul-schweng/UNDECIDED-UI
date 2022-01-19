@@ -7,7 +7,9 @@ import {SettingsComponent} from "../components/profile/settings/settings.compone
 
 export const MAIN_ROUTES: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: 'search', component: SearchComponent},
+  {path: 'search', component: SearchComponent, children:[
+      {path: 'user/:username', component: ProfileComponent}
+    ]},
   {path: 'ratings', component: RatingsComponent},
   {path: 'profile', component: ProfileComponent, children:[
       {path: 'edit', component: ProfileComponent}

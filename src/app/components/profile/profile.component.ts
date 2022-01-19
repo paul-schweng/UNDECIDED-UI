@@ -3,7 +3,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
 import {SampleUser} from "../../services/SampleData";
-import {NavigationEnd, Router} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {clone} from "../../services/clone";
 import {UserService} from "../../services/user.service";
 import {ImageUploadDialogComponent} from "../dialogs/image-upload-dialog/image-upload-dialog.component";
@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit {
   constructor(private translate: TranslateService,
               private readonly auth: AuthenticationService,
               private readonly router: Router,
+              private readonly route: ActivatedRoute,
               private readonly userService: UserService,
               public dialog: MatDialog,
               public readonly notification: NotificationService) {
@@ -38,13 +39,26 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.edit = this.router.url.includes('edit');
-    this.router.events.subscribe((val) => {
-      this.edit = (val as NavigationEnd).url?.includes('edit');
-    });
+    console.log(this.router.url.split('/'))
+    // subscribe to edit only if you are on your own profile page
+    this.editForbidden = this.router.url.split('/')[1] !== 'profile';
+    if(!this.editForbidden){
+      this.edit = this.router.url.includes('edit');
+      this.router.events.subscribe((val) => {
+        this.edit = (val as NavigationEnd).url?.includes('edit');
+      });
+    } else {
+      const routeParams = this.route.snapshot.paramMap;
+      let username = routeParams.get('username');
+      console.log(username);
+      if(username)
+        this.userService.getUser(username.trim()).then(user => this.iAmUser = user);
+    }
+
   }
 
   edit: boolean = false;
+  editForbidden: boolean = false;
 
 
   saveChangesClicked() {

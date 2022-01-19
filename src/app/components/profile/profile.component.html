@@ -84,7 +84,7 @@
     </div>
 
     <!--list-->
-    <div class="col m-auto">
+    <div *ngIf="!editForbidden" class="col m-auto">
       <mat-list *ngIf="!edit; else saveChanges" class="w-fit-content m-auto">
         <a class="on-hover" mat-list-item routerLink="edit">
           <mat-icon mat-list-icon class="d-flex"><img src="assets/img/iconsEdit.svg" alt="edit"></mat-icon>

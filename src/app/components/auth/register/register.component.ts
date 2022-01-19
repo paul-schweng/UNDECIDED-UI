@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
       //check if username is available with timeout for backend call
       if (!timeoutUsername && this.user.username)
         timeoutUsername = setTimeout(() => {
-          this.authService.isUsernameAvailable(this.user.username)
+          this.authService.isUsernameAvailable(this.user.username!)
             .then(available => {
               if(!available.available)
                 this.formGroup.controls['username'].setErrors({unavailable: true})
