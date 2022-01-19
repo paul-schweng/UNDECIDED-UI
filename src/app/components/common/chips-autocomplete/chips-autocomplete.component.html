@@ -19,7 +19,8 @@
       [matAutocomplete]="auto"
       [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      (matChipInputTokenEnd)="add($event.value, $event)">
+      (matChipInputTokenEnd)="add($event.value, $event)"
+      maxlength="20">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add($event.option.viewValue)">
     <mat-option *ngFor="let tags of filteredTags" [value]="tags">

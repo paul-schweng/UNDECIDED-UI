@@ -72,3 +72,25 @@ export const EmptyRating: Rating = {
   types: [],
 }
 
+export const EmptyUser: User = {
+  bannerImage: 0,
+  birthdate: undefined,
+  description: "",
+  email: "",
+  followerNum: 0,
+  followingNum: 0,
+  id: "",
+  isDarkTheme: false,
+  language: "",
+  name: "",
+  password: "",
+  profileImage: undefined,
+  ratingsNum: 0,
+  registerDate: new Date(),
+  rememberMe: false,
+  username: "",
+  usertype: 'privat',
+  verified: false
+
+}
+

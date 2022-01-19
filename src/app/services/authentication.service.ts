@@ -1,11 +1,16 @@
 import {
   Injectable
 } from '@angular/core';
-import {HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../models/user";
-import {SampleUser} from "./SampleData";
+import {EmptyUser} from "./SampleData";
 import {Subject} from "rxjs";
 import {CommunicationRequestService} from "./lib/communication-request.service";
+import {NotificationService} from "./notification.service";
+import {ImageService} from "./image.service";
+import {Router} from "@angular/router";
+import {UserService} from "./user.service";
+import {clone} from "./clone";
 
 
 @Injectable({
@@ -38,7 +43,13 @@ export class AuthenticationService extends CommunicationRequestService<any> {
 
   }
 
-
+  constructor(protected notification: NotificationService,
+              protected imageService: ImageService,
+              protected http: HttpClient,
+              protected router: Router,
+              private readonly userService: UserService) {
+    super(notification, imageService, http, router);
+  }
 
 
   logout() {
@@ -57,15 +68,17 @@ export class AuthenticationService extends CommunicationRequestService<any> {
       {authorization: ''});
 
     return super.sendGetRequest('login', credentials, headers)
-      .then((response: any) => {
+      .then(async (response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
         if(this.authenticated) {
           localStorage.setItem('credentials', JSON.stringify(credentials));
 
-          //TODO: uncomment this and delete other line
-          //this.userService.getUser().then(user => this.iAmUser = user);
-          this.iAmUser = SampleUser;
+          this.iAmUser = clone(EmptyUser);
+
+
+          await this.userService.getUser().then(user => Object.assign(this.iAmUser, clone(user)));
+          //this.iAmUser = SampleUser;
         }
         return this.authenticated;
 

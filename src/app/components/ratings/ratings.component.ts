@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
-import {EmptyRating, SampleRating} from "../../services/SampleData";
+import {EmptyRating} from "../../services/SampleData";
 import {RatingService} from "../../services/rating.service";
 import {MatSelectChange} from "@angular/material/select";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -20,6 +20,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
   private editedRatings: Rating[] = [];
   filters: string[] = ["ratings.filters.latest", "ratings.filters.highest", "ratings.filters.worst", "ratings.filters.likes", "ratings.filters.comments"];
   private routeQueryParams$!: Subscription;
+  currentFilter: string = this.filters[0];
 
   constructor(public dialog: MatDialog,
               private readonly ratingService: RatingService,
@@ -61,7 +62,7 @@ export class RatingsComponent implements OnInit, OnDestroy {
     }
 
     if (id == "-1" && !rating) {
-      rating = clone(SampleRating); //TODO: change to EmptyRating
+      rating = clone(EmptyRating); //TODO: change to EmptyRating
       rating.id = id;
       this.editedRatings.push(rating);
     }
@@ -100,6 +101,11 @@ export class RatingsComponent implements OnInit, OnDestroy {
 
         if(result == 'delete')
           this.ratings.splice(this.ratings.indexOf(rating), 1);
+
+        if(result == 'post') {
+          this.currentFilter = this.filters[0];
+          this.changeFilter();
+        }
       }
 
       this.router.navigate(['.'], {relativeTo: this.route});
@@ -107,8 +113,8 @@ export class RatingsComponent implements OnInit, OnDestroy {
   }
 
   changeFilter(filter?: MatSelectChange) {
-    let value = filter?.value ?? this.filters[0];
-    return this.ratingService.getMyRatings(value.split(".").pop()!).then(
+    this.currentFilter = filter?.value ?? this.filters[0];
+    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!).then(
       (ratingList) => {this.ratings = ratingList}
     );
   }

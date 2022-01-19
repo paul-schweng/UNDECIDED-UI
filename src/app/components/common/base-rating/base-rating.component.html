@@ -1,7 +1,7 @@
 <!--Base Rating-->
 
 <!--The whole base rating-->
-<div *ngIf="!edit" class="row">
+<div *ngIf="!edit" class="row box-shadow">
   <!--First column, the picture carousel-->
   <div class="col p-0 flex-grow-0 m-auto">
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
@@ -73,7 +73,7 @@
 <!--Edit Base Rating-->
 
 <!--The whole base rating-->
-<div *ngIf="edit" class="row">
+<div *ngIf="edit" class="row box-shadow">
   <!--First column, the picture carousel-->
   <div class="col p-0 flex-grow-0 m-auto">
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=0}" [interval]="0" #carousel="ngbCarousel">
