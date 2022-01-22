@@ -81,7 +81,7 @@ input.profile-name {
 .name-background{
   background-color: rgba(71, 71, 71, 0.8);
   border-radius: 15px;
-  padding-left: 10px;
+  padding: 10px 10px 10px 15px !important;
   border-width: 2px;
   border-style: inset;
   border-color: (rgb(118, 118, 118), rgb(133, 133, 133));
@@ -91,6 +91,9 @@ input.profile-name {
 .profile-username{
   font-size: 1.5rem;
   letter-spacing: 10px;
+}
+
+input ~ .profile-username{
   padding-left: 13px;
 }
 
