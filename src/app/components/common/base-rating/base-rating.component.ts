@@ -50,10 +50,10 @@ export class BaseRatingComponent implements OnInit {
 
     /*
     On new user input:
-    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds.
-    A new timeout (service call) is ONLY created IF the old timeout is finished!
+    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds after the user finished typing.
+    A new timeout (service call) is created on every input but cancels the latest timeout!
 
-    In other words: If the user keeps typing the backend is called every TIMEOUT_AUTOCOMPLETE ms.
+    In other words: If the user keeps typing the backend is not called.
     */
     this.productControl.valueChanges.subscribe(input => {
       if(typeof input != 'string')
