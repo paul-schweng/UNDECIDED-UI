@@ -64,6 +64,9 @@ import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam
 import {WebcamModule} from "ngx-webcam";
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import { ChangeEmailComponent } from './components/profile/settings/change-email/change-email.component';
+import { ChangePasswordComponent } from './components/profile/settings/change-password/change-password.component';
+import { MoreSettingsComponent } from './components/profile/settings/more-settings/more-settings.component';
 
 
 @NgModule({
@@ -91,6 +94,9 @@ import {MatBadgeModule} from "@angular/material/badge";
     ImageUploadDialogComponent,
     WebcamDialogComponent,
     ConfirmationDialogComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent,
+    MoreSettingsComponent,
 
   ],
     imports: [

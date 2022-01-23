@@ -74,7 +74,8 @@
       "newEmail": "Neue Email eingeben",
       "wrongEmail": "Falsche Email",
       "pwd": "Passwort ändern",
-      "moreSettings": "weitere Einstellungen"
+      "moreSettings": "weitere Einstellungen",
+      "out": "Logout"
     }
   },
   "auth": {
