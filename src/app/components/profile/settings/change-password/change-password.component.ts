@@ -10,7 +10,7 @@ import {UserService} from "../../../../services/user.service";
 })
 export class ChangePasswordComponent implements OnInit {
 
-  wrongEmail: boolean = false;
+  wrongPwd: boolean = false;
 
   constructor(public readonly translate: TranslateService,
               public readonly auth: AuthenticationService,
@@ -19,11 +19,11 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  newPwdClicked(currentEmail: string, newEmail: string) {
-    this.userService.changePassword(currentEmail, newEmail).then(res => {
+  newPwdClicked(currentPwd: string, newPwd: string) {
+    this.userService.changePassword(currentPwd, newPwd).then(res => {
       console.log(res)
       if(!res)
-        this.wrongEmail = true;
+        this.wrongPwd = true;
       else
         console.log('successfully changed password!')
     });

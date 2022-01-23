@@ -80,6 +80,7 @@
   },
   "auth": {
     "forgot": "Passwort vergessen?",
+    "wrongPwd": "Falsches Passwort",
     "authFail": "Falsche Email/Benutzername oder Passwort",
     "enterPwd": "Passwort eingeben",
     "newPwd": "Neues Passwort eingeben",
