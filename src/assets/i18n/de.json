@@ -7,7 +7,21 @@
     "darkmode": "Darkmode",
     "lang": "Sprache",
     "chooseLang": "Sprache auswählen",
-    "email": "Email"
+    "email": "Email",
+    "cancel": "Abbrechen",
+    "filter": "Sortieren",
+    "delete": "Löschen"
+  },
+  "dialog": {
+    "delete": {
+      "header": "Löschen bestätigen",
+      "image": "Möchtest du dieses Bild wirklich löschen?",
+      "rating": "Möchtest du diese Bewertung wirklich löschen?"
+    }
+  },
+  "uploadImage": {
+    "takePhoto": "Foto machen",
+    "gallery": "Aus Galerie"
   },
   "home": {
 
@@ -16,8 +30,29 @@
 
   },
   "ratings": {
-
+    "choosePicture": "Bild auswählen",
+    "addLocation": "Ort hinzufügen",
+    "tagFriends": "Freunde verlinken",
+    "addTags": "Tags hinzufügen",
+    "newTags": "Neue Tags...",
+    "post": "Posten!",
+    "edit": "Bearbeiten",
+    "filters": {
+      "latest": "neuste Bewertungen",
+      "highest": "beste Bewertungen",
+      "comments": "meiste Kommentare",
+      "likes": "meiste Likes",
+      "worst": "schlechteste Bewertungen"
+    }
   },
+  "label": {
+    "vegetarian": "Vegetarisch",
+    "vegan": "Vegan",
+    "alcoholic": "Alkoholisch",
+    "gluten": "Glutenfrei",
+    "lactose": "Laktosefrei"
+  },
+
   "product": {
     "product": "Produkt",
     "brand": "Marke"
@@ -31,6 +66,8 @@
     "desc": "Beschreibung",
     "defaultDesc": "Beschreibung...",
     "descPlaceholder": "Erzähl etwas über dich...",
+    "since": "undecided seit {{date}}",
+    "save": "Änderungen speichern",
     "accSettings": {
       "email": "Email ändern",
       "currentEmail": "Aktuelle Email eingeben",
@@ -48,6 +85,7 @@
     "wrongPwdRepeat": "Passwort stimmt nicht über ein",
     "enterEmail": "Email eingeben",
     "welcome": "Willkommen!",
+    "usernameTaken": "Dieser Username ist bereits vergeben!",
     "securePwd": {
       "length": "Min. 8 Zeichen",
       "lowercase": "Min. 1 Kleinbuchstabe",
@@ -62,7 +100,8 @@
       "birthdate": "Geburtsdatum",
       "password": "Passwort",
       "signUp": "Registrieren",
-      "hasAccount": "Hast Du bereits einen Account?"
+      "hasAccount": "Hast Du bereits einen Account?",
+      "allowedChars": "Erlaubte Zeichen: a-z 0-9 . - _"
     },
     "login": {
       "signIn": "Anmelden",
@@ -78,6 +117,10 @@
     "msg": {
       "error": "Es ist ein Fehler aufgetreten"
     }
+  },
+  "imageError": {
+    "header": "Upload fehlgeschlagen",
+    "msg": "Dateigröße überschritten:<br/>Maximale Dateigröße ist 5 MB"
   },
   "hello": "Hallo Welt",
   "test": "TEST"

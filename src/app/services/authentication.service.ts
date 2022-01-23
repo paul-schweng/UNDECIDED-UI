@@ -1,17 +1,22 @@
 import {
   Injectable
 } from '@angular/core';
-import {HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {User} from "../models/user";
-import {SampleUser} from "./SampleData";
+import {EmptyUser} from "./SampleData";
 import {Subject} from "rxjs";
 import {CommunicationRequestService} from "./lib/communication-request.service";
+import {NotificationService} from "./notification.service";
+import {ImageService} from "./image.service";
+import {Router} from "@angular/router";
+import {UserService} from "./user.service";
+import {clone} from "./clone";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService extends CommunicationRequestService<User> {
+export class AuthenticationService extends CommunicationRequestService<any> {
 
   protected readonly backendUrl = '../auth/';
 
@@ -38,7 +43,13 @@ export class AuthenticationService extends CommunicationRequestService<User> {
 
   }
 
-
+  constructor(protected notification: NotificationService,
+              protected imageService: ImageService,
+              protected http: HttpClient,
+              protected router: Router,
+              private readonly userService: UserService) {
+    super(notification, imageService, http, router);
+  }
 
 
   logout() {
@@ -56,16 +67,18 @@ export class AuthenticationService extends CommunicationRequestService<User> {
       {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} :
       {authorization: ''});
 
-    return super.sendGetRequest('login', undefined, headers)
-      .then((response: any) => {
+    return super.sendGetRequest('login', credentials, headers)
+      .then(async (response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
         if(this.authenticated) {
           localStorage.setItem('credentials', JSON.stringify(credentials));
 
-          //TODO: uncomment this and delete other line
-          //this.userService.getUser().then(user => this.iAmUser = user);
-          this.iAmUser = SampleUser;
+          this.iAmUser = clone(EmptyUser);
+
+
+          await this.userService.getUser().then(user => Object.assign(this.iAmUser, clone(user)));
+          //this.iAmUser = SampleUser;
         }
         return this.authenticated;
 
@@ -74,14 +87,23 @@ export class AuthenticationService extends CommunicationRequestService<User> {
   }
 
   register(user: User): Promise<boolean>{
+    user.birthdate = (<Date>user.birthdate)?.toISOString().split("T")[0];
     return super.sendPostRequest('register', user);
   }
 
-  protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
-    return new HttpParams();
+  public isUsernameAvailable(username: string): Promise<{available: boolean}> {
+    return super.sendGetRequest('user-available', {partUsername: username});
   }
 
 
+  protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
+    if(reqParameter.rememberMe)
+      return new HttpParams().set('rememberMe', reqParameter.rememberMe);
+    if(reqParameter.partUsername)
+      return new HttpParams().set('u', reqParameter.partUsername)
+
+    return new HttpParams();
+  }
 
 
 

@@ -1,7 +1,7 @@
-<div class="navbar Background-Nav">
+<div class="navbar px-2 Background-Nav">
   <div>
     <a class="navbar-brand" routerLink="/" href="#">
-      <embed src="/assets/img/Logo.svg" alt="UNDECIDED-Logo" style="height:15vh" >
+      <embed src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo">
     </a>
   </div>
 
@@ -15,9 +15,9 @@
         <mat-expansion-panel-header>
           <mat-panel-title class="Text-Style-15" translate="basics.lang"></mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-radio-group aria-label="language">
-          <mat-radio-button value="en" [checked]="true">English</mat-radio-button>
-          <mat-radio-button value="de">Deutsch</mat-radio-button>
+        <mat-radio-group (change)="changeLang($event)" aria-label="language">
+          <mat-radio-button value="en" [checked]="translate.currentLang == en.value" #en>English</mat-radio-button>
+          <mat-radio-button value="de" [checked]="translate.currentLang == de.value" #de>Deutsch</mat-radio-button>
         </mat-radio-group>
       </mat-expansion-panel>
     </li>

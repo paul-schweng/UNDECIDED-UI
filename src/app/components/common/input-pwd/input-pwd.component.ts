@@ -106,6 +106,11 @@ export class InputPwdComponent implements OnInit {
   }
 
 
+  checkRegex(regex: string): boolean {
+    let b = new RegExp(regex).test(this.formControl.value);
+    console.log(b);
+    return b;
+  }
 
 }
 

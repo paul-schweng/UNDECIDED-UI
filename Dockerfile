@@ -2,6 +2,5 @@
 # 'docker build -t undecided/ui .'
 
 #UI
-FROM nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY dist/UI/ /etc/nginx/sites-available
+FROM ubuntu/apache2
+RUN a2enmod rewrite

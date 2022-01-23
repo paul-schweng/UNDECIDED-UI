@@ -7,7 +7,21 @@
     "darkmode": "Darkmode",
     "lang": "Language",
     "chooseLang": "Choose language",
-    "email": "Email"
+    "email": "Email",
+    "cancel": "Cancel",
+    "filter": "Sort by",
+    "delete": "Delete"
+  },
+  "dialog": {
+    "delete": {
+      "header": "Confirm delete",
+      "image": "Do you really want to delete this picture?",
+      "rating": "Do you really want to delete this rating?"
+    }
+  },
+  "uploadImage": {
+    "takePhoto": "Take photo",
+    "gallery": "From gallery"
   },
   "home": {
 
@@ -16,8 +30,29 @@
 
   },
   "ratings": {
-
+    "choosePicture": "Choose picture",
+    "addLocation": "Add location",
+    "tagFriends": "Tag friends",
+    "addTags": "Add tags",
+    "newTags": "New tags...",
+    "post": "Post it!",
+    "edit": "Edit",
+    "filters": {
+      "latest": "latest ratings",
+      "highest": "highest ratings",
+      "comments": "most comments",
+      "likes": "most likes",
+      "worst": "worst ratings"
+    }
   },
+  "label": {
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "alcoholic": "Alcoholic",
+    "gluten": "Gluten free",
+    "lactose": "Lactose free"
+  },
+
   "product": {
     "product": "Product",
     "brand": "Brand"
@@ -31,6 +66,8 @@
     "desc": "Description",
     "defaultDesc": "Description...",
     "descPlaceholder": "Tell something about yourself...",
+    "since": "undecided since {{date}}",
+    "save": "Save changes",
     "accSettings": {
       "email": "Change email",
       "currentEmail": "Enter current email",
@@ -48,6 +85,7 @@
     "wrongPwdRepeat": "Password does not match",
     "enterEmail": "Enter your email",
     "welcome": "Welcome!",
+    "usernameTaken": "This username is already taken!",
     "securePwd": {
       "length": "Min. 8 characters",
       "lowercase": "At least 1 lowercase letter",
@@ -62,7 +100,8 @@
       "birthdate": "Birthdate",
       "password": "Password",
       "signUp": "Sign Up",
-      "hasAccount": "Do you have an account?"
+      "hasAccount": "Do you have an account?",
+      "allowedChars": "Allowed characters: a-z 0-9 . - _"
     },
     "login": {
       "signIn": "Sign In",
@@ -78,6 +117,10 @@
     "msg": {
       "error": "An error occurred"
     }
+  },
+  "imageError": {
+    "header": "Upload failed",
+    "msg": "File size exceeded:\nMaximum file size is 5 MB"
   },
   "hello": "Hello World",
   "test": "TEST"

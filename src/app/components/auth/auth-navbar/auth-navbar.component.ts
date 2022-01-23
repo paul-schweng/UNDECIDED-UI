@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {MatRadioChange} from "@angular/material/radio";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'auth-navbar',
@@ -8,9 +10,13 @@ import {Router} from "@angular/router";
 })
 export class AuthNavbarComponent implements OnInit {
 
-  constructor(public readonly router: Router) { }
+  constructor(public readonly router: Router,
+              public readonly translate: TranslateService) { }
 
   ngOnInit(): void {
   }
 
+  changeLang(event: MatRadioChange) {
+    this.translate.use(event.value)
+  }
 }

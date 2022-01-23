@@ -1,7 +1,7 @@
-<div class="navbar Background-Nav">
+<div class="navbar px-2 Background-Nav">
   <div>
-    <a class="navbar-brand" routerLink="/" href="#">
-      <embed src="/assets/img/Logo.svg" alt="UNDECIDED-Logo" style="height:10vh" >
+    <a class="" routerLink="/" href="#">
+      <embed src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo">
     </a>
   </div>
 
@@ -16,7 +16,9 @@
       <a routerLink="ratings" mat-icon-button [class.button-selected]="router.url.includes('ratings')"><img src="/assets/img/iconsNavImage.svg" alt="RATINGS"></a>
     </li>
     <li>
-      <a routerLink="profile"><img src="/assets/img/default-user.png" class="nav-bar-profile" alt="PROFILE"/></a>
+      <a routerLink="profile">
+        <img [src]="iAmUser.profileImage || '/assets/img/default-user.png'" class="nav-bar-profile" alt="PROFILE">
+      </a>
     </li>
   </ul>
 </div>

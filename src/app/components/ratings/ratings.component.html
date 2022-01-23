@@ -1,2 +1,47 @@
-<p>ratings works!</p>
-<button (click)="openRatingDialog()" mat-raised-button>Dialog</button>
+
+  <mat-form-field class="position-absolute m-4" appearance="fill">
+    <mat-label>{{'basics.filter' | translate}}</mat-label>
+    <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
+      <mat-option *ngFor="let filter of filters" [value]="filter">
+        {{filter | translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="m-4 d-flex justify-content-center">
+    <button routerLink="./" [queryParams]="{id: -1}" mat-fab color="">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <div class="mt-5 d-flex flex-wrap" *ngIf="ratings; else empty">
+    <mat-card class="card m-4" [style]="'background-image: url(\'' + ('' || '/assets/img/defaultImage.webp') + '\')'" *ngFor="let rating of ratings" routerLink="./" [queryParams]="{id: rating.id}">
+      <div class="card-content">
+        <h2 class="card-title">{{rating.product.name}}</h2>
+        <div>
+          <ngx-stars [size]="2" [initialStars]="rating.stars" color="var(--very-light-brown)" [readonly]="true"></ngx-stars>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <ng-template #empty>
+    <div class="middle Text-Style-18">
+      {{'ratings.noRatings' | translate}}
+    </div>
+  </ng-template>
+
+
+<!--<div class="m-2" *ngIf="ratings">
+  <mat-card class="m-4 card" *ngFor="let rating of ratings" routerLink="./" [queryParams]="{id: rating.id}">
+    <img *ngIf="rating.images && rating.images.length > 0" mat-card-image [src]="'/api/img/rating/' + rating.images[0]" alt="rating">
+    <img *ngIf="!rating.images || rating.images.length == 0" mat-card-image src="/assets/img/defaultImage.webp" alt="default">
+    <div>
+      <ngx-stars [size]="3" [initialStars]="rating.stars" color="black" [readonly]="true"></ngx-stars>
+      <div>{{rating.product.name}}</div>
+      <div>
+        <img *ngFor="let label of rating.labelList" [src]="'/assets/img/labels/' + label.icon" alt="label">
+      </div>
+    </div>
+  </mat-card>
+</div>-->
