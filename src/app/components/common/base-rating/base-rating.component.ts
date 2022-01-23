@@ -46,6 +46,7 @@ export class BaseRatingComponent implements OnInit {
 
     let timeoutProduct: number;
     let timeoutBrand: number;
+    let timeoutFriend: number;
 
     /*
     On new user input:
@@ -58,6 +59,11 @@ export class BaseRatingComponent implements OnInit {
       if(typeof input != 'string')
         return;
 
+      if(timeoutProduct){
+        clearTimeout(timeoutProduct);
+        timeoutProduct = 0;
+      }
+
       input = input.trim();
       if (!timeoutProduct && input)
         timeoutProduct = setTimeout(() => {
@@ -68,12 +74,42 @@ export class BaseRatingComponent implements OnInit {
     });
 
     this.brandControl.valueChanges.subscribe(input => {
+      if(typeof input != 'string')
+        return;
+
+      if(timeoutBrand){
+        clearTimeout(timeoutBrand);
+        timeoutBrand = 0;
+      }
+
       input = input.trim();
       if (!timeoutBrand && input)
         timeoutBrand = setTimeout(() => {
             this.autocompleteService.getBrand(input.toLowerCase())
               .then(tags => this.filteredOptionsBrand = tags);
           timeoutBrand = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+    });
+
+    this.friendsControl.valueChanges.subscribe(input => {
+      if(typeof input != 'string')
+        return;
+
+      input = input.trim();
+      if(timeoutFriend){
+        clearTimeout(timeoutFriend);
+        timeoutFriend = 0;
+      }
+
+      if (!timeoutFriend && input)
+        timeoutFriend = setTimeout(() => {
+
+          this.autocompleteService.getFriend(input)
+            .then(friends => {
+                console.log(friends, 'here')
+              this.filteredOptionsFriends = friends
+              });
+          timeoutFriend = 0;
         }, this.TIMEOUT_AUTOCOMPLETE);
     });
 
@@ -253,4 +289,10 @@ export class BaseRatingComponent implements OnInit {
   removeFriend(friend: User) {
     this._rating.friends?.splice(this._rating.friends?.indexOf(friend),1);
   }
+
+  friendSelected(friend: User) {
+    this._rating.friends?.push(friend);
+    this.friendsControl.setValue('');
+  }
+
 }
