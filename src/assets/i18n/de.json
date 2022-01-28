@@ -73,11 +73,14 @@
       "currentEmail": "Aktuelle Email eingeben",
       "newEmail": "Neue Email eingeben",
       "wrongEmail": "Falsche Email",
-      "pwd": "Passwort ändern"
+      "pwd": "Passwort ändern",
+      "moreSettings": "weitere Einstellungen",
+      "out": "Logout"
     }
   },
   "auth": {
     "forgot": "Passwort vergessen?",
+    "wrongPwd": "Falsches Passwort",
     "authFail": "Falsche Email/Benutzername oder Passwort",
     "enterPwd": "Passwort eingeben",
     "newPwd": "Neues Passwort eingeben",

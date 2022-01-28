@@ -1,45 +1,54 @@
+<div class="row">
+  <div class="col d-inline-grid align-items-end pl-4">
+    <div class="d-flex align-items-center">
+      <mat-icon mat-list-icon class="d-flex mx-3"><img src="assets/img/iconsSettings.svg" alt="settings"></mat-icon>
+      <div class="Text-Style-19" translate>profile.settings</div>
+    </div>
+    <div class="nav-bar-line"></div>
+  </div>
 
-<form>
-  <span translate>profile.accSettings.email</span>
-  <mat-error *ngIf="wrongEmail" translate>profile.accSettings.wrongEmail</mat-error>
-  <input-email [label]="'profile.accSettings.currentEmail' | translate" #currentEmail></input-email>
-  <input-email [label]="'profile.accSettings.newEmail' | translate" #newEmail></input-email>
-  <button (click)="newEmailClicked(currentEmail.formControl.value, newEmail.formControl.value)"
-          type="submit" mat-raised-button translate="basics.change"
-          [disabled]="currentEmail.formControl.invalid || newEmail.formControl.invalid"></button>
-</form>
-
-<form>
-  <span translate>profile.accSettings.pwd</span>
-  <mat-error *ngIf="wrongEmail" translate>profile.accSettings.wrongEmail</mat-error>
-  <input-pwd type="enter" #currentPwd></input-pwd>
-  <input-pwd type="new" [repeatedPwd]="currentPwd.formControl.value" #newPwd></input-pwd>
-  <input-pwd type="repeat" [repeatedPwd]="newPwd.formControl.value" #repeatPwd></input-pwd>
-  <button (click)="newPwdClicked(currentPwd.formControl.value, newPwd.formControl.value)"
-          type="submit" mat-raised-button translate="basics.change"
-          [disabled]="currentPwd.formControl.invalid || newPwd.formControl.invalid || repeatPwd.formControl.invalid"></button>
-</form>
-
-<div>
-  <span translate>basics.darkmode</span>
-  <div>
-    <mat-icon>wb_sunny</mat-icon>
-    <mat-slide-toggle [(ngModel)]="auth.iAmUser!.isDarkTheme" (change)="updateUser()"></mat-slide-toggle>
-    <mat-icon>brightness_2</mat-icon>
+  <div class="col flex-grow-2 m-4 d-flex justify-content-end">
+    <button routerLink="/profile" mat-mini-fab color="">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 </div>
 
-<div>
-  <span translate>basics.chooseLang</span>
-  <mat-form-field appearance="fill">
-    <mat-label>{{'basics.lang' | translate}}</mat-label>
-    <mat-select [(ngModel)]="auth.iAmUser.language" (selectionChange)="updateUser()">
-      <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
-        {{lang}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="row">
+  <div class="col m-auto">
+    <mat-list class="w-fit-content m-auto">
+      <!--change email-->
+      <a class="on-hover" [class.button-selected]="router.url.includes('change-email')" mat-list-item routerLink="change-email">
+        <mat-icon mat-list-icon class="d-flex">alternate_email</mat-icon>
+        <div mat-line translate>profile.accSettings.email</div>
+        <mat-divider class="border-2"></mat-divider>
+      </a>
+      <!--change password-->
+      <a class="on-hover" [class.button-selected]="router.url.includes('change-password')" mat-list-item routerLink="change-password">
+        <mat-icon mat-list-icon class="d-flex">lock</mat-icon>
+        <div mat-line translate>profile.accSettings.pwd</div>
+        <mat-divider class="border-2"></mat-divider>
+      </a>
+      <!--more settings-->
+      <a class="on-hover" [class.button-selected]="router.url.includes('more-settings')" mat-list-item routerLink="more-settings">
+        <mat-icon mat-list-icon class="d-flex">tune</mat-icon>
+        <div mat-line translate>profile.accSettings.moreSettings</div>
+        <mat-divider class="border-2"></mat-divider>
+      </a>
+      <!--Logout-->
+      <a class="on-hover fond-red" mat-list-item (click)="logout()">
+        <mat-icon mat-list-icon class="d-flex">exit_to_app</mat-icon>
+        <div mat-line translate>profile.accSettings.out</div>
+        <mat-divider class="border-2"></mat-divider>
+      </a>
+    </mat-list>
+  </div>
+
+  <div class="Line-6 mb-auto mt-auto"></div>
+
+
+
+  <div class="col d-flex justify-content-center flex-grow-2 m-auto">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-
-<button (click)="logout()" mat-raised-button>logout</button>
-

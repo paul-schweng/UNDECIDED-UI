@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {UserService} from "../../../services/user.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -11,44 +12,14 @@ import {UserService} from "../../../services/user.service";
 })
 export class SettingsComponent implements OnInit{
 
-  wrongEmail: boolean = false;
-
 
   constructor(public readonly translate: TranslateService,
               public readonly auth: AuthenticationService,
-              private  readonly userService: UserService) {
+              private  readonly userService: UserService,
+              public readonly router: Router) {
   }
 
   ngOnInit(): void {
-  }
-
-  newEmailClicked(currentEmail: string, newEmail: string) {
-      this.userService.changeEmail(currentEmail, newEmail).then(res => {
-        console.log(res)
-        if(!res)
-          this.wrongEmail = true;
-        else
-          console.log('successfully changed email!')
-      });
-  }
-
-  newPwdClicked(currentEmail: string, newEmail: string) {
-    this.userService.changePassword(currentEmail, newEmail).then(res => {
-      console.log(res)
-      if(!res)
-        this.wrongEmail = true;
-      else
-        console.log('successfully changed password!')
-    });
-  }
-
-  updateUser(){
-    this.auth.notifyChange();
-    this.userService.updateUser(this.auth.iAmUser);
-  }
-
-  toggleDarkTheme(){
-
   }
 
   logout() {

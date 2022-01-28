@@ -73,11 +73,14 @@
       "currentEmail": "Enter current email",
       "newEmail": "Enter new email",
       "wrongEmail": "Wrong email",
-      "pwd": "Change Password"
+      "pwd": "Change password",
+      "moreSettings": "More settings",
+      "out": "Logout"
     }
   },
   "auth": {
     "forgot": "Forgot password?",
+    "wrongPwd": "Wrong password",
     "authFail": "Wrong email/username or password",
     "enterPwd": "Enter your password",
     "newPwd": "Enter new password",

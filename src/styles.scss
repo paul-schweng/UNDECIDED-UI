@@ -85,6 +85,10 @@ a.mat-button-base, a.mat-button-base:hover {
   left: 50%;
 }
 
+.flex-grow-2{
+  flex-grow: 2;
+}
+
 .w-fit-content{
   width: fit-content;
   width: -moz-fit-content;
@@ -92,6 +96,19 @@ a.mat-button-base, a.mat-button-base:hover {
 
 .cursor-pointer{
   cursor: pointer;
+}
+
+.nav-bar-line {
+  width: 100%;
+  height: 2px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.29);
+  background-color: #766d63;
+}
+
+.Line-6 {
+  width: 2px;
+  height: 20rem;
+  background-image: linear-gradient(0deg, rgba(192, 198, 201, 0) 0%, #c0c6c9 50%, rgba(192, 198, 201, 0) 100%);
 }
 
 a{
