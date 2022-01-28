@@ -87,7 +87,7 @@ export class AuthenticationService extends CommunicationRequestService<any> {
   }
 
   register(user: User): Promise<boolean>{
-    user.birthdate = (<Date>user.birthdate)?.toISOString().split("T")[0];
+    // user.birthdate = (<Date>user.birthdate)?.toISOString().split("T")[0];
     return super.sendPostRequest('register', user);
   }
 

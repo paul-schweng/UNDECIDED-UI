@@ -5,5 +5,6 @@ export interface Comment {
   id: string,
   user: User,
   rating: Rating,
-  content: string
+  content: string,
+  timestamp: Date | string
 }

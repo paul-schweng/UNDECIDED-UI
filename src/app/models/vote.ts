@@ -4,5 +4,5 @@ import {Rating} from "./rating";
 export interface Vote {
   user: User,
   rating: Rating,
-  timestamp: Date
+  timestamp: Date | string
 }
