@@ -1,9 +1,13 @@
 <busy-div [busy]="isBusy">
   <!--profile member date-->
-  <span class="profile-member-date position-absolute pt-1">{{'profile.since' | translate: {date: iAmUser.registerDate?.toLocaleDateString()} }}</span>
+  <span class="profile-member-date position-absolute pt-1">{{'profile.since' | translate: {date: getDateString(iAmUser.registerDate)} }}</span>
 
+  <!--profile background/banner-->
   <!--profile content-->
-  <div class="row w-100 profile-background-content position-absolute align-items-center">
+  <div class="row w-100 profile-background profile-background-content align-items-center" [style]="'background-image: url(\'' + getBannerUrl() + '\')'">
+
+
+
     <!--picture-->
     <div class="col m-auto flex-grow-0 align-items-center justify-content-around">
       <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="">
@@ -37,6 +41,11 @@
         </span>
       </div>
     </ng-template>
+
+    <!--edit banner button-->
+    <button *ngIf="edit" class="edit-banner" mat-mini-fab color="" placement="left-top left-bottom" container="body" popoverClass="banner-popover" [ngbPopover]="popContent" [autoClose]="'outside'">
+      <mat-icon>edit</mat-icon>
+    </button>
   </div>
 
   <!--change banner dialog-->
@@ -51,16 +60,7 @@
     </div>
   </ng-template>
 
-  <!--edit banner button-->
-  <button *ngIf="edit" class="edit-banner" mat-mini-fab color="" placement="left-top left-bottom" container="body" popoverClass="banner-popover" [ngbPopover]="popContent" [autoClose]="'outside'">
-    <mat-icon>edit</mat-icon>
-  </button>
 
-  <!--profile background/banner-->
-  <div *ngIf="!edit; else editBanner" class="w-100 profile-background" [style]="'background-image: url(\'' + getBannerUrl(iAmUser.bannerImage) + '\')'"></div>
-  <ng-template #editBanner>
-    <div class="w-100 profile-background" [style.background-image]="'url(\'' + getBannerUrl(clonedIAmUser.bannerImage) + '\')'"></div>
-  </ng-template>
 
   <!--stats-->
   <div class="row profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
