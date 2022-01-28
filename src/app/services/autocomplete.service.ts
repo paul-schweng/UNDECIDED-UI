@@ -24,7 +24,7 @@ export class AutocompleteService extends CommunicationRequestService<any> {
   public getProduct(input: string): Promise<Product[]>{
     return super.sendPostRequest<Product[]>(this.backendUrlExt + '/product', {input: input})
       .then(productList => {
-        return Converter.convertLabel(productList);
+        return productList ? Converter.convertLabel(productList) : [];
       }
       //TODO: remove this line
       ,() =>  {return Converter.convertLabel(clone([SampleProduct]));}

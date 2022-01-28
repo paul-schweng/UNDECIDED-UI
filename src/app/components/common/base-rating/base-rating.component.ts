@@ -17,6 +17,7 @@ import {NgxStarsComponent} from "ngx-stars";
 import {clone} from "../../../services/clone";
 import {User} from "../../../models/user";
 import {NotificationService} from "../../../services/notification.service";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 
 @Component({
@@ -42,7 +43,8 @@ export class BaseRatingComponent implements OnInit {
 
   constructor(private autocompleteService: AutocompleteService,
               public dialog: MatDialog,
-              private readonly notification: NotificationService) {
+              private readonly notification: NotificationService,
+              private readonly authService: AuthenticationService) {
 
     let timeoutProduct: number;
     let timeoutBrand: number;
@@ -106,8 +108,8 @@ export class BaseRatingComponent implements OnInit {
 
           this.autocompleteService.getFriend(input)
             .then(friends => {
-                console.log(friends, 'here')
-              this.filteredOptionsFriends = friends
+              // if friend was already added -> don't show them in options
+              this.filteredOptionsFriends = friends.filter(f => !this._rating.friends?.some(f2 => f.id === f2.id))
               });
           timeoutFriend = 0;
         }, this.TIMEOUT_AUTOCOMPLETE);
@@ -293,6 +295,7 @@ export class BaseRatingComponent implements OnInit {
   friendSelected(friend: User) {
     this._rating.friends?.push(friend);
     this.friendsControl.setValue('');
+    this.filteredOptionsFriends = []
   }
 
 }

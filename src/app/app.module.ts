@@ -64,6 +64,7 @@ import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam
 import {WebcamModule} from "ngx-webcam";
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -137,7 +138,8 @@ import {MatBadgeModule} from "@angular/material/badge";
         MatChipsModule,
         MatCardModule,
         WebcamModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatTooltipModule
 
     ],
   providers: [
