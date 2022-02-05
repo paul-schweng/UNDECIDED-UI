@@ -52,13 +52,22 @@ export class ProfileComponent implements OnInit {
       let username = routeParams.get('username');
       console.log(username);
       if(username)
-        this.userService.getUser(username.trim()).then(user => this.iAmUser = user);
+        this.userService.getUser(username.trim()).then(user => {
+          this.isMe = this.iAmUser.id == user.id;
+          this.iAmUser = user;
+        }, () => this.userNotFound = true
+        ).then(() =>
+            this.refreshIsFollowing()
+          );
     }
 
   }
 
   edit: boolean = false;
   editForbidden: boolean = false;
+  isFollowing: boolean = false;
+  userNotFound: boolean = false;
+  isMe: boolean = false;
 
 
   saveChangesClicked() {
@@ -150,5 +159,22 @@ export class ProfileComponent implements OnInit {
       date = new Date(date)
 
     return date!.toLocaleDateString()
+  }
+
+  followClicked() {
+    if(!this.isFollowing)
+      this.userService.followUser(this.iAmUser.id!).then(() =>
+        this.refreshIsFollowing()
+      );
+    else
+      this.userService.unfollowUser(this.iAmUser.id!).then(() =>
+        this.refreshIsFollowing()
+      );
+  }
+
+  private refreshIsFollowing() {
+    this.userService.isFollowing(this.iAmUser.id!).then(isFollowing => {
+      this.isFollowing = isFollowing;
+    })
   }
 }

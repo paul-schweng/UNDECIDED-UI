@@ -10,7 +10,9 @@
     "email": "Email",
     "cancel": "Abbrechen",
     "filter": "Sortieren",
-    "delete": "Löschen"
+    "delete": "Löschen",
+    "follow": "Folgen",
+    "unfollow": "Entfolgen"
   },
   "dialog": {
     "delete": {

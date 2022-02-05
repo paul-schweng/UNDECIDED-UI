@@ -48,8 +48,26 @@ export class UserService extends CommunicationRequestService<User>{
   }
 
 
+  public followUser(userId: string): Promise<any> {
+    return super.sendGetRequest(this.backendUrlExt + '/follow', {id: userId}, undefined, true);
+  }
+
+  public isFollowing(userId: string): Promise<boolean> {
+    return super.sendGetRequest<any>(this.backendUrlExt + '/following', {id: userId})
+      .then(isFollowing => {
+        return isFollowing.isFollowing;
+      });
+  }
+
+  public unfollowUser(userId: string): Promise<any> {
+    return super.sendDeleteRequest(this.backendUrlExt + '/unfollow', {id: userId});
+  }
+
+
 
   protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
+    if(reqParameter.id)
+      return new HttpParams().set('id', reqParameter.id);
     return new HttpParams();
   }
 

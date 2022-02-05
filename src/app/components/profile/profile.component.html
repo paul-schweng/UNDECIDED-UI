@@ -1,4 +1,4 @@
-<busy-div [busy]="isBusy">
+<busy-div *ngIf="!userNotFound else userNotFoundTemplate" [busy]="isBusy">
   <!--profile member date-->
   <span class="profile-member-date position-absolute pt-1">{{'profile.since' | translate: {date: getDateString(iAmUser.registerDate)} }}</span>
 
@@ -69,8 +69,13 @@
     <a translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15">profile.following</a>
   </div>
 
+  <div class="ml-2 mt-3" *ngIf="editForbidden && !isMe">
+    <button (click)="followClicked()" mat-raised-button color="primary">{{ (isFollowing ? 'basics.unfollow' : 'basics.follow') | translate }}</button>
+  </div>
+
   <!--description and list-->
   <div class="row w-100 justify-content-center">
+
     <!--description-->
     <div *ngIf="!edit" class="col m-4  p-4 border border-2 rounded respect-new-line">{{iAmUser.description || ('profile.defaultDesc' | translate)}}</div>
 
@@ -115,3 +120,7 @@
     </ng-template>
   </div>
 </busy-div>
+
+<ng-template #userNotFoundTemplate> <!-- TODO: CSS und so-->
+  USER NOT FOUND
+</ng-template>

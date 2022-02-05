@@ -10,7 +10,9 @@
     "email": "Email",
     "cancel": "Cancel",
     "filter": "Sort by",
-    "delete": "Delete"
+    "delete": "Delete",
+    "follow": "Follow",
+    "unfollow": "Unfollow"
   },
   "dialog": {
     "delete": {
