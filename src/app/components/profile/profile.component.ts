@@ -163,13 +163,17 @@ export class ProfileComponent implements OnInit {
 
   followClicked() {
     if(!this.isFollowing)
-      this.userService.followUser(this.iAmUser.id!).then(() =>
-        this.refreshIsFollowing()
-      );
+      this.userService.followUser(this.iAmUser.id!).then(() => {
+        this.refreshIsFollowing();
+        this.auth.iAmUser.followingNum! += 1;
+        this.iAmUser.followerNum! += 1;
+      });
     else
-      this.userService.unfollowUser(this.iAmUser.id!).then(() =>
-        this.refreshIsFollowing()
-      );
+      this.userService.unfollowUser(this.iAmUser.id!).then(() =>{
+        this.refreshIsFollowing();
+        this.auth.iAmUser.followingNum! -= 1;
+        this.iAmUser.followerNum! -= 1;
+      });
   }
 
   private refreshIsFollowing() {
