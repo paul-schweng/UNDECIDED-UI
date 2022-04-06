@@ -29,12 +29,19 @@ export class AppComponent implements OnInit, OnDestroy{
   init(){
     this.manageDarkTheme();
     this.initTranslateService();
+    this.toggleFunnyCursor();
   }
 
   ngOnInit(): void {
     this.init();
   }
 
+  toggleFunnyCursor(): void {
+    if(this.auth.iAmUser?.isFunnyCursor)
+      this.renderer.addClass(document.body, 'funny-cursor');
+    else
+      this.renderer.removeClass(document.body, 'funny-cursor');
+  }
 
 
   toggleTheme(): void {
@@ -43,10 +50,16 @@ export class AppComponent implements OnInit, OnDestroy{
   }
 
   private manageDarkTheme(){
-    if(this.auth.iAmUser?.isDarkTheme)
+    if(this.auth.iAmUser?.isDarkTheme) {
       this.renderer.addClass(document.body, 'dark-theme');
-    else
+
+    }
+    else{
       this.renderer.removeClass(document.body, 'dark-theme');
+
+    }
+
+
   }
 
 

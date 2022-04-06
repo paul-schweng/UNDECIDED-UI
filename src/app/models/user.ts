@@ -17,5 +17,6 @@ export interface User {
   followingNum?: number,
   ratingsNum?: number,
   bannerImage?: number,
+  isFunnyCursor?: boolean
 }
 

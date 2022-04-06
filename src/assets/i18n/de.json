@@ -77,7 +77,8 @@
       "wrongEmail": "Falsche Email",
       "pwd": "Passwort ändern",
       "moreSettings": "weitere Einstellungen",
-      "out": "Logout"
+      "out": "Logout",
+      "funnyCursor": "Spezial Cursor!"
     }
   },
   "auth": {

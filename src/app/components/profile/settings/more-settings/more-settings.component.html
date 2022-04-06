@@ -8,6 +8,15 @@
     </div>
   </div>
 
+  <div class="mb-5">
+    <label class="Text-Style-13" translate>profile.accSettings.funnyCursor</label>
+    <div>
+      <mat-icon>sentiment_satisfied</mat-icon>
+      <mat-slide-toggle [(ngModel)]="auth.iAmUser!.isFunnyCursor" (change)="updateUser()"></mat-slide-toggle>
+      <mat-icon>sentiment_very_satisfied</mat-icon>
+    </div>
+  </div>
+
   <div class="d-inline-grid">
     <label class="Text-Style-13" translate>basics.chooseLang</label>
     <mat-form-field appearance="fill">

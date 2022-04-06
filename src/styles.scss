@@ -49,12 +49,24 @@ html, body {
   height: 100%;
   scrollbar-width: thin;
   scrollbar-color: var(--very-light-brown) #f1f1f1;
-  cursor: url('assets/img/normal-cursor.png'), auto;
+
 }
 
-a, button, .mat-focus-indicator {
-  cursor: url('assets/img/hover-cursor.png'), auto !important;
+.funny-cursor {
+
+  a, button,
+  .mat-focus-indicator,
+  .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex,
+  .mat-select-trigger,
+  .mat-slide-toggle-label {
+    cursor: url('assets/img/hover-cursor.png'), auto !important;
+  }
+
+
+  cursor: url('assets/img/normal-cursor.png'), auto;
+
 }
+
 
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

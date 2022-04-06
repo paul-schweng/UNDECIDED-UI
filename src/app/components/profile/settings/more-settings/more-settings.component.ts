@@ -17,10 +17,6 @@ export class MoreSettingsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleDarkTheme(){
-
-  }
-
   updateUser(){
     this.auth.notifyChange();
     this.userService.updateUser(this.auth.iAmUser);
