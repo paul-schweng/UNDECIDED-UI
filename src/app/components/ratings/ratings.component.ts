@@ -42,6 +42,15 @@ export class RatingsComponent implements OnInit, OnDestroy {
        });
 
      });
+
+   // TODO: delete this block ---
+   new Promise(res=>{
+     setTimeout(res, 3000)
+   }).then(()=>{
+     this.changeFilter()
+   })
+   // -------
+
   }
 
   private async getRating(id?: string): Promise<Rating> {
@@ -99,10 +108,14 @@ export class RatingsComponent implements OnInit, OnDestroy {
         this.editedRatings.splice(this.editedRatings.indexOf(rating), 1);
         console.log('edited ratings after delete', this.editedRatings);
 
+        if(result == 'delete'){
+          let idx = this.ratings.map(r => r.id).indexOf(rating.id);
+          this.ratings.splice(idx, 1);
+        }
 
-        if(result == 'post' || result == 'delete') {
-          this.currentFilter = this.filters[0];
-          this.changeFilter();
+        if(result.id) {
+          let idx = this.ratings.map(r => r.id).indexOf(result.id);
+          this.ratings[idx] = result;
         }
       }
 
@@ -110,17 +123,32 @@ export class RatingsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // partial loading
   changeFilter(filter?: MatSelectChange) {
     this.currentFilter = filter?.value ?? this.filters[0];
     let lastRating = this.ratings[this.ratings.length - 1];
 
     return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0").then(
-      (ratingList) => {this.ratings = ratingList}
-    );
+      (ratingList) => {
+        for(let r2 of ratingList){
+          for(let r1 of this.ratings){
+            if(r1.id == r2.id)
+              r1 = r2;
+          }
+          this.ratings.push(r2);
+        }
+      });
   }
 
   ngOnDestroy(): void {
     this.routeQueryParams$.unsubscribe();
   }
 
+  onScroll(event: any) {
+    // visible height + pixel scrolled >= total height
+    console.log("lol")
+    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
+      console.log("End");
+    }
+  }
 }

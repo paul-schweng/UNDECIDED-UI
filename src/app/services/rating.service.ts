@@ -27,7 +27,7 @@ export class RatingService extends CommunicationRequestService<any>{
       });
   }
 
-  public postRating(rating: Rating){
+  public postRating(rating: Rating): Promise<Rating> {
     let images = rating.images || [];
     let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
     delete ratingWithoutImages['images'];
@@ -39,10 +39,11 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(resRating => {
         if(rating.images)
           this.imageService.postRatingImages(resRating.id, images);
+        return resRating;
       });
   }
 
-  public editRating(rating: Rating) {
+  public editRating(rating: Rating): Promise<Rating> {
     let images = rating.images || [];
     let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
     delete ratingWithoutImages['images'];
@@ -54,6 +55,7 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(resRating => {
         if(images)
           this.imageService.postRatingImages(resRating.id, images);
+        return resRating;
       });
   }
 

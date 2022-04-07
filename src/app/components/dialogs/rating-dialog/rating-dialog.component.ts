@@ -29,11 +29,11 @@ export class RatingDialogComponent implements OnInit {
 
     if(this.data.rating.id == '-1')
       this.ratingService.postRating(this.data.rating)
-        .then(() => this.dialogRef.close('post'))
+        .then((resRating) => this.dialogRef.close(resRating))
         .finally(() => this.isBusy = false);
     else
       this.ratingService.editRating(this.data.rating)
-        .then(() => this.dialogRef.close('post'))
+        .then((resRating) => this.dialogRef.close(resRating))
         .finally(() => this.isBusy = false);
   }
 
