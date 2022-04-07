@@ -112,7 +112,9 @@ export class RatingsComponent implements OnInit, OnDestroy {
 
   changeFilter(filter?: MatSelectChange) {
     this.currentFilter = filter?.value ?? this.filters[0];
-    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!).then(
+    let lastRating = this.ratings[this.ratings.length - 1];
+
+    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0").then(
       (ratingList) => {this.ratings = ratingList}
     );
   }
