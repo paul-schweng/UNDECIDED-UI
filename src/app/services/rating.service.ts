@@ -39,7 +39,7 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(resRating => {
         if(rating.images)
           this.imageService.postRatingImages(resRating.id, images);
-        return resRating;
+        return Converter.convertLabel(resRating);
       });
   }
 
@@ -55,7 +55,7 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(resRating => {
         if(images)
           this.imageService.postRatingImages(resRating.id, images);
-        return resRating;
+        return Converter.convertLabel(resRating);
       });
   }
 

@@ -1,4 +1,4 @@
-<div (scroll)="onScroll($event)">
+<div infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="true">
   <mat-form-field class="position-absolute m-4" appearance="fill">
     <mat-label>{{'basics.filter' | translate}}</mat-label>
     <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
@@ -15,14 +15,17 @@
   </div>
 
   <div class="mt-5 d-flex flex-wrap" *ngIf="ratings; else empty">
-    <mat-card class="card m-4" [style]="'background-image: url(\'' + ('' || '/assets/img/defaultImage.webp') + '\')'" *ngFor="let rating of ratings" routerLink="./" [queryParams]="{id: rating.id}">
-      <div class="card-content">
-        <h2 class="card-title">{{rating.product.name}}</h2>
-        <div>
-          <ngx-stars [size]="2" [initialStars]="rating.stars" color="var(--very-light-brown)" [readonly]="true"></ngx-stars>
+    <div *ngFor="let rating of ratings" #card>
+      <mat-card class="card m-4" [style]="'background-image: url(\'' + ('' || '/assets/img/defaultImage.webp') + '\')'" routerLink="./" [queryParams]="{id: rating.id}">
+        <div class="card-content">
+          <h2 class="card-title">{{rating.product.name}}</h2>
+          <div>
+            <ngx-stars [size]="2" [initialStars]="rating.stars" color="var(--very-light-brown)" [readonly]="true"></ngx-stars>
+          </div>
         </div>
-      </div>
-    </mat-card>
+      </mat-card>
+    </div>
+
   </div>
 
   <ng-template #empty>

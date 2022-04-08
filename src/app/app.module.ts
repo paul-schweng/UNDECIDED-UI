@@ -68,6 +68,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { ChangeEmailComponent } from './components/profile/settings/change-email/change-email.component';
 import { ChangePasswordComponent } from './components/profile/settings/change-password/change-password.component';
 import { MoreSettingsComponent } from './components/profile/settings/more-settings/more-settings.component';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { MoreSettingsComponent } from './components/profile/settings/more-settin
         MatCardModule,
         WebcamModule,
         MatBadgeModule,
-        MatTooltipModule
+        MatTooltipModule,
+        InfiniteScrollModule
 
     ],
   providers: [

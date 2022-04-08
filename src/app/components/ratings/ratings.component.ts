@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
@@ -8,13 +8,17 @@ import {MatSelectChange} from "@angular/material/select";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {clone} from "../../services/clone";
+import {FormBuilder} from "@angular/forms";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-ratings',
   templateUrl: './ratings.component.html',
   styleUrls: ['./ratings.component.scss']
 })
-export class RatingsComponent implements OnInit, OnDestroy {
+export class RatingsComponent implements OnDestroy, AfterViewInit {
+
+  scrollAmount: any;
 
   ratings: Rating[] = [];
   private editedRatings: Rating[] = [];
@@ -22,36 +26,69 @@ export class RatingsComponent implements OnInit, OnDestroy {
   private routeQueryParams$!: Subscription;
   currentFilter: string = this.filters[0];
 
+  @ViewChildren('card') cards!: QueryList<ElementRef>;
+
   constructor(public dialog: MatDialog,
               private readonly ratingService: RatingService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private auth: AuthenticationService) {
   }
 
-  ngOnInit(): void {
-   this.changeFilter()
-     .then( () => {
+  async ngAfterViewInit(){
 
-       this.routeQueryParams$ = this.route.queryParams.subscribe(params => {
+    this.scrollAmount = document.querySelector('html')
 
-         this.getRating(params['id']).then(
-           rating => this.openRatingDialog(rating),
-           () => this.router.navigate(['.'], {relativeTo: this.route})
-           );
-
-       });
-
-     });
-
-   // TODO: delete this block ---
-   new Promise(res=>{
-     setTimeout(res, 3000)
-   }).then(()=>{
-     this.changeFilter()
-   })
-   // -------
-
+    await this.init();
   }
+
+  async init() {
+    await this.partialLoading()
+      .then( () => {
+
+        this.routeQueryParams$ = this.route.queryParams.subscribe(params => {
+
+          this.getRating(params['id']).then(
+            rating => this.openRatingDialog(rating),
+            () => this.router.navigate(['.'], {relativeTo: this.route})
+          );
+
+        });
+
+      }).then(async () => {
+        // time for UI to refresh
+        await new Promise(res => setTimeout(res, 10))
+
+
+        do{
+          await this.partialLoading();
+          await new Promise(res => setTimeout(res, 10))
+          console.log(!this.hasScrollbar())
+          console.log((this.ratings.length < this.auth.iAmUser.ratingsNum!))
+
+        }while(this.isCardinView() && (this.ratings.length < this.auth.iAmUser.ratingsNum!));
+
+        console.log(this.cards.toArray())
+      });
+  }
+
+  isCardinView(): boolean {
+    let isInView = false;
+    for (let card of this.cards) {
+      let rect = card.nativeElement.getBoundingClientRect();
+      let topShown = rect.top >= 0 && rect.top <=window.innerHeight;
+      let bottomShown = rect.bottom <= window.innerHeight;
+      isInView = topShown;
+      if(!isInView)
+        return false;
+    }
+    return true;
+  }
+
+  hasScrollbar(): boolean {
+    return this.scrollAmount.scrollHeight > this.scrollAmount.offsetHeight+10;
+  }
+
 
   private async getRating(id?: string): Promise<Rating> {
 
@@ -111,11 +148,17 @@ export class RatingsComponent implements OnInit, OnDestroy {
         if(result == 'delete'){
           let idx = this.ratings.map(r => r.id).indexOf(rating.id);
           this.ratings.splice(idx, 1);
+          this.auth.iAmUser.ratingsNum! -= 1;
         }
 
         if(result.id) {
           let idx = this.ratings.map(r => r.id).indexOf(result.id);
-          this.ratings[idx] = result;
+          if(idx == -1){
+            this.ratings.unshift(result);
+            this.auth.iAmUser.ratingsNum! += 1;
+          }
+          else
+            this.ratings[idx] = result;
         }
       }
 
@@ -123,20 +166,34 @@ export class RatingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // partial loading
   changeFilter(filter?: MatSelectChange) {
     this.currentFilter = filter?.value ?? this.filters[0];
+    if(filter)
+      this.ratings = [];
+
+    this.init();
+  }
+
+
+  // partial loading
+  partialLoading(filter?: string) {
+
     let lastRating = this.ratings[this.ratings.length - 1];
 
     return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0").then(
       (ratingList) => {
-        for(let r2 of ratingList){
-          for(let r1 of this.ratings){
-            if(r1.id == r2.id)
-              r1 = r2;
+        let temp = ratingList;
+        for(let j in ratingList){
+          let foundRating = false;
+          for(let i in this.ratings){
+            if(this.ratings[i].id == ratingList[j].id){
+              temp.splice(Number(j), 1);
+            }
+
           }
-          this.ratings.push(r2);
+
         }
+        this.ratings.push(...temp);
       });
   }
 
@@ -144,11 +201,21 @@ export class RatingsComponent implements OnInit, OnDestroy {
     this.routeQueryParams$.unsubscribe();
   }
 
-  onScroll(event: any) {
-    // visible height + pixel scrolled >= total height
-    console.log("lol")
-    if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
-      console.log("End");
-    }
+  onScroll() {
+    console.log("onScroll")
+    console.log(this.cards.toArray())
+
+
+
+    if(this.ratings.length >= this.auth.iAmUser.ratingsNum!)
+      return;
+
+    let height = this.scrollAmount.scrollHeight;
+    this.partialLoading().then(() => {
+      if(height == this.scrollAmount.scrollHeight)
+        this.partialLoading();
+    });
   }
+
+
 }
