@@ -73,6 +73,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .button-selected {
   background: rgba(0,0,0,0.2);
+  filter: brightness(80%);
 }
 
 a.mat-button-base, a.mat-button-base:hover {

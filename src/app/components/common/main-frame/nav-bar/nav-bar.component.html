@@ -16,7 +16,7 @@
       <a routerLink="ratings" mat-icon-button [class.button-selected]="router.url.includes('ratings')"><img src="/assets/img/iconsNavImage.svg" alt="RATINGS"></a>
     </li>
     <li>
-      <a routerLink="profile">
+      <a routerLink="profile" class="rounded" [class.button-selected]="router.url.includes('profile')">
         <img [src]="iAmUser.profileImage || '/assets/img/default-user.png'" class="nav-bar-profile" alt="PROFILE">
       </a>
     </li>
