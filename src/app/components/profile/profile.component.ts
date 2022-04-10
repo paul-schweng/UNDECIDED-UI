@@ -52,13 +52,22 @@ export class ProfileComponent implements OnInit {
       let username = routeParams.get('username');
       console.log(username);
       if(username)
-        this.userService.getUser(username.trim()).then(user => this.iAmUser = user);
+        this.userService.getUser(username.trim()).then(user => {
+          this.isMe = this.iAmUser.id == user.id;
+          this.iAmUser = user;
+        }, () => this.userNotFound = true
+        ).then(() =>
+            this.refreshIsFollowing()
+          );
     }
 
   }
 
   edit: boolean = false;
   editForbidden: boolean = false;
+  isFollowing: boolean = false;
+  userNotFound: boolean = false;
+  isMe: boolean = false;
 
 
   saveChangesClicked() {
@@ -85,8 +94,8 @@ export class ProfileComponent implements OnInit {
     this.clonedIAmUser.bannerImage = i;
   }
 
-  getBannerUrl(i: number = 0): string {
-    return this.BANNERS[i];
+  getBannerUrl(): string {
+    return this.edit ? this.BANNERS[this.clonedIAmUser.bannerImage!] : this.BANNERS[this.iAmUser.bannerImage!];
   }
 
   isBannerChecked(i: number): boolean {
@@ -145,4 +154,31 @@ export class ProfileComponent implements OnInit {
     return JSON.stringify(this.iAmUser) == JSON.stringify(this.clonedIAmUser);
   }
 
+  getDateString(date?: Date | string) {
+    if(typeof date == 'string')
+      date = new Date(date)
+
+    return date!.toLocaleDateString()
+  }
+
+  followClicked() {
+    if(!this.isFollowing)
+      this.userService.followUser(this.iAmUser.id!).then(() => {
+        this.refreshIsFollowing();
+        this.auth.iAmUser.followingNum! += 1;
+        this.iAmUser.followerNum! += 1;
+      });
+    else
+      this.userService.unfollowUser(this.iAmUser.id!).then(() =>{
+        this.refreshIsFollowing();
+        this.auth.iAmUser.followingNum! -= 1;
+        this.iAmUser.followerNum! -= 1;
+      });
+  }
+
+  private refreshIsFollowing() {
+    this.userService.isFollowing(this.iAmUser.id!).then(isFollowing => {
+      this.isFollowing = isFollowing;
+    })
+  }
 }

@@ -1,0 +1,31 @@
+<div class="d-inline-grid">
+  <div class="mb-5">
+    <label class="Text-Style-13" translate>basics.darkmode</label>
+    <div>
+      <mat-icon>wb_sunny</mat-icon>
+      <mat-slide-toggle [(ngModel)]="auth.iAmUser!.isDarkTheme" (change)="updateUser()"></mat-slide-toggle>
+      <mat-icon>brightness_2</mat-icon>
+    </div>
+  </div>
+
+  <div class="mb-5">
+    <label class="Text-Style-13" translate>profile.accSettings.funnyCursor</label>
+    <div>
+      <mat-icon>sentiment_satisfied</mat-icon>
+      <mat-slide-toggle [(ngModel)]="auth.iAmUser!.isFunnyCursor" (change)="updateUser()"></mat-slide-toggle>
+      <mat-icon>sentiment_very_satisfied</mat-icon>
+    </div>
+  </div>
+
+  <div class="d-inline-grid">
+    <label class="Text-Style-13" translate>basics.chooseLang</label>
+    <mat-form-field appearance="fill">
+      <mat-label>{{'basics.lang' | translate}}</mat-label>
+      <mat-select [(ngModel)]="auth.iAmUser.language" (selectionChange)="updateUser()">
+        <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
+          {{lang}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

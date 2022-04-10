@@ -12,16 +12,17 @@
 }
 
 .edit-banner{
-  position: absolute;
-  right: 10px;
-  top: 200px;
+  right: 15px;
+  margin-bottom: 1rem;
   background-color: #474747!important;
   z-index: 10;
+  align-self: end;
 }
 
 .profile-background {
-  height: 250px;
+  // height: 250px;
   /*filter: blur(2px) brightness(0.8);*/
+  height: 21rem;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -29,7 +30,8 @@
 
 .profile-background-content{
   z-index: 1;
-  height: 250px;
+  // height: 250px;
+  margin-left: unset;
 }
 
 .profile-picture {

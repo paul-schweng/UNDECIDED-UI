@@ -17,6 +17,7 @@ import {NgxStarsComponent} from "ngx-stars";
 import {clone} from "../../../services/clone";
 import {User} from "../../../models/user";
 import {NotificationService} from "../../../services/notification.service";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 
 @Component({
@@ -42,21 +43,28 @@ export class BaseRatingComponent implements OnInit {
 
   constructor(private autocompleteService: AutocompleteService,
               public dialog: MatDialog,
-              private readonly notification: NotificationService) {
+              private readonly notification: NotificationService,
+              private readonly authService: AuthenticationService) {
 
     let timeoutProduct: number;
     let timeoutBrand: number;
+    let timeoutFriend: number;
 
     /*
     On new user input:
-    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds.
-    A new timeout (service call) is ONLY created IF the old timeout is finished!
+    the autocomplete service is called after TIMEOUT_AUTOCOMPLETE milliseconds after the user finished typing.
+    A new timeout (service call) is created on every input but cancels the latest timeout!
 
-    In other words: If the user keeps typing the backend is called every TIMEOUT_AUTOCOMPLETE ms.
+    In other words: If the user keeps typing the backend is not called.
     */
     this.productControl.valueChanges.subscribe(input => {
       if(typeof input != 'string')
         return;
+
+      if(timeoutProduct){
+        clearTimeout(timeoutProduct);
+        timeoutProduct = 0;
+      }
 
       input = input.trim();
       if (!timeoutProduct && input)
@@ -68,12 +76,42 @@ export class BaseRatingComponent implements OnInit {
     });
 
     this.brandControl.valueChanges.subscribe(input => {
+      if(typeof input != 'string')
+        return;
+
+      if(timeoutBrand){
+        clearTimeout(timeoutBrand);
+        timeoutBrand = 0;
+      }
+
       input = input.trim();
       if (!timeoutBrand && input)
         timeoutBrand = setTimeout(() => {
             this.autocompleteService.getBrand(input.toLowerCase())
               .then(tags => this.filteredOptionsBrand = tags);
           timeoutBrand = 0;
+        }, this.TIMEOUT_AUTOCOMPLETE);
+    });
+
+    this.friendsControl.valueChanges.subscribe(input => {
+      if(typeof input != 'string')
+        return;
+
+      input = input.trim();
+      if(timeoutFriend){
+        clearTimeout(timeoutFriend);
+        timeoutFriend = 0;
+      }
+
+      if (!timeoutFriend && input)
+        timeoutFriend = setTimeout(() => {
+
+          this.autocompleteService.getFriend(input)
+            .then(friends => {
+              // if friend was already added -> don't show them in options
+              this.filteredOptionsFriends = friends.filter(f => !this._rating.friends?.some(f2 => f.id === f2.id))
+              });
+          timeoutFriend = 0;
         }, this.TIMEOUT_AUTOCOMPLETE);
     });
 
@@ -253,4 +291,11 @@ export class BaseRatingComponent implements OnInit {
   removeFriend(friend: User) {
     this._rating.friends?.splice(this._rating.friends?.indexOf(friend),1);
   }
+
+  friendSelected(friend: User) {
+    this._rating.friends?.push(friend);
+    this.friendsControl.setValue('');
+    this.filteredOptionsFriends = []
+  }
+
 }

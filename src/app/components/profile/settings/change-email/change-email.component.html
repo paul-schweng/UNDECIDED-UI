@@ -1,0 +1,10 @@
+<form class="d-inline-grid">
+  <label class="Text-Style-13" translate>profile.accSettings.email</label>
+  <mat-error *ngIf="wrongEmail" translate>profile.accSettings.wrongEmail</mat-error>
+  <input-email [label]="'profile.accSettings.currentEmail' | translate" #currentEmail></input-email>
+  <input-email [label]="'profile.accSettings.newEmail' | translate" #newEmail></input-email>
+  <button (click)="newEmailClicked(currentEmail.formControl.value, newEmail.formControl.value)"
+          type="submit" mat-raised-button translate="basics.change"
+          [disabled]="currentEmail.formControl.invalid || newEmail.formControl.invalid"></button>
+</form>
+

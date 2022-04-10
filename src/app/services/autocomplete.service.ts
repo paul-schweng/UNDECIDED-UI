@@ -5,6 +5,7 @@ import {Product} from "../models/product";
 import {Converter} from "./converter";
 import {SampleProduct} from "./SampleData";
 import {clone} from "./clone";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class AutocompleteService extends CommunicationRequestService<any> {
   public getProduct(input: string): Promise<Product[]>{
     return super.sendPostRequest<Product[]>(this.backendUrlExt + '/product', {input: input})
       .then(productList => {
-        return Converter.convertLabel(productList);
+        return productList ? Converter.convertLabel(productList) : [];
       }
       //TODO: remove this line
       ,() =>  {return Converter.convertLabel(clone([SampleProduct]));}
@@ -36,5 +37,12 @@ export class AutocompleteService extends CommunicationRequestService<any> {
 
   public getLocation(input: string): Promise<Location[]>{
     return super.sendPostRequest(this.backendUrlExt + '/location', {input: input});
+  }
+
+  public getFriend(input: string): Promise<User[]> {
+    return super.sendPostRequest<User[]>(this.backendUrlExt + '/friend', {input: input})
+      .then(friends => {
+        return friends ? friends : [];
+      });
   }
 }

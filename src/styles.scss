@@ -49,12 +49,24 @@ html, body {
   height: 100%;
   scrollbar-width: thin;
   scrollbar-color: var(--very-light-brown) #f1f1f1;
-  cursor: url('assets/img/normal-cursor.png'), auto;
+
 }
 
-a, button, .mat-focus-indicator {
-  cursor: url('assets/img/hover-cursor.png'), auto !important;
+.funny-cursor {
+
+  a, button,
+  .mat-focus-indicator,
+  .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex,
+  .mat-select-trigger,
+  .mat-slide-toggle-label {
+    cursor: url('assets/img/hover-cursor.png'), auto !important;
+  }
+
+
+  cursor: url('assets/img/normal-cursor.png'), auto;
+
 }
+
 
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -85,6 +97,10 @@ a.mat-button-base, a.mat-button-base:hover {
   left: 50%;
 }
 
+.flex-grow-2{
+  flex-grow: 2;
+}
+
 .w-fit-content{
   width: fit-content;
   width: -moz-fit-content;
@@ -92,6 +108,19 @@ a.mat-button-base, a.mat-button-base:hover {
 
 .cursor-pointer{
   cursor: pointer;
+}
+
+.nav-bar-line {
+  width: 100%;
+  height: 2px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.29);
+  background-color: #766d63;
+}
+
+.Line-6 {
+  width: 2px;
+  height: 20rem;
+  background-image: linear-gradient(0deg, rgba(192, 198, 201, 0) 0%, #c0c6c9 50%, rgba(192, 198, 201, 0) 100%);
 }
 
 a{

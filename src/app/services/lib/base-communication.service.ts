@@ -42,6 +42,7 @@ export abstract class BaseCommunicationService {
               reject();
               return;
             }
+
             resolve(response);
           }, error => {
             this.notification.handleHttpError(error);
@@ -117,3 +118,4 @@ export abstract class BaseCommunicationService {
     return headers;
   }
 }
+

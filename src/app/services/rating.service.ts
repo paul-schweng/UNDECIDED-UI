@@ -14,7 +14,7 @@ export class RatingService extends CommunicationRequestService<any>{
 
   protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
     if(reqParameter.filter)
-      return new HttpParams().set('filter', reqParameter.filter);
+      return new HttpParams().set('filter', reqParameter.filter).set("id", reqParameter.id);
     if(reqParameter.id)
       return new HttpParams().set('id', reqParameter.id);
     return new HttpParams();
@@ -27,7 +27,7 @@ export class RatingService extends CommunicationRequestService<any>{
       });
   }
 
-  public postRating(rating: Rating){
+  public postRating(rating: Rating): Promise<Rating> {
     let images = rating.images || [];
     let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
     delete ratingWithoutImages['images'];
@@ -39,10 +39,11 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(resRating => {
         if(rating.images)
           this.imageService.postRatingImages(resRating.id, images);
+        return Converter.convertLabel(resRating);
       });
   }
 
-  public editRating(rating: Rating) {
+  public editRating(rating: Rating): Promise<Rating> {
     let images = rating.images || [];
     let ratingWithoutImages: Rating = JSON.parse(JSON.stringify(rating));
     delete ratingWithoutImages['images'];
@@ -54,13 +55,14 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(resRating => {
         if(images)
           this.imageService.postRatingImages(resRating.id, images);
+        return Converter.convertLabel(resRating);
       });
   }
 
 
 
-  public getMyRatings(filter: string): Promise<Rating[]> {
-    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter}).then(ratingList => {
+  public getMyRatings(filter: string, lastRating: string): Promise<Rating[]> {
+    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating}).then(ratingList => {
         return Converter.convertLabel(ratingList);
     }, //TODO: delete this mockdata from here
       () => {

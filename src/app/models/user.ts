@@ -8,7 +8,7 @@ export interface User {
   verified?: boolean,
   description?: string,
   profileImage?: any,
-  registerDate?: Date,
+  registerDate?: Date | string,
   isDarkTheme?: boolean,
   language?: string,
   password?: string,
@@ -17,5 +17,6 @@ export interface User {
   followingNum?: number,
   ratingsNum?: number,
   bannerImage?: number,
+  isFunnyCursor?: boolean
 }
 

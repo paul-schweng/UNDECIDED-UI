@@ -64,6 +64,11 @@ import { WebcamDialogComponent } from './components/dialogs/webcam-dialog/webcam
 import {WebcamModule} from "ngx-webcam";
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import { ChangeEmailComponent } from './components/profile/settings/change-email/change-email.component';
+import { ChangePasswordComponent } from './components/profile/settings/change-password/change-password.component';
+import { MoreSettingsComponent } from './components/profile/settings/more-settings/more-settings.component';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 
 @NgModule({
@@ -91,6 +96,9 @@ import {MatBadgeModule} from "@angular/material/badge";
     ImageUploadDialogComponent,
     WebcamDialogComponent,
     ConfirmationDialogComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent,
+    MoreSettingsComponent,
 
   ],
     imports: [
@@ -137,7 +145,9 @@ import {MatBadgeModule} from "@angular/material/badge";
         MatChipsModule,
         MatCardModule,
         WebcamModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatTooltipModule,
+        InfiniteScrollModule
 
     ],
   providers: [
