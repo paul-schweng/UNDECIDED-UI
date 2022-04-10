@@ -22,6 +22,7 @@ export class RatingService extends CommunicationRequestService<any>{
   public getRating(id: string): Promise<Rating> {
     return super.sendGetRequest<Rating>(this.backendUrlExt, {id: id})
       .then(rating => {
+        rating = Converter.convertDeletedUser(rating);
         return Converter.convertLabel<Rating>(rating);
       });
   }
@@ -62,6 +63,7 @@ export class RatingService extends CommunicationRequestService<any>{
 
   public getMyRatings(filter: string, lastRating: string, len: number): Promise<Rating[]> {
     return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating, i: len}).then(ratingList => {
+        ratingList = Converter.convertDeletedUser(ratingList);
         return Converter.convertLabel(ratingList);
     }, //TODO: delete this mockdata from here
       () => {

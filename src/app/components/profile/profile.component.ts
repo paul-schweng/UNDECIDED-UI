@@ -56,9 +56,10 @@ export class ProfileComponent implements OnInit {
           this.isMe = this.iAmUser.id == user.id;
           this.iAmUser = user;
         }, () => this.userNotFound = true
-        ).then(() =>
+        ).then(() => {
+          if (!this.userNotFound)
             this.refreshIsFollowing()
-          );
+        });
     }
 
   }

@@ -94,3 +94,25 @@ export const EmptyUser: User = {
 
 }
 
+export const DeletedUser: User = {
+  bannerImage: 0,
+  birthdate: undefined,
+  description: "",
+  email: "",
+  followerNum: 0,
+  followingNum: 0,
+  id: "",
+  isDarkTheme: false,
+  language: "",
+  name: "Deleted",
+  password: "",
+  profileImage: undefined,
+  ratingsNum: 0,
+  registerDate: new Date(),
+  rememberMe: false,
+  username: "Deleted",
+  usertype: 'privat',
+  verified: false
+
+}
+

@@ -11,7 +11,8 @@ import {MoreSettingsComponent} from "../components/profile/settings/more-setting
 export const MAIN_ROUTES: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'search', component: SearchComponent, children:[
-      {path: 'user/:username', component: ProfileComponent}
+      {path: 'user/:username', component: ProfileComponent},
+      {path: 'rating/:id', component: SearchComponent}
     ]},
   {path: 'ratings', component: RatingsComponent},
   {path: 'profile', component: ProfileComponent, children:[

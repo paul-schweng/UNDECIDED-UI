@@ -127,8 +127,12 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
     if(!rating)
       return await this.ratingService.getRating(id).then(
-        r => {return r},
-        () => {throw null;}
+        r => {
+          if(r.user?.id == this.auth.iAmUser.id)
+            return r;
+          else
+            throw null;
+          },() => {throw null;}
       );
     else
       return rating;
