@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {CommunicationRequestService} from "./lib/communication-request.service";
 import {HttpParams} from "@angular/common/http";
 import {Rating} from "../models/rating";
-import {LABELS} from "../models/label";
 import {SampleProduct} from "./SampleData";
 import {Converter} from "./converter";
 
@@ -14,7 +13,7 @@ export class RatingService extends CommunicationRequestService<any>{
 
   protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
     if(reqParameter.filter)
-      return new HttpParams().set('filter', reqParameter.filter).set("id", reqParameter.id);
+      return new HttpParams().set('filter', reqParameter.filter).set("id", reqParameter.id).set('i', reqParameter.i);
     if(reqParameter.id)
       return new HttpParams().set('id', reqParameter.id);
     return new HttpParams();
@@ -61,8 +60,8 @@ export class RatingService extends CommunicationRequestService<any>{
 
 
 
-  public getMyRatings(filter: string, lastRating: string): Promise<Rating[]> {
-    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating}).then(ratingList => {
+  public getMyRatings(filter: string, lastRating: string, len: number): Promise<Rating[]> {
+    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating, i: len}).then(ratingList => {
         return Converter.convertLabel(ratingList);
     }, //TODO: delete this mockdata from here
       () => {

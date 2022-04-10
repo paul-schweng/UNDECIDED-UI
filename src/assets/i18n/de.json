@@ -18,7 +18,8 @@
     "delete": {
       "header": "Löschen bestätigen",
       "image": "Möchtest du dieses Bild wirklich löschen?",
-      "rating": "Möchtest du diese Bewertung wirklich löschen?"
+      "rating": "Möchtest du diese Bewertung wirklich löschen?",
+      "user": "Möchtest du deinen Account wirklich löschen?"
     }
   },
   "uploadImage": {
@@ -78,7 +79,8 @@
       "pwd": "Passwort ändern",
       "moreSettings": "weitere Einstellungen",
       "out": "Logout",
-      "funnyCursor": "Spezial Cursor!"
+      "funnyCursor": "Spezial Cursor!",
+      "deleteAcc": "Account löschen"
     }
   },
   "auth": {

@@ -23,7 +23,7 @@
       <mat-label>{{'basics.lang' | translate}}</mat-label>
       <mat-select [(ngModel)]="auth.iAmUser.language" (selectionChange)="updateUser()">
         <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
-          {{lang}}
+          {{langMap[lang]}}
         </mat-option>
       </mat-select>
     </mat-form-field>

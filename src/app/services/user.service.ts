@@ -24,6 +24,10 @@ export class UserService extends CommunicationRequestService<User>{
     return super.sendGetRequest(username ? this.backendUrlExt + '/u/' + username : this.backendUrlExt);
   }
 
+  public deleteUser(){
+    return super.sendDeleteRequest(this.backendUrlExt);
+  }
+
 
   public updateUser(user: User): Promise<User> {
     let image = user.profileImage;

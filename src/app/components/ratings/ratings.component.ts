@@ -8,7 +8,6 @@ import {MatSelectChange} from "@angular/material/select";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {clone} from "../../services/clone";
-import {FormBuilder} from "@angular/forms";
 import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
@@ -59,12 +58,23 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
         // time for UI to refresh
         await new Promise(res => setTimeout(res, 10))
 
+        let count = 0;
+        let MAX_TRIES = 2;
+        let ratingsSize = this.ratings.length;
 
-        do{
+        do {
           await this.partialLoading();
           await new Promise(res => setTimeout(res, 10))
-          console.log(!this.hasScrollbar())
-          console.log((this.ratings.length < this.auth.iAmUser.ratingsNum!))
+          console.log(this.ratings.length)
+
+          if (ratingsSize == this.ratings.length && count > MAX_TRIES)
+            break;
+          else if (ratingsSize != this.ratings.length) {
+            ratingsSize = this.ratings.length;
+            count = 0;
+          }
+          count++;
+
 
         }while(this.isCardinView() && (this.ratings.length < this.auth.iAmUser.ratingsNum!));
 
@@ -176,15 +186,14 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
 
   // partial loading
-  partialLoading(filter?: string) {
+  partialLoading() {
 
     let lastRating = this.ratings[this.ratings.length - 1];
 
-    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0").then(
+    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length).then(
       (ratingList) => {
         let temp = ratingList;
         for(let j in ratingList){
-          let foundRating = false;
           for(let i in this.ratings){
             if(this.ratings[i].id == ratingList[j].id){
               temp.splice(Number(j), 1);
@@ -203,7 +212,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
   onScroll() {
     console.log("onScroll")
-    console.log(this.cards.toArray())
+    console.log(this.ratings.length)
 
 
 

@@ -18,7 +18,8 @@
     "delete": {
       "header": "Confirm delete",
       "image": "Do you really want to delete this picture?",
-      "rating": "Do you really want to delete this rating?"
+      "rating": "Do you really want to delete this rating?",
+      "user": "Do you really want to delete your account?"
     }
   },
   "uploadImage": {
@@ -78,7 +79,8 @@
       "pwd": "Change password",
       "moreSettings": "More settings",
       "out": "Logout",
-      "funnyCursor": "Special cursor!"
+      "funnyCursor": "Special cursor!",
+      "deleteAcc": "Delete Account"
     }
   },
   "auth": {

@@ -3,12 +3,21 @@ import {TranslateService} from "@ngx-translate/core";
 import {AuthenticationService} from "../../../../services/authentication.service";
 import {UserService} from "../../../../services/user.service";
 
+
 @Component({
   selector: 'app-more-settings',
   templateUrl: './more-settings.component.html',
   styleUrls: ['./more-settings.component.scss']
 })
 export class MoreSettingsComponent implements OnInit {
+
+
+  langMap: {[key: string]: string} = {
+    de: 'Deutsch',
+    en: 'English'
+  };
+
+  isBusy = false;
 
   constructor(public readonly translate: TranslateService,
               public readonly auth: AuthenticationService,
@@ -21,5 +30,7 @@ export class MoreSettingsComponent implements OnInit {
     this.auth.notifyChange();
     this.userService.updateUser(this.auth.iAmUser);
   }
+
+
 
 }
