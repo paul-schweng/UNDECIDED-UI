@@ -93,12 +93,20 @@ a.mat-button-base, a.mat-button-base:hover {
   height: 100%;
 }
 
+.h-90{
+  height: 90%;
+}
+
 .left-50{
   left: 50%;
 }
 
 .flex-grow-2{
   flex-grow: 2;
+}
+
+.justify-items-center{
+  justify-items: center;
 }
 
 .w-fit-content{
