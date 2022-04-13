@@ -20,7 +20,7 @@ ul{
 }
 
 .fixed {
-  position: fixed;
+  position: sticky;
   width: 99%;
   transition: 0.2s linear;
   top: 0;
@@ -36,7 +36,7 @@ ul{
 }
 
 .navbar-placeholder{
-  height:60px;
+  height:65px;
   width:100%;
   display:block;
 }
