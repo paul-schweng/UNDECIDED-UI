@@ -17,15 +17,15 @@ services:
   #      - db
 
   apache:
-    build: /srv/docker/angular/UNDECIDED-UI/
+    build: .
     image: apache
     #    command:
     #       - "cat /etc/apache2/sites-enabled/000-default.conf"
     #       - "service apache2 restart"
     volumes:
-      - /srv/docker/angular/UNDECIDED-UI/apache.conf:/etc/apache2/sites-enabled/000-default.conf
-      - /srv/docker/angular/UNDECIDED-UI/dist/UI:/var/www/html
-      - /srv/docker/angular/UNDECIDED-UI/.htaccess:/var/www/html/.htaccess
+      - /srv/docker/angular/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+      - /srv/docker/angular/dist/UI:/var/www/html
+      - /srv/docker/angular/.htaccess:/var/www/html/.htaccess
     ports:
       - "8081:80"
     labels:
