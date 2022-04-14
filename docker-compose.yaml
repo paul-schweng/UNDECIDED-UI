@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+
+#  backend:
+#    build: .
+#    image: spring
+#    ports:
+#      - "8881:8080"
+#    labels:
+#      - "traefik.http.routers.backend.rule=PathPrefix(`/auth`) || PathPrefix(`/api`)"
+#      - "traefik.http.routers.backend.priority=5"
+#    depends_on:
+#      - traefik
+  #    networks:
+  #      - db
+
+  apache:
+    build: .
+    image: apache
+    #    command:
+    #       - "cat /etc/apache2/sites-enabled/000-default.conf"
+    #       - "service apache2 restart"
+    volumes:
+      - /srv/docker/angular/apache.conf:/etc/apache2/sites-enabled/000-default.conf
+      - /srv/docker/angular/dist/UI:/var/www/html
+      - /srv/docker/angular/.htaccess:/var/www/html/.htaccess
+    ports:
+      - "8081:80"
+    labels:
+      - "traefik.http.routers.apache.rule=Host(`undecided.ted2.cyou`)"
+      - "traefik.http.routers.apache.priority=1"
+#    depends_on:
+#      - backend
+
+  #  mariadb:
+  #    image: "mariadb"
+  #    environment:
+  #      - MARIADB_ROOT_PASSWORD: ""
+  #      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD:"yes"
+  #    volumes:
+  #      - ./data:/var/lib/mysql
+  #      - ./log:/var/log/mysql
+  #      - ./conf/my.cnf:/etc/mysql/my.conf
+  #    depends_on:
+  #      - traefik
+  #    networks:
+  #      - db
+
+#  traefik:
+#    image: "traefik:v2.5"
+#    command:
+#      - "--api.insecure=true"
+#      - "--providers.docker=true"
+#    ports:
+#      - "81:80"
+#      - "8889:8080"
+#    volumes:
+#      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+#networks:
+#  db:
