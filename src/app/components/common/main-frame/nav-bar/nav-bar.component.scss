@@ -19,6 +19,28 @@ ul{
   display: contents;
 }
 
+.fixed {
+  position: sticky;
+  width: 100%;
+  transition: 0.2s linear;
+  top: 0;
+  z-index: 10000;
+  background-color: var(--white);
+}
+
+.nofixed {
+  position: static;
+  width: 100%;
+  transition: 0.2s linear;
+  background-color: var(--white);
+}
+
+.navbar-placeholder{
+  height:65px;
+  width:100%;
+  display:block;
+}
+
 a.mat-button-base:hover {
   background: rgba(0,0,0,0.4);
 }

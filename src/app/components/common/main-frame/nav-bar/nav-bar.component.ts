@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../../../services/authentication.service";
 import {User} from "../../../../models/user";
@@ -11,7 +11,7 @@ import {User} from "../../../../models/user";
 export class NavBarComponent implements OnInit {
 
   iAmUser: User;
-
+  navbarfixed: boolean = false;
 
   constructor(public readonly router: Router,
               private readonly auth: AuthenticationService) {
@@ -20,6 +20,10 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  @HostListener('window:scroll',['$event']) onscroll(){
+    this.navbarfixed = window.scrollY > 150;
   }
 
 }

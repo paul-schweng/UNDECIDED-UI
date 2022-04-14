@@ -1,7 +1,10 @@
-<div class="navbar px-2 Background-Nav">
+<div class="navbar px-2 Background-Nav" (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
   <div>
     <a class="" routerLink="/" href="#">
-      <embed src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo">
+      <embed *ngIf="!navbarfixed; else favIcon" src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo" >
+      <ng-template #favIcon>
+        <embed src="/assets/img/logo/FAV-black.svg" alt="UNDECIDED-Logo" >
+      </ng-template>
     </a>
   </div>
 
@@ -16,14 +19,15 @@
       <a routerLink="ratings" mat-icon-button [class.button-selected]="router.url.includes('ratings')"><img src="/assets/img/iconsNavImage.svg" alt="RATINGS"></a>
     </li>
     <li>
-      <a routerLink="profile">
+      <a routerLink="profile" class="rounded" [class.button-selected]="router.url.includes('profile')">
         <img [src]="iAmUser.profileImage || '/assets/img/default-user.png'" class="nav-bar-profile" alt="PROFILE">
       </a>
     </li>
   </ul>
+  <div class="nav-bar-line"></div>
 </div>
+<div *ngIf="navbarfixed" class="navbar-placeholder"></div>
 
-<div class="nav-bar-line"></div>
 
 
 

@@ -46,7 +46,7 @@ $dark-theme: mat.define-dark-theme(
 
 
 html, body {
-  height: 100%;
+  height: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--very-light-brown) #f1f1f1;
 
@@ -73,6 +73,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .button-selected {
   background: rgba(0,0,0,0.2);
+  filter: brightness(80%);
 }
 
 a.mat-button-base, a.mat-button-base:hover {
@@ -93,12 +94,20 @@ a.mat-button-base, a.mat-button-base:hover {
   height: 100%;
 }
 
+.h-90{
+  height: 90%;
+}
+
 .left-50{
   left: 50%;
 }
 
 .flex-grow-2{
   flex-grow: 2;
+}
+
+.justify-items-center{
+  justify-items: center;
 }
 
 .w-fit-content{
