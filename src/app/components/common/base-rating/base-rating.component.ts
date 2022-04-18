@@ -249,8 +249,8 @@ export class BaseRatingComponent implements OnInit {
 
   }
 
-  getImage(image: any): string{
-    return typeof image == 'string' ? '' : image.base64;
+  getImage(image: any): string {
+    return typeof image == 'string' ? `/api/img/rating/${this._rating.id}/${image}` : image.base64;
   }
 
   openMap() {
