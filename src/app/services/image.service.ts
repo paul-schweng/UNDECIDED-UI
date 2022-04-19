@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user";
 import {NotificationService} from "./notification.service";
+import {Rating} from "../models/rating";
 
 @Injectable({
   providedIn: 'root'
@@ -16,37 +17,39 @@ export class ImageService {
   }
 
 
-  public postRatingImages(id: string, images: any[]){
+  public async postRatingImages(rating: Rating, images: any[]){
     console.log("image upload...");
+    let id = rating.id;
 
 
-    images!.forEach((img, i) => {
-      if('string' != typeof img){
+    for (const img of images!) {
+      const i = images!.indexOf(img);
+      if('number' == typeof img)
+        continue;
 
-        const uploadData = new FormData();
+      const uploadData = new FormData();
 
-        if(img.file)
-          uploadData.append('image', img.file);
-        else
-          uploadData.append('image', ImageService.base64ToFile(img.base64));
-
-
-        let params = new HttpParams()
-          .set('rating', id)
-          .set('index', i);
-
-        this.http.post(this.backendUrl + 'rating', uploadData, {
-          params: params,
-          reportProgress: true,
-          observe: 'events'
-      })
-      .subscribe(event => {
-          console.log(event); // handle event here
-        });
+      if(img.file)
+        uploadData.append('image', img.file);
+      else
+        uploadData.append('image', ImageService.base64ToFile(img.base64));
 
 
-      }
-    })
+      let params = new HttpParams()
+        .set('rating', id)
+        .set('index', i);
+
+      await new Promise<any>( (resolve, reject) => {
+        this.http.post<any>(this.backendUrl + 'rating', uploadData, {params: params})
+          .subscribe(
+          response => resolve(response),
+          error => reject(error))
+      }).then(res => {
+        console.log(res);
+        rating.imageNum = res.imageNum;
+      });
+
+    }
 
   }
 

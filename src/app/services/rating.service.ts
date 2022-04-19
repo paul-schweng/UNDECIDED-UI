@@ -36,9 +36,9 @@ export class RatingService extends CommunicationRequestService<any>{
     delete ratingWithoutImages['labelList'];
 
     return super.sendPostRequest<Rating>(this.backendUrlExt, ratingWithoutImages)
-      .then(resRating => {
+      .then(async resRating => {
         if(rating.images)
-          this.imageService.postRatingImages(resRating.id, images);
+          await this.imageService.postRatingImages(resRating, images);
         return Converter.convertLabel(resRating);
       });
   }
@@ -52,9 +52,9 @@ export class RatingService extends CommunicationRequestService<any>{
     delete ratingWithoutImages['labelList'];
 
     return super.sendPutRequest<Rating>(this.backendUrlExt, ratingWithoutImages)
-      .then(resRating => {
+      .then(async resRating => {
         if(images)
-          this.imageService.postRatingImages(resRating.id, images);
+          await this.imageService.postRatingImages(resRating, images);
         return Converter.convertLabel(resRating);
       });
   }
