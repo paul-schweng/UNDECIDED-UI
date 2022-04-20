@@ -142,6 +142,10 @@ a{
   display: inline-grid;
 }
 
+.d-grid{
+  display: grid;
+}
+
 a:hover{
     color: rgb(211, 70, 94);
     transition: all ease 700ms;
@@ -150,6 +154,7 @@ a:hover{
 .on-hover:hover {
   background: rgba(0,0,0,0.15);
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .BODYBACKGROUND-OVERLAY {

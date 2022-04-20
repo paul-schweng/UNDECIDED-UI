@@ -14,20 +14,34 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadFollower();
   }
 
-  _followerList: any;
-  _followingList: any;
+  followerList: User[] = [];
+  followingList: User[] = [];
 
   private loadFollower(){
     this._followerList = this.userService.getFollower();
     this._followingList = this.userService.getFollowing();
   }
 
-  ngAfterViewInit(): void {
-    this.loadFollower();
+  public loadFollowing(){
+    this.userService.getFollowing(this.data.id).then(following => {
+      this.followingList.push(...following);
+    });
   }
 
+  ngAfterViewInit(): void {
+    this.loadFollower();
+    this.loadFollowing();
+  }
+
+  changedTab(idx: number) {
+
+  }
+
+  clickOnUser(username?: string){
+    this.router.navigateByUrl('/search/user/' + (username == null ? '' : username));
+    this.dialogRef.close();
+  }
 
 }

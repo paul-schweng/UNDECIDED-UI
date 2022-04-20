@@ -67,12 +67,12 @@ export class UserService extends CommunicationRequestService<User>{
     return super.sendDeleteRequest(this.backendUrlExt + '/unfollow', {id: userId});
   }
 
-  public getFollower(){
-    return super.sendGetRequest(this.backendUrlExt + '/myFollower');
+  public getFollower(userid: string, timestamp?: Date): Promise<User[]>{
+    return super.sendPostRequest(this.backendUrlExt + '/myFollower', {userid: userid, timestamp: timestamp || new Date()});
   }
 
-  public getFollowing(){
-    return super.sendGetRequest(this.backendUrlExt + '/myFollowing');
+  public getFollowing(userid: string, timestamp?: Date): Promise<User[]>{
+    return super.sendPostRequest(this.backendUrlExt + '/myFollowing', {userid: userid, timestamp: timestamp || new Date()});
   }
 
   protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
