@@ -1,6 +1,8 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
 import {UserService} from "../../../services/user.service";
 import {User} from "../../../models/user";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-follow-dialog',
@@ -10,8 +12,10 @@ import {User} from "../../../models/user";
 export class FollowDialogComponent implements OnInit, AfterViewInit {
 
   constructor(
-    private readonly userService: UserService
-  ) { }
+    private readonly userService: UserService,
+    @Inject(MAT_DIALOG_DATA) public data: {tab: number, id: string},
+    private readonly router: Router,
+    public dialogRef: MatDialogRef<FollowDialogComponent>) { }
 
   ngOnInit(): void {
   }
@@ -19,9 +23,10 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
   followerList: User[] = [];
   followingList: User[] = [];
 
-  private loadFollower(){
-    this._followerList = this.userService.getFollower();
-    this._followingList = this.userService.getFollowing();
+  public loadFollower(){
+    this.userService.getFollower(this.data.id).then(follower => {
+      this.followerList.push(...follower);
+    });
   }
 
   public loadFollowing(){

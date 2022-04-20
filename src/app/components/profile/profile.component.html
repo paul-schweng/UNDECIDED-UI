@@ -63,8 +63,11 @@
   <!--stats-->
   <div class="row profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
     <a routerLink="/ratings" translate [translateParams]="{num: iAmUser.ratingsNum}" class="Text-Style-15">profile.ratings</a>
-    <a (click)="openDialog('follower')" translate [translateParams]="{num: iAmUser.followerNum}" class="Text-Style-15">profile.follower</a>
-    <a (click)="openDialog('following')" translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15">profile.following</a>
+    <a (click)="openDialog(0)" translate [translateParams]="{num: iAmUser.followerNum}" class="Text-Style-15 cursor-pointer">profile.follower</a>
+    <a (click)="openDialog(1)" translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15 cursor-pointer">profile.following</a>
+    <div *ngIf="editForbidden && !isMe">
+      <button (click)="followClicked()" class="color-grey rounded-btn" mat-flat-button>{{ (isFollowing ? 'basics.unfollow' : 'basics.follow') | translate }}</button>
+    </div>
   </div>
 
   <!--description and list-->

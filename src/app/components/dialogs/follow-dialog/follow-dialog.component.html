@@ -1,6 +1,7 @@
 <!--show popup list of follower or following user-->
 <div>
-  <mat-tab-group mat-align-tabs="center">
+  <mat-tab-group mat-align-tabs="center" [selectedIndex]="data.tab" (selectedIndexChange)="changedTab($event)">
+
     <mat-tab label="Follower">
       <ng-template matTabContent>
         <mat-list *ngIf="followerList">
@@ -38,5 +39,6 @@
         </mat-list>
       </ng-template>
     </mat-tab>
+
   </mat-tab-group>
 </div>

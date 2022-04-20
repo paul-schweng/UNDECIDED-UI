@@ -184,12 +184,12 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  public openDialog(followTemp: string){
+  public openDialog(tabIdx: number){
     const followDialog = this.dialog.open(FollowDialogComponent, {
       width: '40%',
       maxWidth: '',
       height:'70%',
-      data: followTemp,
+      data: {tab: tabIdx, id: this.iAmUser.id},
       autoFocus: false,
       panelClass: 'dialogFullSize'
     });

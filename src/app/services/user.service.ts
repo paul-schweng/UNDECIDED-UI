@@ -7,7 +7,7 @@ import {clone} from "./clone";
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends CommunicationRequestService<User>{
+export class UserService extends CommunicationRequestService<User | any>{
   protected readonly backendUrlExt = 'user';
 
   public changeEmail(currentEmail: string, newEmail: string): Promise<User> {
@@ -75,9 +75,10 @@ export class UserService extends CommunicationRequestService<User>{
     return super.sendPostRequest(this.backendUrlExt + '/myFollowing', {userid: userid, timestamp: timestamp || new Date()});
   }
 
-  protected prepareRequestObjectParameter(reqParameter: User): HttpParams {
+  protected prepareRequestObjectParameter(reqParameter: User | any): HttpParams {
     if(reqParameter.id)
       return new HttpParams().set('id', reqParameter.id);
+
     return new HttpParams();
   }
 
