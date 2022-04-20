@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -17,7 +17,7 @@ import {FollowDialogComponent} from "../dialogs/follow-dialog/follow-dialog.comp
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, AfterViewInit {
 
   iAmUser: User;
   clonedIAmUser: User;
@@ -26,10 +26,18 @@ export class ProfileComponent implements OnInit {
   //BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/banner/banner-1.jpg`);
   BANNERS: string[] = new Array(10).fill('').map((value, i) => `/assets/img/profileBg/bg-${i}.jpg`);
 
+  edit: boolean = false;
+  editForbidden: boolean = false;
+  isFollowing: boolean = false;
+  userNotFound: boolean = false;
+  isMe: boolean = true;
+  isFollowDialogOpen: boolean = false;
+
+
   constructor(private translate: TranslateService,
               private readonly auth: AuthenticationService,
               private readonly router: Router,
-              private readonly route: ActivatedRoute,
+              private readonly activatedRoute: ActivatedRoute,
               private readonly userService: UserService,
               public dialog: MatDialog,
               public readonly notification: NotificationService) {
@@ -40,36 +48,46 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     console.log(this.router.url.split('/'))
+
     // subscribe to edit only if you are on your own profile page
-    this.editForbidden = this.router.url.split('/')[1] !== 'profile';
+    this.editForbidden = location.pathname !== '/profile';
     if(!this.editForbidden){
       this.edit = this.router.url.includes('edit');
       this.router.events.subscribe((val) => {
         this.edit = (val as NavigationEnd).url?.includes('edit');
       });
     } else {
-      const routeParams = this.route.snapshot.paramMap;
-      let username = routeParams.get('username');
-      console.log(username);
-      if(username)
-        this.userService.getUser(username.trim()).then(user => {
-          this.isMe = this.iAmUser.id == user.id;
-          this.iAmUser = user;
-        }, () => this.userNotFound = true
-        ).then(() => {
-          if (!this.userNotFound)
-            this.refreshIsFollowing()
-        });
+
+      this.activatedRoute.params.subscribe(routeParams => {
+
+        let username = routeParams.username;
+        console.log(username);
+        if(username)
+          this.userService.getUser(username.trim()).then(user => {
+              this.isMe = this.auth.iAmUser.id == user.id;
+              this.iAmUser = user;
+            }, () => this.userNotFound = true
+          ).then(() => {
+            if (!this.userNotFound)
+              this.refreshIsFollowing()
+          });
+
+      });
+
     }
 
   }
 
-  edit: boolean = false;
-  editForbidden: boolean = false;
-  isFollowing: boolean = false;
-  userNotFound: boolean = false;
-  isMe: boolean = false;
+  ngAfterViewInit(): void {
+    this.activatedRoute.queryParams.subscribe(queryParams => {
+      if(queryParams['follow'] == 0)
+        this.openDialog(0);
+      if(queryParams['follow'] == 1)
+        this.openDialog(1);
+    });
+  }
 
 
   saveChangesClicked() {
@@ -185,6 +203,9 @@ export class ProfileComponent implements OnInit {
   }
 
   public openDialog(tabIdx: number){
+    if(this.isFollowDialogOpen)
+      return;
+
     const followDialog = this.dialog.open(FollowDialogComponent, {
       width: '40%',
       maxWidth: '',
@@ -193,5 +214,14 @@ export class ProfileComponent implements OnInit {
       autoFocus: false,
       panelClass: 'dialogFullSize'
     });
+
+    this.isFollowDialogOpen = true;
+
+    followDialog.afterClosed().subscribe(() => {
+      this.router.navigate(['.'], {relativeTo: this.activatedRoute});
+      this.isFollowDialogOpen = false;
+    });
   }
+
+
 }

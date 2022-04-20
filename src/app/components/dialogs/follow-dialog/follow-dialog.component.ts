@@ -41,7 +41,7 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
   }
 
   changedTab(idx: number) {
-
+    this.router.navigate([], { queryParams: { follow: idx} });
   }
 
   clickOnUser(username?: string){
