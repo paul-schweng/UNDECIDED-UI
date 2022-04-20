@@ -10,6 +10,7 @@ import {ImageUploadDialogComponent} from "../dialogs/image-upload-dialog/image-u
 import {WebcamImage} from "ngx-webcam";
 import {MatDialog} from "@angular/material/dialog";
 import {NotificationService} from "../../services/notification.service";
+import {FollowDialogComponent} from "../dialogs/follow-dialog/follow-dialog.component";
 
 @Component({
   selector: 'app-profile',
@@ -181,5 +182,16 @@ export class ProfileComponent implements OnInit {
     this.userService.isFollowing(this.iAmUser.id!).then(isFollowing => {
       this.isFollowing = isFollowing;
     })
+  }
+
+  public openDialog(followTemp: string){
+    const followDialog = this.dialog.open(FollowDialogComponent, {
+      width: '40%',
+      maxWidth: '',
+      height:'70%',
+      data: followTemp,
+      autoFocus: false,
+      panelClass: 'dialogFullSize'
+    });
   }
 }

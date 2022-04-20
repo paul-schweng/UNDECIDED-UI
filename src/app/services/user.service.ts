@@ -67,6 +67,9 @@ export class UserService extends CommunicationRequestService<User>{
     return super.sendDeleteRequest(this.backendUrlExt + '/unfollow', {id: userId});
   }
 
+  public getFollower(){
+    return super.sendGetRequest(this.backendUrlExt + '/myFollower');
+  }
 
 
   protected prepareRequestObjectParameter(reqParameter: User): HttpParams {

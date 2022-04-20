@@ -1,0 +1,22 @@
+.follow-name{
+  font-size: 1.1rem;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  text-align: left;
+  color: var(--black);
+  display: inline-grid;
+}
+
+.follow-username{
+  font-size: 0.9rem;
+}
+
+.image-wrapper{
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center center;
+}
