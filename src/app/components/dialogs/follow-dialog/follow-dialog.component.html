@@ -3,8 +3,8 @@
   <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Follower">
       <ng-template matTabContent>
-        <mat-list *ngIf="followerList">
-          <mat-list-item  *ngFor="let follower of followerList">
+        <mat-list *ngIf="_followerList">
+          <mat-list-item  *ngFor="let follower of _followerList">
             <div class="image-wrapper mr-1 border" [style]="'background-image: url(' + ('/assets/img/default-user.png') + ');'"></div>
             <div class="col">
               <span class="follow-name">
@@ -22,8 +22,8 @@
 
     <mat-tab label="Following">
       <ng-template matTabContent>
-        <mat-list *ngIf="followingList">
-          <mat-list-item *ngFor="let following of followingList">
+        <mat-list *ngIf="_followingList">
+          <mat-list-item *ngFor="let following of _followingList">
             <div class="image-wrapper mr-1 border" [style]="'background-image: url(' + ('/assets/img/default-user.png') + ');'"></div>
             <div class="col">
               <span class="follow-name">

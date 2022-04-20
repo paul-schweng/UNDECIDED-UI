@@ -14,17 +14,20 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    this.loadFollower();
   }
 
-  followerList: User[] = [];
-  followingList: User[] = [];
+  _followerList: any;
+  _followingList: any;
 
   private loadFollower(){
-    this.userService.getFollower();
+    this._followerList = this.userService.getFollower();
+    this._followingList = this.userService.getFollowing();
   }
 
   ngAfterViewInit(): void {
     this.loadFollower();
   }
+
 
 }
