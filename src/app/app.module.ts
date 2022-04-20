@@ -69,6 +69,8 @@ import { ChangeEmailComponent } from './components/profile/settings/change-email
 import { ChangePasswordComponent } from './components/profile/settings/change-password/change-password.component';
 import { MoreSettingsComponent } from './components/profile/settings/more-settings/more-settings.component';
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
+import { FollowDialogComponent } from './components/dialogs/follow-dialog/follow-dialog.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 
 @NgModule({
@@ -99,6 +101,7 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
     ChangeEmailComponent,
     ChangePasswordComponent,
     MoreSettingsComponent,
+    FollowDialogComponent,
 
   ],
     imports: [
@@ -147,7 +150,8 @@ import {InfiniteScrollModule} from "ngx-infinite-scroll";
         WebcamModule,
         MatBadgeModule,
         MatTooltipModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        MatTabsModule
 
     ],
   providers: [
