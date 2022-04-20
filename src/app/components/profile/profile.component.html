@@ -67,10 +67,6 @@
     <a (click)="openDialog('following')" translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15">profile.following</a>
   </div>
 
-  <div class="ml-2 mt-3" *ngIf="editForbidden && !isMe">
-    <button (click)="followClicked()" mat-raised-button color="primary">{{ (isFollowing ? 'basics.unfollow' : 'basics.follow') | translate }}</button>
-  </div>
-
   <!--description and list-->
   <div class="row w-100 justify-content-center">
 
@@ -120,7 +116,7 @@
 </busy-div>
 
 <ng-template #userNotFoundTemplate>
-  <div>
-
+  <div class="d-grid p-5 justify-content-center Text-Style-19">
+    {{'search.userNotFound' | translate}}
   </div>
 </ng-template>
