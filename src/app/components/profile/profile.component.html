@@ -123,3 +123,5 @@
     {{'search.userNotFound' | translate}}
   </div>
 </ng-template>
+
+<app-ratings *ngIf="editForbidden" [userID]="iAmUser.id!"></app-ratings>

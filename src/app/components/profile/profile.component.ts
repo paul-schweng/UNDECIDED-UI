@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     // subscribe to edit only if you are on your own profile page
     this.editForbidden = location.pathname !== '/profile';
-    if(!this.editForbidden){
+    if (!this.editForbidden) {
       this.edit = this.router.url.includes('edit');
       this.router.events.subscribe((val) => {
         this.edit = (val as NavigationEnd).url?.includes('edit');
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
         let username = routeParams.username;
         console.log(username);
-        if(username)
+        if (username)
           this.userService.getUser(username.trim()).then(user => {
               this.isMe = this.auth.iAmUser.id == user.id;
               this.iAmUser = user;
@@ -79,6 +79,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
   }
+
+
 
   ngAfterViewInit(): void {
     this.activatedRoute.queryParams.subscribe(queryParams => {

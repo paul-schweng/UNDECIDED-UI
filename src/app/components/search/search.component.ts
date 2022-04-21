@@ -4,6 +4,7 @@ import {RatingService} from "../../services/rating.service";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
 import {MatDialog} from "@angular/material/dialog";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-search',

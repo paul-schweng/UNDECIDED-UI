@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
@@ -18,6 +18,15 @@ import {AuthenticationService} from "../../services/authentication.service";
 export class RatingsComponent implements OnDestroy, AfterViewInit {
 
   scrollAmount: any;
+  userID: string = "";
+  editable: boolean = true;
+
+  @Input("userID") set _userID(userID: string){
+    this.userID = userID;
+    this.editable = userID == this.auth.iAmUser.id;
+
+    this.ngAfterViewInit();
+  }
 
   ratings: Rating[] = [];
   private editedRatings: Rating[] = [];
@@ -37,6 +46,8 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
   async ngAfterViewInit(){
 
     this.scrollAmount = document.querySelector('html')
+
+    if(!this.userID) this.userID = this.auth.iAmUser.id!;
 
     await this.init();
   }
@@ -143,7 +154,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
     const ratingDialog = this.dialog.open(RatingDialogComponent, {
       width: '90%',
       maxWidth: '',
-      data: {rating: rating, editable: true},
+      data: {rating: rating, editable: this.editable},
       autoFocus: false,
       panelClass: 'dialogFullSize'
     });
@@ -194,7 +205,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
     let lastRating = this.ratings[this.ratings.length - 1];
 
-    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length).then(
+    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length, this.userID).then(
       (ratingList) => {
         let temp = ratingList;
         for(let j in ratingList){

@@ -13,7 +13,11 @@ export class RatingService extends CommunicationRequestService<any>{
 
   protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
     if(reqParameter.filter)
-      return new HttpParams().set('filter', reqParameter.filter).set("id", reqParameter.id).set('i', reqParameter.i);
+      return new HttpParams()
+        .set('filter', reqParameter.filter)
+        .set("id", reqParameter.id)
+        .set('i', reqParameter.i)
+        .set("userID", reqParameter.userID);
     if(reqParameter.id)
       return new HttpParams().set('id', reqParameter.id);
     return new HttpParams();
@@ -61,8 +65,8 @@ export class RatingService extends CommunicationRequestService<any>{
 
 
 
-  public getMyRatings(filter: string, lastRating: string, len: number): Promise<Rating[]> {
-    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating, i: len}).then(ratingList => {
+  public getMyRatings(filter: string, lastRating: string, len: number, userID: string): Promise<Rating[]> {
+    return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating, i: len, userID: userID}).then(ratingList => {
         ratingList = Converter.convertDeletedUser(ratingList);
         return Converter.convertLabel(ratingList);
     }, //TODO: delete this mockdata from here

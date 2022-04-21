@@ -8,7 +8,7 @@
     </mat-select>
   </mat-form-field>
 
-  <div class="m-4 d-flex justify-content-center">
+  <div class="m-4 d-flex justify-content-center" *ngIf="editable">
     <button routerLink="./" [queryParams]="{id: -1}" mat-fab color="">
       <mat-icon>add</mat-icon>
     </button>
