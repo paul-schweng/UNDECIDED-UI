@@ -1,4 +1,4 @@
-<div infiniteScroll [infiniteScrollDistance]="3" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" [scrollWindow]="true">
+<div>
   <mat-form-field class="position-absolute m-4" appearance="fill">
     <mat-label>{{'basics.filter' | translate}}</mat-label>
     <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">

@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   userNotFound: boolean = false;
   isMe: boolean = true;
   isFollowDialogOpen: boolean = false;
+  hasUserLoaded: boolean = false;
 
 
   constructor(private translate: TranslateService,
@@ -47,13 +48,15 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.clonedIAmUser = clone(this.iAmUser);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     console.log(this.router.url.split('/'))
 
     // subscribe to edit only if you are on your own profile page
     this.editForbidden = location.pathname !== '/profile';
     if (!this.editForbidden) {
+      this.hasUserLoaded = true;
+
       this.edit = this.router.url.includes('edit');
       this.router.events.subscribe((val) => {
         this.edit = (val as NavigationEnd).url?.includes('edit');
@@ -68,6 +71,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
           this.userService.getUser(username.trim()).then(user => {
               this.isMe = this.auth.iAmUser.id == user.id;
               this.iAmUser = user;
+
+              this.hasUserLoaded = true;
             }, () => this.userNotFound = true
           ).then(() => {
             if (!this.userNotFound)

@@ -124,4 +124,4 @@
   </div>
 </ng-template>
 
-<app-ratings *ngIf="editForbidden" [userID]="iAmUser.id!"></app-ratings>
+<app-ratings *ngIf="editForbidden && hasUserLoaded" [user]="iAmUser"></app-ratings>

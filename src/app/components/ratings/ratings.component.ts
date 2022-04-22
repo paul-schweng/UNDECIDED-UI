@@ -1,14 +1,25 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RatingDialogComponent} from "../dialogs/rating-dialog/rating-dialog.component";
 import {Rating} from "../../models/rating";
-import {EmptyRating} from "../../services/SampleData";
+import {EmptyRating, EmptyUser} from "../../services/SampleData";
 import {RatingService} from "../../services/rating.service";
 import {MatSelectChange} from "@angular/material/select";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {clone} from "../../services/clone";
 import {AuthenticationService} from "../../services/authentication.service";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-ratings',
@@ -18,12 +29,13 @@ import {AuthenticationService} from "../../services/authentication.service";
 export class RatingsComponent implements OnDestroy, AfterViewInit {
 
   scrollAmount: any;
-  userID: string = "";
+  user: User = EmptyUser;
   editable: boolean = true;
+  isLoadInProgress: boolean = false;
 
-  @Input("userID") set _userID(userID: string){
-    this.userID = userID;
-    this.editable = userID == this.auth.iAmUser.id;
+  @Input("user") set _user(user: User){
+    this.user = user;
+    this.editable = user.id == this.auth.iAmUser.id;
 
     this.ngAfterViewInit();
   }
@@ -47,7 +59,9 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
     this.scrollAmount = document.querySelector('html')
 
-    if(!this.userID) this.userID = this.auth.iAmUser.id!;
+    if(!this.user.id) this.user = this.auth.iAmUser;
+
+    this.ratings = [];
 
     await this.init();
   }
@@ -58,10 +72,12 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
         this.routeQueryParams$ = this.route.queryParams.subscribe(params => {
 
-          this.getRating(params['id']).then(
-            rating => this.openRatingDialog(rating),
-            () => this.router.navigate(['.'], {relativeTo: this.route})
-          );
+          let ratingId = params['id'];
+          if(ratingId)
+            this.getRating(ratingId).then(
+              rating => this.openRatingDialog(rating),
+              () => this.router.navigate(['.'], {relativeTo: this.route})
+            );
 
         });
 
@@ -87,13 +103,13 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
           count++;
 
 
-        }while(this.isCardinView() && (this.ratings.length < this.auth.iAmUser.ratingsNum!));
+        }while(this.areCardsInView() && (this.ratings.length < this.auth.iAmUser.ratingsNum!));
 
         console.log(this.cards.toArray())
       });
   }
 
-  isCardinView(): boolean {
+  areCardsInView(): boolean {
     let isInView = false;
     for (let card of this.cards) {
       let rect = card.nativeElement.getBoundingClientRect();
@@ -104,6 +120,16 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
         return false;
     }
     return true;
+  }
+
+  isLastCardInView(): boolean {
+    let card = this.cards.last;
+
+    let rect = card.nativeElement.getBoundingClientRect();
+    let topShown = rect.top >= 0 && rect.top <=window.innerHeight;
+    let bottomShown = rect.bottom <= window.innerHeight;
+
+    return topShown;
   }
 
   hasScrollbar(): boolean {
@@ -205,7 +231,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
     let lastRating = this.ratings[this.ratings.length - 1];
 
-    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length, this.userID).then(
+    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length, this.user.id!).then(
       (ratingList) => {
         let temp = ratingList;
         for(let j in ratingList){
@@ -218,6 +244,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
         }
         this.ratings.push(...temp);
+        this.isLoadInProgress = false;
       });
   }
 
@@ -225,21 +252,31 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
     this.routeQueryParams$.unsubscribe();
   }
 
+  @HostListener('window:scroll', ['$event'])
   onScroll() {
-    console.log("onScroll")
-    console.log(this.ratings.length)
 
-
-
-    if(this.ratings.length >= this.auth.iAmUser.ratingsNum!)
+    if(this.ratings.length >= this.user.ratingsNum! || this.isLoadInProgress)
       return;
 
     let height = this.scrollAmount.scrollHeight;
-    this.partialLoading().then(() => {
-      if(height == this.scrollAmount.scrollHeight)
-        this.partialLoading();
-    });
+
+
+    const loop = async () => {
+
+      while(this.isLastCardInView() && this.ratings.length < this.user.ratingsNum!){
+        console.log('loaded ratings:', this.ratings.length);
+
+        this.isLoadInProgress = true;
+        await this.partialLoading();
+      }
+
+    }
+
+    loop();
+
   }
+
+
 
 
 }
