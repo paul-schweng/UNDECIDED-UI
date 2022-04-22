@@ -30,7 +30,14 @@
 
   },
   "search": {
-    "userNotFound": "Benutzer wurde nicht gefunden"
+    "userNotFound": "Benutzer wurde nicht gefunden",
+    "startSearch": "starte deine Suche hier",
+    "search": "Suche...",
+    "product": "Produkte",
+    "profile": "Profile",
+    "location": "Orte",
+    "brand": "Marken",
+    "tags": "Tags"
 
   },
   "ratings": {

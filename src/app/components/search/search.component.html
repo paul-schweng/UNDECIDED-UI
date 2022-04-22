@@ -1,2 +1,26 @@
-<p>search works!</p>
+<div class="search-header d-grid justify-content-center">
+  <mat-chip-list aria-label="searchFilter">
+    <mat-chip>{{'search.product' | translate}}</mat-chip>
+    <mat-chip>{{'search.profile' | translate}}</mat-chip>
+    <mat-chip>{{'search.location' | translate}}</mat-chip>
+    <mat-chip>{{'search.brand' | translate}}</mat-chip>
+    <mat-chip>{{'search.tags' | translate}}</mat-chip>
+  </mat-chip-list>
+
+  <div class="d-inline-grid justify-items-center">
+    <span class="Text-Style-8">UNDECIDED?</span>
+    <span class="Text-Style-20" >{{'search.startSearch' | translate}}</span>
+  </div>
+
+  <form (ngSubmit)="startSearch()">
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>{{'search.search' | translate}}</mat-label>
+      <input matInput placeholder="{{'search.search' | translate}}" formControlName="search">
+    </mat-form-field>
+  </form>
+</div>
+
+<div class="nav-bar-line"></div>
+
+
 <router-outlet></router-outlet>

@@ -47,4 +47,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  startSearch() {
+
+  }
 }
