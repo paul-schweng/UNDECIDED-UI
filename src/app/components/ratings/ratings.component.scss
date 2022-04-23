@@ -5,15 +5,26 @@
   background-position: center center;
   padding: 10rem 0 0;
   max-width: 35ch;
+  width: fit-content;
   border-radius: 1rem;
   overflow: hidden;
   transition: transform 500ms ease;
+  -moz-transition: transform 500ms ease;
   cursor: pointer;
+}
+
+.centerCards{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(270px, max-content));
+  grid-gap: 16px;
+  justify-content: center;
+  padding: initial;
 }
 
 .card:hover,
 .card:focus-within {
   transform: scale(1.05);
+  -moz-transform: scale(1.05);
 }
 
 .card-content{
@@ -46,50 +57,53 @@
   background: var(--very-light-brown);
 
   transform-origin: left;
+  -moz-transform-origin: left;
   transition: transform 500ms ease;
+  -moz-transition: transform 500ms ease;
 }
 
 .card:hover .card-title::after,
 .card:focus-within .card-title::after{
   transform: scaleX(1);
+  -moz-transform: scaleX(1);
 }
 
-@media (hover) {
+@media (hover: hover) {
   .card-content{
     transform: translateY(50%);
+    -moz-transform: translateY(50%);
     transition: transform 150ms ease;
+    -moz-transition: transform 150ms ease;
     transition-delay: 100ms;
+    -moz-transition-delay: 100ms;
   }
 
   .card:hover .card-content,
   .card:focus-within .card-content{
     transform: translateY(0);
+    -moz-transform: translateY(0);
   }
 
   .card:focus-within .card-content{
     transition-duration: 0ms;
+    -moz-transition-duration: 0ms;
   }
 
   .card-content > *:not(.card-title) {
     opacity: 0;
     transition: opacity 300ms linear;
+    -moz-transition: opacity 300ms linear;
   }
 
   .card:hover .card-content > *:not(.card-title),
   .card:focus-within .card-content > *:not(.card-title){
     opacity: 1;
     transition-delay: 200ms;
+    -moz-transition-delay: 200ms;
   }
 
   .card-title::after{
     transform: scaleX(0);
+    -moz-transform: scaleX(0);
   };
-
-  .centerCards{
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(210px, max-content));
-    grid-gap: 16px;
-    justify-content: center;
-    padding: initial;
-  }
 }
