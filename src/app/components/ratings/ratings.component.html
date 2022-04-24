@@ -16,7 +16,7 @@
 
   <div class="mt-5 d-flex flex-wrap centerCards" *ngIf="ratings; else empty">
     <div *ngFor="let rating of ratings" #card>
-      <mat-card class="card m-4" [style]="'background-image: url(\'' + ('/api/img/rating/'+rating.id+'/0' || '/assets/img/defaultImage.webp') + '\')'" routerLink="./" [queryParams]="{id: rating.id}">
+      <mat-card class="card m-4" routerLink="./" [style.background-image]="'url(\'' + getImage(rating) + '\')'" [queryParams]="{id: rating.id}">
         <div class="card-content">
           <h2 class="card-title">{{rating.product.name}}</h2>
           <div>

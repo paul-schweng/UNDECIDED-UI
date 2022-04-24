@@ -26,7 +26,7 @@ import {User} from "../../models/user";
   templateUrl: './ratings.component.html',
   styleUrls: ['./ratings.component.scss']
 })
-export class RatingsComponent implements OnDestroy, AfterViewInit {
+export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
 
   scrollAmount: any;
   user: User = EmptyUser;
@@ -53,6 +53,10 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
               private route: ActivatedRoute,
               private router: Router,
               private auth: AuthenticationService) {
+  }
+
+  ngOnInit() {
+
   }
 
   async ngAfterViewInit(){
@@ -243,6 +247,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
           }
 
         }
+
         this.ratings.push(...temp);
         this.isLoadInProgress = false;
       });
@@ -276,6 +281,24 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
   }
 
+
+  getImage(rating: Rating) {
+
+    let image = '/api/img/rating/'+rating.id+'/0';
+    let defaultImage = '/assets/img/defaultImage.webp';
+
+    return rating.imageNum ? image : defaultImage;
+
+  }
+
+  load(src: string) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.addEventListener('load', resolve);
+      image.addEventListener('error', reject);
+      image.src = src;
+    });
+  }
 
 
 
