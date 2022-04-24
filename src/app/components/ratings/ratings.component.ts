@@ -35,7 +35,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
 
   @Input("user") set _user(user: User){
     this.user = user;
-    this.editable = user.id == this.auth.iAmUser.id;
+    this.editable = false;
 
     this.ngAfterViewInit();
   }
