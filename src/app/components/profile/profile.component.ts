@@ -236,7 +236,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.routeParams$.unsubscribe();
+    this.routeParams$?.unsubscribe();
     this.routeQueryParams$.unsubscribe();
   }
 
