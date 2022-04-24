@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -11,13 +11,14 @@ import {WebcamImage} from "ngx-webcam";
 import {MatDialog} from "@angular/material/dialog";
 import {NotificationService} from "../../services/notification.service";
 import {FollowDialogComponent} from "../dialogs/follow-dialog/follow-dialog.component";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, AfterViewInit {
+export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   iAmUser: User;
   clonedIAmUser: User;
@@ -33,6 +34,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   isMe: boolean = true;
   isFollowDialogOpen: boolean = false;
   hasUserLoaded: boolean = false;
+
+  private routeQueryParams$!: Subscription;
+  private routeParams$!: Subscription;
 
 
   constructor(private translate: TranslateService,
@@ -63,7 +67,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       });
     } else {
 
-      this.activatedRoute.params.subscribe(routeParams => {
+      this.routeParams$ = this.activatedRoute.params.subscribe(routeParams => {
 
         let username = routeParams.username;
         console.log(username);
@@ -88,7 +92,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.activatedRoute.queryParams.subscribe(queryParams => {
+    this.routeQueryParams$ = this.activatedRoute.queryParams.subscribe(queryParams => {
       if(queryParams['follow'] == 0)
         this.openDialog(0);
       if(queryParams['follow'] == 1)
@@ -228,6 +232,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       this.router.navigate(['.'], {relativeTo: this.activatedRoute});
       this.isFollowDialogOpen = false;
     });
+  }
+
+
+  ngOnDestroy(): void {
+    this.routeParams$.unsubscribe();
+    this.routeQueryParams$.unsubscribe();
   }
 
 
