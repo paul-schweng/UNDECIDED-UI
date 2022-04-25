@@ -22,6 +22,7 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
 
   followerList: User[] = [];
   followingList: User[] = [];
+  friendList: User[] = [];
 
   public loadFollower(){
     this.userService.getFollower(this.data.id).then(follower => {
@@ -35,9 +36,16 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
     });
   }
 
+  public loadFriends(){
+    this.userService.getFriends(this.data.id).then(following => {
+      this.friendList.push(...following);
+    });
+  }
+
   ngAfterViewInit(): void {
     this.loadFollower();
     this.loadFollowing();
+    this.loadFriends();
   }
 
   changedTab(idx: number) {

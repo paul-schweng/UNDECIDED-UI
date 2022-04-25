@@ -40,5 +40,24 @@
       </ng-template>
     </mat-tab>
 
+    <mat-tab label="{{'basics.friends' | translate}}">
+      <ng-template matTabContent>
+        <mat-list *ngIf="followingList">
+          <mat-list-item class="on-hover" (click)="clickOnUser(friend.username)" *ngFor="let friend of friendList">
+            <div class="image-wrapper mr-1 border" [style]="'background-image: url(' + ('/assets/img/default-user.png') + ');'"></div>
+            <div class="col">
+              <span class="follow-name">
+                  {{friend?.name || ""}}
+                <span class="follow-username">
+                  {{friend?.username || ""}}
+                </span>
+              </span>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+        </mat-list>
+      </ng-template>
+    </mat-tab>
+
   </mat-tab-group>
 </div>

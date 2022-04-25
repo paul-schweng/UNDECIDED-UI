@@ -93,7 +93,7 @@
           <div mat-line translate>profile.edit</div>
           <mat-divider class="border-2"></mat-divider>
         </a>
-        <a class="on-hover" mat-list-item routerLink="friends">
+        <a routerLink="./" [queryParams]="{follow: 2}" class="on-hover" mat-list-item>
           <mat-icon mat-list-icon class="d-flex"><img src="assets/img/iconsContacts.svg" alt="friends"></mat-icon>
           <div mat-line translate>basics.friends</div>
           <mat-divider class="border-2"></mat-divider>

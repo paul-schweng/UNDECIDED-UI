@@ -93,10 +93,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.routeQueryParams$ = this.activatedRoute.queryParams.subscribe(queryParams => {
-      if(queryParams['follow'] == 0)
-        this.openDialog(0);
-      if(queryParams['follow'] == 1)
-        this.openDialog(1);
+      let idx = queryParams['follow'];
+      if(0 <= idx && idx < 3)
+        this.openDialog(idx);
+
     });
   }
 

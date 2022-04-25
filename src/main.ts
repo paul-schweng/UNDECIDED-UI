@@ -12,5 +12,5 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
 //------------------------------------------------------------------------------------------
-export const VERSION_NUMBER = '0.1.1';
-export const VERSION_DETAIL = 'added upload function for user image';
+export const VERSION_NUMBER = '0.1.2';
+export const VERSION_DETAIL = 'Friends Popup in Profile was added';
