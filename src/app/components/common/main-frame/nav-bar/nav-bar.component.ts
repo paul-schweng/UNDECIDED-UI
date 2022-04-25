@@ -26,4 +26,13 @@ export class NavBarComponent implements OnInit {
     this.navbarfixed = window.scrollY > 150;
   }
 
+  onActivate() {
+    if (this.navbarfixed){
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }
+  }
 }

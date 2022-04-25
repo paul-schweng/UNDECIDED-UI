@@ -10,7 +10,7 @@
 
   <ul class="nav d-contents justify-content-end">
     <li>
-      <a routerLink="home" mat-icon-button [class.button-selected]="router.url.includes('home')"><img src="/assets/img/iconNavHome.svg" alt="HOME"></a>
+      <a routerLink="home" (click)="onActivate()" mat-icon-button [class.button-selected]="router.url.includes('home')"><img src="/assets/img/iconNavHome.svg" alt="HOME"></a>
     </li>
     <li>
       <a routerLink="search" mat-icon-button [class.button-selected]="router.url.includes('search')"><img src="/assets/img/iconsNavSearch.svg" alt="SEARCH"></a>
