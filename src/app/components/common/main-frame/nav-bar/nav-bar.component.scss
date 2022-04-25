@@ -19,6 +19,10 @@ ul{
   display: contents;
 }
 
+embed{
+  z-index: -1;
+}
+
 .fixed {
   position: sticky;
   width: 100%;
@@ -32,7 +36,6 @@ ul{
   position: static;
   width: 100%;
   transition: 0.2s linear;
-  background-color: var(--white);
 }
 
 .navbar-placeholder{

@@ -1,9 +1,9 @@
 <div class="navbar px-2 Background-Nav" (scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
   <div>
-    <a class="" routerLink="/" href="#">
-      <embed *ngIf="!navbarfixed; else favIcon" src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo" >
+    <a class="navbar-brand" routerLink="/" href="#">
+      <embed class="position-sticky" *ngIf="!navbarfixed; else favIcon" src="/assets/img/logo/Logo-black.svg" alt="UNDECIDED-Logo" >
       <ng-template #favIcon>
-        <embed src="/assets/img/logo/FAV-black.svg" alt="UNDECIDED-Logo" >
+        <embed class="position-sticky" src="/assets/img/logo/FAV-black.svg" alt="UNDECIDED-Logo" >
       </ng-template>
     </a>
   </div>
