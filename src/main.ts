@@ -12,5 +12,5 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
 //------------------------------------------------------------------------------------------
-export const VERSION_NUMBER = '0.1.2';
-export const VERSION_DETAIL = 'Friends Popup in Profile was added';
+export const VERSION_NUMBER = '0.1.3';
+export const VERSION_DETAIL = 'Implement Footer';
