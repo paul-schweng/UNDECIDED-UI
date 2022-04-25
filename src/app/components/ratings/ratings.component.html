@@ -1,20 +1,26 @@
 <div>
-  <div class="p-4 d-flex">
-    <mat-form-field class="" appearance="fill">
-      <mat-label>{{'basics.filter' | translate}}</mat-label>
-      <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
-        <mat-option *ngFor="let filter of filters" [value]="filter">
-          {{filter | translate}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <div class="row p-4 m-0">
+    <div class="col text-left">
+      <mat-form-field appearance="fill">
+        <mat-label>{{'basics.filter' | translate}}</mat-label>
+        <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
+          <mat-option *ngFor="let filter of filters" [value]="filter">
+            {{filter | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-    <div class="" *ngIf="editable">
+    <div class="col text-center" *ngIf="editable">
       <button routerLink="./" [queryParams]="{id: -1}" mat-fab color="">
         <mat-icon>add</mat-icon>
       </button>
     </div>
+
+    <div class="col text-right"></div>
   </div>
+
+
 
   <div class="d-flex flex-wrap centerCards" *ngIf="ratings; else empty">
     <div *ngFor="let rating of ratings" #card>

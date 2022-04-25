@@ -4,7 +4,9 @@
   background-repeat: no-repeat;
   background-position: center center;
   padding: 10rem 0 0;
-  max-width: 35ch;
+  /*max-width: 35ch;*/
+  max-width: 225px;
+  max-height: 292px;
   width: fit-content;
   border-radius: 1rem;
   overflow: hidden;
@@ -45,6 +47,9 @@
   position: relative;
   width: max-content;
   max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-title::after{

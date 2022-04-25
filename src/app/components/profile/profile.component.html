@@ -124,4 +124,7 @@
   </div>
 </ng-template>
 
-<app-ratings *ngIf="editForbidden && hasUserLoaded" [user]="iAmUser"></app-ratings>
+<div *ngIf="editForbidden && hasUserLoaded">
+  <div class="nav-bar-line"></div>
+  <app-ratings [user]="iAmUser"></app-ratings>
+</div>
