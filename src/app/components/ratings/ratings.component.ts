@@ -100,7 +100,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
   }
 
   isLastCardInView(): boolean {
-    if(!this.cards.last)
+    if(!this.cards?.last)
       return true;
 
     let card = this.cards.last;

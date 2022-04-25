@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "./routes/guards/auth.guard";
 import {LoginGuard} from "./routes/guards/login.guard";
 import {MAIN_ROUTES} from "./routes/mainRoutes";
@@ -15,8 +15,15 @@ const routes: Routes = [
   {path: '**', redirectTo: ''},
 ];
 
+const routerOptions: ExtraOptions = {
+  scrollOffset: [0, 64],
+  anchorScrolling: 'enabled',
+  onSameUrlNavigation: "reload"
+  // ...any other options you'd like to use
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

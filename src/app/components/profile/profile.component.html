@@ -62,7 +62,7 @@
 
   <!--stats-->
   <div class="row profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
-    <a routerLink="/ratings" translate [translateParams]="{num: iAmUser.ratingsNum}" class="Text-Style-15">profile.ratings</a>
+    <a routerLink="{{isMe ? '/ratings' : '.'}}" [fragment]="isMe ? undefined : 'ratings'" translate [translateParams]="{num: iAmUser.ratingsNum}" class="Text-Style-15">profile.ratings</a>
     <a routerLink="./" [queryParams]="{follow: 0}" translate [translateParams]="{num: iAmUser.followerNum}" class="Text-Style-15 cursor-pointer">profile.follower</a>
     <a routerLink="./" [queryParams]="{follow: 1}" translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15 cursor-pointer">profile.following</a>
     <div *ngIf="editForbidden && !isMe">
@@ -124,7 +124,7 @@
   </div>
 </ng-template>
 
-<div *ngIf="editForbidden && hasUserLoaded">
+<div id="ratings" *ngIf="editForbidden && hasUserLoaded">
   <div class="nav-bar-line"></div>
   <app-ratings [user]="iAmUser"></app-ratings>
 </div>
