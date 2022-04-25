@@ -16,7 +16,10 @@
 
         <label class="text-style Text-Style-13 pt-4" translate>auth.register.password</label>
         <input-pwd class="d-inline-grid" (value)="password.value = $event" #pwd></input-pwd>
-        <mat-checkbox class="text-style Text-Style-11" [(ngModel)]="rememberMe" name="rememberMe">{{'auth.login.rememberMe' | translate}}</mat-checkbox>
+
+        <div>
+          <mat-checkbox class="float-left text-style Text-Style-11" [(ngModel)]="rememberMe" name="rememberMe">{{'auth.login.rememberMe' | translate}}</mat-checkbox>
+        </div>
 
         <button class="sign-in-button mt-5 Text-Style-14" type="submit"
                 [disabled]="emailInput.formControl.invalid || pwd.formControl.invalid" mat-raised-button>
