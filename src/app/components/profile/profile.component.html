@@ -10,7 +10,7 @@
 
     <!--picture-->
     <div class="col m-auto flex-grow-0 align-items-center justify-content-around">
-      <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="">
+      <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="" onerror="this.src = '/assets/img/default-user.png'">
       <!--edit picture-->
       <div class="edit-profile-picture" *ngIf="edit">
         <input
@@ -93,7 +93,7 @@
           <div mat-line translate>profile.edit</div>
           <mat-divider class="border-2"></mat-divider>
         </a>
-        <a class="on-hover" mat-list-item routerLink="friends">
+        <a routerLink="./" [queryParams]="{follow: 2}" class="on-hover" mat-list-item>
           <mat-icon mat-list-icon class="d-flex"><img src="assets/img/iconsContacts.svg" alt="friends"></mat-icon>
           <div mat-line translate>basics.friends</div>
           <mat-divider class="border-2"></mat-divider>

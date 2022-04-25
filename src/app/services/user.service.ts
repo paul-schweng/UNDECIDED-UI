@@ -75,6 +75,10 @@ export class UserService extends CommunicationRequestService<User | any>{
     return super.sendPostRequest(this.backendUrlExt + '/myFollowing', {userid: userid, timestamp: timestamp || new Date()});
   }
 
+  public getFriends(userid: string, timestamp?: Date): Promise<User[]>{
+    return super.sendPostRequest(this.backendUrlExt + '/myFriends', {userid: userid, timestamp: timestamp || new Date()});
+  }
+
   protected prepareRequestObjectParameter(reqParameter: User | any): HttpParams {
     if(reqParameter.id)
       return new HttpParams().set('id', reqParameter.id);
