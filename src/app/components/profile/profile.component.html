@@ -10,7 +10,7 @@
 
     <!--picture-->
     <div class="col m-auto flex-grow-0 align-items-center justify-content-around">
-      <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="">
+      <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="" onerror="this.src = '/assets/img/default-user.png'">
       <!--edit picture-->
       <div class="edit-profile-picture" *ngIf="edit">
         <input

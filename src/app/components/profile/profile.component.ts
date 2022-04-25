@@ -177,8 +177,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getProfileImage(): string {
     return (this.edit ?
-      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : this.iAmUser.profileImage)
-      || '/assets/img/default-user.png';
+      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : "/api/img/user");
   }
 
   canSaveChanges(): boolean {

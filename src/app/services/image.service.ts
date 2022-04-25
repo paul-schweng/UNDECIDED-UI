@@ -70,13 +70,13 @@ export class ImageService {
     console.log("image upload...");
     const uploadData = new FormData();
 
-    if(img.file)
+    if(img.file && Object.keys(img.file).length != 0)
       uploadData.append('image', img.file);
     else
       uploadData.append('image', ImageService.base64ToFile(img.base64));
 
-    return new Promise<User>((resolve, reject) => {
-      this.http.post<User>(this.backendUrl + 'user', uploadData).subscribe(event => {
+    return new Promise<any>((resolve, reject) => {
+      this.http.post<any>(this.backendUrl + 'user', uploadData).subscribe(event => {
           console.log(event); // handle event here
           resolve(event);
         }, error => {
