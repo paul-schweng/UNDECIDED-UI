@@ -26,7 +26,7 @@ import {User} from "../../models/user";
   templateUrl: './ratings.component.html',
   styleUrls: ['./ratings.component.scss']
 })
-export class RatingsComponent implements OnDestroy, AfterViewInit {
+export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
 
   scrollAmount: any;
   user: User = EmptyUser;
@@ -35,7 +35,7 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
   @Input("user") set _user(user: User){
     this.user = user;
-    this.editable = user.id == this.auth.iAmUser.id;
+    this.editable = false;
 
     this.ngAfterViewInit();
   }
@@ -55,6 +55,10 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
               private auth: AuthenticationService) {
   }
 
+  ngOnInit() {
+
+  }
+
   async ngAfterViewInit(){
 
     this.scrollAmount = document.querySelector('html')
@@ -67,46 +71,19 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
   }
 
   async init() {
-    await this.partialLoading()
-      .then( () => {
+    if(!this.routeQueryParams$)
+      this.routeQueryParams$ = this.route.queryParams.subscribe(params => {
 
-        this.routeQueryParams$ = this.route.queryParams.subscribe(params => {
+        let ratingId = params['id'];
+        if(ratingId)
+          this.getRating(ratingId).then(
+            rating => this.openRatingDialog(rating),
+            () => this.router.navigate(['.'], {relativeTo: this.route})
+          );
 
-          let ratingId = params['id'];
-          if(ratingId)
-            this.getRating(ratingId).then(
-              rating => this.openRatingDialog(rating),
-              () => this.router.navigate(['.'], {relativeTo: this.route})
-            );
-
-        });
-
-      }).then(async () => {
-        // time for UI to refresh
-        await new Promise(res => setTimeout(res, 10))
-
-        let count = 0;
-        let MAX_TRIES = 2;
-        let ratingsSize = this.ratings.length;
-
-        do {
-          await this.partialLoading();
-          await new Promise(res => setTimeout(res, 10))
-          console.log(this.ratings.length)
-
-          if (ratingsSize == this.ratings.length && count > MAX_TRIES)
-            break;
-          else if (ratingsSize != this.ratings.length) {
-            ratingsSize = this.ratings.length;
-            count = 0;
-          }
-          count++;
-
-
-        }while(this.areCardsInView() && (this.ratings.length < this.auth.iAmUser.ratingsNum!));
-
-        console.log(this.cards.toArray())
       });
+
+    this.onScroll();
   }
 
   areCardsInView(): boolean {
@@ -123,6 +100,9 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
   }
 
   isLastCardInView(): boolean {
+    if(!this.cards.last)
+      return true;
+
     let card = this.cards.last;
 
     let rect = card.nativeElement.getBoundingClientRect();
@@ -219,23 +199,43 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
 
   changeFilter(filter?: MatSelectChange) {
     this.currentFilter = filter?.value ?? this.filters[0];
-    if(filter)
-      this.ratings = [];
 
-    this.init();
+
+    new Promise(async res => {
+
+      console.log(this.isLoadInProgress)
+
+      while(this.isLoadInProgress){
+        await new Promise(res => setTimeout(res, 50))
+        console.log("waiting for load")
+      }
+
+      console.log("wait done")
+      if(filter)
+        this.ratings = [];
+
+      await new Promise(res => setTimeout(res, 10))
+
+      this.init();
+    });
   }
 
 
   // partial loading
   partialLoading() {
 
+    this.isLoadInProgress = true;
+
     let lastRating = this.ratings[this.ratings.length - 1];
 
-    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length, this.user.id!).then(
-      (ratingList) => {
-        let temp = ratingList;
+    return this.ratingService.getMyRatings(this.currentFilter.split(".").pop()!, lastRating?.id || "0", this.ratings.length, this.user.id!)
+      .then(ratingList => {
+        /*
+        let temp = clone(ratingList);
+
         for(let j in ratingList){
           for(let i in this.ratings){
+            // console.log(ratingList, j)
             if(this.ratings[i].id == ratingList[j].id){
               temp.splice(Number(j), 1);
             }
@@ -243,9 +243,13 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
           }
 
         }
-        this.ratings.push(...temp);
-        this.isLoadInProgress = false;
-      });
+
+         */
+
+
+        this.ratings.push(...ratingList);
+      })
+      .finally(() => this.isLoadInProgress = false);
   }
 
   ngOnDestroy(): void {
@@ -266,7 +270,6 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
       while(this.isLastCardInView() && this.ratings.length < this.user.ratingsNum!){
         console.log('loaded ratings:', this.ratings.length);
 
-        this.isLoadInProgress = true;
         await this.partialLoading();
       }
 
@@ -277,6 +280,14 @@ export class RatingsComponent implements OnDestroy, AfterViewInit {
   }
 
 
+  getImage(rating: Rating) {
+
+    let image = '/api/img/rating/'+rating.id+'/0';
+    let defaultImage = '/assets/img/defaultImage.webp';
+
+    return rating.imageNum ? image : defaultImage;
+
+  }
 
 
 }
