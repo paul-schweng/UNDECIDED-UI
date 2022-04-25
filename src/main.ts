@@ -10,3 +10,7 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
+//------------------------------------------------------------------------------------------
+export const VERSION_NUMBER = '0.1';
+export const VERSION_DETAIL = 'Version Number is now available! :)';

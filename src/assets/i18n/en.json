@@ -122,7 +122,10 @@
     "login": {
       "signIn": "Sign In",
       "hasNoAccount": "Don’t have an account?",
-      "rememberMe": "Remember me"
+      "rememberMe": "Remember me",
+      "contact": "Contact",
+      "privacy": "Privacy Policies",
+      "about": "About us"
     }
   },
 
