@@ -75,6 +75,7 @@ import { PrivacyPoliciesComponent } from './components/common/footer/privacy-pol
 import { ContactComponent } from './components/common/footer/contact/contact.component';
 import {FooterComponent} from "./components/common/footer/footer.component";
 import { AboutUsComponent } from './components/common/footer/about-us/about-us.component';
+import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-posts.component';
 
 
 @NgModule({
@@ -110,6 +111,7 @@ import { AboutUsComponent } from './components/common/footer/about-us/about-us.c
     ContactComponent,
     FooterComponent,
     AboutUsComponent,
+    BlogPostsComponent,
 
   ],
     imports: [
