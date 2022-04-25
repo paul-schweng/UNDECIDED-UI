@@ -1,20 +1,28 @@
 <div>
-  <mat-form-field class="position-absolute m-4" appearance="fill">
-    <mat-label>{{'basics.filter' | translate}}</mat-label>
-    <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
-      <mat-option *ngFor="let filter of filters" [value]="filter">
-        {{filter | translate}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="row p-4 m-0">
+    <div class="col text-left">
+      <mat-form-field appearance="fill">
+        <mat-label>{{'basics.filter' | translate}}</mat-label>
+        <mat-select (selectionChange)="changeFilter($event)" [value] = "currentFilter">
+          <mat-option *ngFor="let filter of filters" [value]="filter">
+            {{filter | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
-  <div class="m-4 d-flex justify-content-center" *ngIf="editable">
-    <button routerLink="./" [queryParams]="{id: -1}" mat-fab color="">
-      <mat-icon>add</mat-icon>
-    </button>
+    <div class="col text-center" *ngIf="editable">
+      <button routerLink="./" [queryParams]="{id: -1}" mat-fab color="">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="col text-right"></div>
   </div>
 
-  <div class="mt-5 d-flex flex-wrap centerCards" *ngIf="ratings; else empty">
+
+
+  <div class="d-flex flex-wrap centerCards" *ngIf="ratings; else empty">
     <div *ngFor="let rating of ratings" #card>
       <mat-card class="card m-4" routerLink="./" [style.background-image]="'url(\'' + getImage(rating) + '\')'" [queryParams]="{id: rating.id}">
         <div class="card-content">
@@ -25,7 +33,6 @@
         </div>
       </mat-card>
     </div>
-
   </div>
 
   <ng-template #empty>
