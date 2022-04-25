@@ -71,6 +71,10 @@ import { MoreSettingsComponent } from './components/profile/settings/more-settin
 import {InfiniteScrollModule} from "ngx-infinite-scroll";
 import { FollowDialogComponent } from './components/dialogs/follow-dialog/follow-dialog.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import { PrivacyPoliciesComponent } from './components/common/footer/privacy-policies/privacy-policies.component';
+import { ContactComponent } from './components/common/footer/contact/contact.component';
+import {FooterComponent} from "./components/common/footer/footer.component";
+import { AboutUsComponent } from './components/common/footer/about-us/about-us.component';
 
 
 @NgModule({
@@ -102,6 +106,10 @@ import {MatTabsModule} from "@angular/material/tabs";
     ChangePasswordComponent,
     MoreSettingsComponent,
     FollowDialogComponent,
+    PrivacyPoliciesComponent,
+    ContactComponent,
+    FooterComponent,
+    AboutUsComponent,
 
   ],
     imports: [
