@@ -12,5 +12,11 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
 //------------------------------------------------------------------------------------------
-export const VERSION_NUMBER = '0.1.3';
-export const VERSION_DETAIL = 'Implement Footer';
+
+export const VERSION_DATA = [
+  {version: '0.1.4', detail: 'Added Version Page'},
+  {version: '0.1.3', detail: 'Implement Footer'},
+  {version: '0.1.2', detail: 'Friends Popup in Profile was added'},
+  {version: '0.1.1', detail: 'Added upload function for user image'},
+  {version: '0.1', detail: 'Version Number is now available! :)'},
+];

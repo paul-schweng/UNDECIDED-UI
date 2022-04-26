@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {VERSION_DETAIL, VERSION_NUMBER} from "../../../../main";
+import {VERSION_DATA} from "../../../../main";
 
 @Component({
   selector: 'footer-login',
@@ -8,8 +8,7 @@ import {VERSION_DETAIL, VERSION_NUMBER} from "../../../../main";
 })
 export class FooterComponent implements OnInit {
 
-  version_number = VERSION_NUMBER;
-  version_detail = VERSION_DETAIL;
+  versionData = VERSION_DATA[0];
 
   constructor() { }
 

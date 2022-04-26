@@ -76,6 +76,8 @@ import { ContactComponent } from './components/common/footer/contact/contact.com
 import {FooterComponent} from "./components/common/footer/footer.component";
 import { AboutUsComponent } from './components/common/footer/about-us/about-us.component';
 import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-posts.component';
+import { VersionComponent } from './components/common/footer/version/version.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -112,6 +114,7 @@ import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-p
     FooterComponent,
     AboutUsComponent,
     BlogPostsComponent,
+    VersionComponent,
 
   ],
     imports: [
@@ -161,7 +164,8 @@ import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-p
         MatBadgeModule,
         MatTooltipModule,
         InfiniteScrollModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTableModule
 
     ],
   providers: [
