@@ -24,6 +24,12 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
   followingList: User[] = [];
   friendList: User[] = [];
 
+  tabsData = [
+    {list: this.followerList, tabName: 'Follower'},
+    {list: this.followingList, tabName: 'Following'},
+    {list: this.friendList, tabName: 'basics.friends'}
+  ];
+
   public loadFollower(){
     this.userService.getFollower(this.data.id).then(follower => {
       this.followerList.push(...follower);
@@ -56,5 +62,32 @@ export class FollowDialogComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl('/search/user/' + (username == null ? '' : username));
     this.dialogRef.close();
   }
+
+  async getUrl(el: HTMLDivElement, user: User): Promise<string> {
+
+    const image = '/api/img/user/'+user.id;
+    const defaultImage = '/assets/img/default-user.png';
+    return await this.load(image)
+      .then(() => {
+        console.log("loaded")
+        return `url('${image}')`
+      })
+      .catch(() => {
+        console.log("error")
+        return `url('${defaultImage}')`
+      });
+
+  }
+
+
+  load(src: string) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.addEventListener('load', resolve);
+      image.addEventListener('error', reject);
+      image.src = src;
+    });
+  }
+
 
 }
