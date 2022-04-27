@@ -146,7 +146,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   chooseImageClicked(fileInput: HTMLInputElement) {
     const uploadDialog = this.dialog.open(ImageUploadDialogComponent, {
       autoFocus: false,
-      data: {fileInput: fileInput}
+      data: {fileInput: fileInput, showDelete: true}
     });
 
     uploadDialog.afterClosed().subscribe((value: WebcamImage) => {

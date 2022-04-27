@@ -86,5 +86,9 @@ export class UserService extends CommunicationRequestService<User | any>{
     return new HttpParams();
   }
 
+  deleteProfileImage(): Promise<any>{
+    return super.sendDeleteRequest('img/user');
+  }
+
 
 }
