@@ -11,6 +11,8 @@ import {UserService} from "../../../services/user.service";
 })
 export class ImageUploadDialogComponent implements OnInit {
 
+  showDelete: boolean = false;
+
   constructor(public dialogRef: MatDialogRef<ImageUploadDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               public dialog: MatDialog,
@@ -19,6 +21,8 @@ export class ImageUploadDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.data.showDelete)
+      this.showDelete = true;
   }
 
   openWebcam() {
