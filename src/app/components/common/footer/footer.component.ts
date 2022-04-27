@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {VERSION_DATA} from "../../../../main";
 
 @Component({
-  selector: 'footer-login',
+  selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
