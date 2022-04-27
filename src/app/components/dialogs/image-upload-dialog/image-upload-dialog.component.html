@@ -12,4 +12,11 @@
     </button>
     <div>{{'uploadImage.gallery' | translate}}</div>
   </div>
+
+  <div class="d-flex flex-column ml-4 m-3" *ngIf="showDelete">
+    <button class="align-self-center m-1" (click)="deleteImage()" mat-dialog-close mat-fab color="warn">
+      <mat-icon>collections</mat-icon>
+    </button>
+    <div>{{'basics.delete' | translate}}</div>
+  </div>
 </div>
