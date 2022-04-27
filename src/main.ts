@@ -14,6 +14,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 //------------------------------------------------------------------------------------------
 
 export const VERSION_DATA = [
+  {version: '0.1.5', detail: 'Public Pages are always accessible! No one cares if you\'re logged in ;)'},
   {version: '0.1.4', detail: 'Added Version Page'},
   {version: '0.1.3', detail: 'Implement Footer'},
   {version: '0.1.2', detail: 'Friends Popup in Profile was added'},

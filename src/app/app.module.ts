@@ -78,6 +78,7 @@ import { AboutUsComponent } from './components/common/footer/about-us/about-us.c
 import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-posts.component';
 import { VersionComponent } from './components/common/footer/version/version.component';
 import {MatTableModule} from "@angular/material/table";
+import { PublicComponent } from './components/public/public.component';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import {MatTableModule} from "@angular/material/table";
     AboutUsComponent,
     BlogPostsComponent,
     VersionComponent,
+    PublicComponent,
 
   ],
     imports: [

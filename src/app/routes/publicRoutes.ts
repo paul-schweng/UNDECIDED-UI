@@ -5,7 +5,7 @@ import {BlogPostsComponent} from "../components/common/footer/blog-posts/blog-po
 import {AboutUsComponent} from "../components/common/footer/about-us/about-us.component";
 import {PrivacyPoliciesComponent} from "../components/common/footer/privacy-policies/privacy-policies.component";
 
-export const OPEN_ROUTES: Routes = [
+export const PUBLIC_ROUTES: Routes = [
   {path: 'privacy-policies', component: PrivacyPoliciesComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'blog-posts', component: BlogPostsComponent},

@@ -6,12 +6,14 @@ import {MAIN_ROUTES} from "./routes/mainRoutes";
 import {AUTH_ROUTES} from "./routes/authRoutes";
 import {AuthComponent} from "./components/auth/auth.component";
 import {MainFrameComponent} from "./components/common/main-frame/main-frame.component";
-import {OPEN_ROUTES} from "./routes/openRoutes";
+import {PUBLIC_ROUTES} from "./routes/publicRoutes";
+import {PublicComponent} from "./components/public/public.component";
 
 
 const routes: Routes = [
-  {path: '', component: MainFrameComponent, canActivate: [AuthGuard], children: [...MAIN_ROUTES]},
-  {path: '', component: AuthComponent, canActivate: [LoginGuard], children: [...AUTH_ROUTES, ...OPEN_ROUTES]},
+  {path: '', component: MainFrameComponent, canActivate: [AuthGuard], children: MAIN_ROUTES},
+  {path: '', component: AuthComponent, canActivate: [LoginGuard], children: AUTH_ROUTES},
+  {path: '', component: PublicComponent, children: PUBLIC_ROUTES},
 
   //------------- IMPORTANT: this wildcard path must be the very last route!!! ------------------
   {path: '**', redirectTo: ''},
