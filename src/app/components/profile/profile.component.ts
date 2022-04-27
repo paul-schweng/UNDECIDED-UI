@@ -57,7 +57,9 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.router.url.split('/'))
 
     // subscribe to edit only if you are on your own profile page
-    this.editForbidden = location.pathname !== '/profile';
+    this.editForbidden = this.router.url.split('/')[1] !== 'profile';
+
+    console.log(location.pathname)
     if (!this.editForbidden) {
       this.hasUserLoaded = true;
 
@@ -86,6 +88,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     }
+
+    console.log(this.editForbidden)
 
   }
 
