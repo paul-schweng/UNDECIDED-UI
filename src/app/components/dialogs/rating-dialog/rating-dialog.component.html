@@ -1,9 +1,15 @@
 <div class="overflow-y-auto">
+
+  <!--Edit button -->
+  <button *ngIf="data.editable" (click)="clickEdit()" color="accent" class="" mat-icon-button>
+    <mat-icon>edit</mat-icon>
+  </button>
+
   <busy-div [busy]="isBusy" class="w-100">
-    <base-rating [rating]="data.rating" (valid)="valid = $event" [edit]="data.editable"></base-rating>
+    <base-rating [rating]="data.rating" (valid)="valid = $event" [edit]="edit"></base-rating>
   </busy-div>
 
-  <div class="left-50 mt-3 position-absolute d-flex justify-content-center">
+  <div *ngIf="edit" class="left-50 mt-3 position-absolute d-flex justify-content-center">
     <div *ngIf="data.editable" class="position-fixed background-color p-2 rounded d-flex justify-content-center">
       <div *ngIf="data.rating.id != -1" class="mx-5">
         <button (click)="deleteClicked()" color="warn" mat-raised-button>
