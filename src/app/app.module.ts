@@ -181,6 +181,7 @@ import { PublicComponent } from './components/public/public.component';
       multi: true,
       deps: [AuthenticationService]
     }
+
   ],
   bootstrap: [AppComponent]
 })

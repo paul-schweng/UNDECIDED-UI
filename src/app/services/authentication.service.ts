@@ -61,29 +61,38 @@ export class AuthenticationService extends CommunicationRequestService<any> {
   }
 
 
-  login(credentials: any): Promise<boolean> {
+  login(credentials?: any): Promise<boolean> {
 
     const headers = new HttpHeaders(credentials ?
       {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} :
-      {authorization: ''});
+      {authorization: 'Basic 1:2'});
 
     return super.sendGetRequest('login', credentials, headers)
       .then(async (response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
         if(this.authenticated) {
-          localStorage.setItem('credentials', JSON.stringify(credentials));
+          //localStorage.setItem('credentials', JSON.stringify(credentials));
 
           this.iAmUser = clone(EmptyUser);
 
+          await this.userService.getUser()
+            .then(user => Object.assign(this.iAmUser, clone(user)))
+            .then(() => {
+              if (credentials.rememberMe)
+                this.setRememberMe();
+            });
 
-          await this.userService.getUser().then(user => Object.assign(this.iAmUser, clone(user)));
           //this.iAmUser = SampleUser;
         }
         return this.authenticated;
 
       }, () => {return false;});
 
+  }
+
+  public setRememberMe(): Promise<any>{
+    return super.sendGetRequest('rememberMe');
   }
 
   register(user: User): Promise<boolean>{
@@ -97,8 +106,6 @@ export class AuthenticationService extends CommunicationRequestService<any> {
 
 
   protected prepareRequestObjectParameter(reqParameter: any): HttpParams {
-    if(reqParameter.rememberMe)
-      return new HttpParams().set('rememberMe', reqParameter.rememberMe);
     if(reqParameter.partUsername)
       return new HttpParams().set('u', reqParameter.partUsername)
 
