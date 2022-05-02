@@ -65,7 +65,31 @@ export class AuthenticationService extends CommunicationRequestService<any> {
 
     const headers = new HttpHeaders(credentials ?
       {authorization : 'Basic ' + btoa(credentials.username + ':' + credentials.password)} :
-      {authorization: 'Basic 1:2'});
+      {authorization: ''});
+
+    if(!credentials)
+      return super.sendGetRequest('authenticate').then(
+        async () => {
+          this.authenticated = true;
+
+          console.log("heereee")
+
+          if(this.authenticated) {
+            //localStorage.setItem('credentials', JSON.stringify(credentials));
+
+            this.iAmUser = clone(EmptyUser);
+
+            await this.userService.getUser()
+              .then( user => Object.assign(this.iAmUser, clone(user)) );
+
+            //this.iAmUser = SampleUser;
+          }
+          return this.authenticated;
+        })
+        .catch(
+        (res) => {
+          console.log("falsee :(", res)
+          return false;});
 
     return super.sendGetRequest('login', credentials, headers)
       .then(async (response: any) => {
@@ -79,7 +103,7 @@ export class AuthenticationService extends CommunicationRequestService<any> {
           await this.userService.getUser()
             .then(user => Object.assign(this.iAmUser, clone(user)))
             .then(() => {
-              if (credentials.rememberMe)
+              if (credentials?.rememberMe)
                 this.setRememberMe();
             });
 
