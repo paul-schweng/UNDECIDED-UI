@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthComponent } from './auth.component';
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
@@ -8,7 +9,9 @@ describe('AuthComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthComponent ]
+      declarations: [ AuthComponent ],
+      imports: [ TranslateModule.forRoot() ],
+      providers: [ TranslateService ]
     })
     .compileComponents();
   });
