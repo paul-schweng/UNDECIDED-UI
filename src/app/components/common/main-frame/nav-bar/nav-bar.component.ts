@@ -35,4 +35,8 @@ export class NavBarComponent implements OnInit {
       });
     }
   }
+
+  getProfileImage() {
+    return `/api/img/user/${this.auth.iAmUser.id}`;
+  }
 }
