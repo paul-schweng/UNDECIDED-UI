@@ -84,8 +84,8 @@ export class ImageService {
         reject(error);
       });
     })
-
   }
+
 
 
 }

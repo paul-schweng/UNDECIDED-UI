@@ -15,6 +15,7 @@ export class RatingDialogComponent implements OnInit {
   isBusy: boolean = false;
   valid: boolean = false;
   clonedRating: Rating;
+  edit: boolean = false;
 
 
   constructor(public dialogRef: MatDialogRef<RatingDialogComponent>,
@@ -62,5 +63,9 @@ export class RatingDialogComponent implements OnInit {
       }
 
     });
+  }
+
+  clickEdit() {
+    this.edit = !this.edit;
   }
 }

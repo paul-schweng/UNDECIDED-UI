@@ -2,6 +2,7 @@
 
 <!--The whole base rating-->
 <div *ngIf="!edit" class="row box-shadow">
+
   <!--First column, the picture carousel-->
   <div class="col p-0 flex-grow-0 m-auto">
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
@@ -74,6 +75,7 @@
 
 <!--The whole base rating-->
 <div *ngIf="edit" class="row box-shadow">
+
   <!--First column, the picture carousel-->
   <div class="col p-0 flex-grow-0 m-auto">
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=0}" [interval]="0" #carousel="ngbCarousel">
@@ -173,10 +175,13 @@
         <!--friends-->
         <div class="row d-flex m-auto justify-content-center w-100">
           <div class="d-inline-flex align-items-center">
-            <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [matTooltip]="friend.name! + ' (' + friend.username! + ')'" matTooltipPosition="below" [matTooltipShowDelay]="80"
-                 [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'">
+
+            <div *ngFor="let friend of _rating.friends" [matTooltip]="friend.name! + ' (' + friend.username! + ')'" matTooltipPosition="below" [matTooltipShowDelay]="80">
+              <img class="image-wrapper mr-1 border"
+                   [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
               <mat-icon mat-ripple (click)="removeFriend(friend)" class="close-badge" aria-hidden="false" aria-label="Example home icon">close</mat-icon>
             </div>
+
           </div>
           <mat-form-field *ngIf="_rating.friends!.length < 5" class="w-50" appearance="fill">
             <mat-label translate>ratings.tagFriends</mat-label>
@@ -184,7 +189,7 @@
             <mat-autocomplete #autoFriends (optionSelected)="friendSelected($event.option.value)" [displayWith]="displayFnFriends"> <!--TODO: make autocomplete scrollable in horizontal-->
               <mat-option *ngFor="let friend of filteredOptionsFriends" [value]="friend">
 
-                  <img class="image-wrapper-2 mr-1 border" [src]="friend?.profileImage || '/assets/img/default-user.png'">
+                  <img class="image-wrapper-2 mr-1 border" [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';">
                   <span class="ml-1">{{friend.name}} ({{friend.username}})</span>
 
               </mat-option>

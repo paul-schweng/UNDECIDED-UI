@@ -35,8 +35,9 @@ export class LoginComponent implements OnInit {
 
   loginClicked() {
     this.auth.login({username: this.email.value, password: this.password.value, rememberMe: this.rememberMe}).then(res => {
-      if(res)
+      if(res){
         this.router.navigateByUrl('/');
+      }
       else
         this.authFailed = true;
     });

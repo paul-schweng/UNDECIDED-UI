@@ -1,11 +1,11 @@
 <div class="footer-login">
   <div class="nav-bar-line"></div>
 
-  <div class="mt-3 d-flex justify-content-around text-style">
+  <div class="mt-3 mb-3 d-flex justify-content-around text-style">
     <a routerLink="/contact">{{'auth.login.contact' | translate}}</a>
     <a routerLink="/privacy-policies">{{'auth.login.privacy' | translate}}</a>
     <a routerLink="/blog-posts">Blog</a>
     <a routerLink="/about-us">{{'auth.login.about' | translate}}</a>
-    <p matTooltip="{{version_detail}}">Version {{version_number}}</p>
+    <a routerLink="/versions" matTooltip="{{versionData.detail}}">Version {{versionData.version}}</a>
   </div>
 </div>

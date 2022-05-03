@@ -264,13 +264,24 @@ export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
 
     let height = this.scrollAmount.scrollHeight;
 
+    let counter = 0;
+    let MAX_LOOPS = 3;
+    let loadedRatings;
+
 
     const loop = async () => {
 
       while(this.isLastCardInView() && this.ratings.length < this.user.ratingsNum!){
         console.log('loaded ratings:', this.ratings.length);
 
+        loadedRatings = this.ratings.length;
+
         await this.partialLoading();
+        if(loadedRatings == this.ratings.length)
+          counter++;
+
+        if(counter >= MAX_LOOPS)
+          break;
       }
 
     }

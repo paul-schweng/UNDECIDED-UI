@@ -57,7 +57,9 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(this.router.url.split('/'))
 
     // subscribe to edit only if you are on your own profile page
-    this.editForbidden = location.pathname !== '/profile';
+    this.editForbidden = this.router.url.split('/')[1] !== 'profile';
+
+    console.log(location.pathname)
     if (!this.editForbidden) {
       this.hasUserLoaded = true;
 
@@ -86,6 +88,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
     }
+
+    console.log(this.editForbidden)
 
   }
 
@@ -142,7 +146,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   chooseImageClicked(fileInput: HTMLInputElement) {
     const uploadDialog = this.dialog.open(ImageUploadDialogComponent, {
       autoFocus: false,
-      data: {fileInput: fileInput}
+      data: {fileInput: fileInput, showDelete: true}
     });
 
     uploadDialog.afterClosed().subscribe((value: WebcamImage) => {
@@ -177,7 +181,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getProfileImage(): string {
     return (this.edit ?
-      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : "/api/img/user");
+      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : `/api/img/user/${this.iAmUser.id}`);
   }
 
   canSaveChanges(): boolean {

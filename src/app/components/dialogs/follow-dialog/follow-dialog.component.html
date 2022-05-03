@@ -2,54 +2,16 @@
 <div>
   <mat-tab-group mat-align-tabs="center" [selectedIndex]="data.tab" (selectedIndexChange)="changedTab($event)">
 
-    <mat-tab label="Follower">
+    <mat-tab *ngFor="let tab of tabsData" label="{{tab.tabName | translate}}">
       <ng-template matTabContent>
         <mat-list *ngIf="followerList">
-          <mat-list-item class="on-hover" (click)="clickOnUser(follower.username)" *ngFor="let follower of followerList">
-            <div class="image-wrapper mr-1 border" [style]="'background-image: url(' + ('/assets/img/default-user.png') + ');'"></div>
+          <mat-list-item class="on-hover" (click)="clickOnUser(user.username)" *ngFor="let user of tab.list">
+            <img class="image-wrapper mr-1 border" [src]="'/api/img/user/'+user.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
             <div class="col">
               <span class="follow-name">
-                  {{follower?.name || ""}}
+                  {{user?.name || ""}}
                 <span class="follow-username">
-                  {{follower?.username || ""}}
-                </span>
-              </span>
-            </div>
-            <mat-divider></mat-divider>
-          </mat-list-item>
-        </mat-list>
-      </ng-template>
-    </mat-tab>
-
-    <mat-tab label="Following">
-      <ng-template matTabContent>
-        <mat-list *ngIf="followingList">
-          <mat-list-item class="on-hover" (click)="clickOnUser(following.username)" *ngFor="let following of followingList">
-            <div class="image-wrapper mr-1 border" [style]="'background-image: url(' + ('/assets/img/default-user.png') + ');'"></div>
-            <div class="col">
-              <span class="follow-name">
-                  {{following?.name || ""}}
-                <span class="follow-username">
-                  {{following?.username || ""}}
-                </span>
-              </span>
-            </div>
-            <mat-divider></mat-divider>
-          </mat-list-item>
-        </mat-list>
-      </ng-template>
-    </mat-tab>
-
-    <mat-tab label="{{'basics.friends' | translate}}">
-      <ng-template matTabContent>
-        <mat-list *ngIf="followingList">
-          <mat-list-item class="on-hover" (click)="clickOnUser(friend.username)" *ngFor="let friend of friendList">
-            <div class="image-wrapper mr-1 border" [style]="'background-image: url(' + ('/assets/img/default-user.png') + ');'"></div>
-            <div class="col">
-              <span class="follow-name">
-                  {{friend?.name || ""}}
-                <span class="follow-username">
-                  {{friend?.username || ""}}
+                  {{user?.username || ""}}
                 </span>
               </span>
             </div>
