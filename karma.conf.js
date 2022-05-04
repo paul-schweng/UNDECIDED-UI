@@ -32,11 +32,10 @@ module.exports = function (config) {
       dir: require('path').join(__dirname, './coverage/UI'),
       subdir: '.',
       reporters: [
-        { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'cobertura' },
       ]
     },
-    reporters: ['dots', 'junit'],
+    reporters: ['dots', 'junit', 'coverage'],
     junitReporter: {
         outputFile: 'dist/test-reports/test-results.xml'
     }  ,
