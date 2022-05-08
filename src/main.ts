@@ -14,6 +14,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 //------------------------------------------------------------------------------------------
 
 export const VERSION_DATA = [
+  {version: '0.1.8', detail: 'You can upvote ratings now'},
   {version: '0.1.7', detail: '"Remember Me!" Alright Mr., we can do that'},
   {version: '0.1.6', detail: 'Profile image can be deleted'},
   {version: '0.1.5', detail: 'Public Pages are always accessible! No one cares if you\'re logged in ;)'},
