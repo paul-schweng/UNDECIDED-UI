@@ -88,4 +88,20 @@ export class RatingService extends CommunicationRequestService<any>{
   deleteRating(id: string): Promise<Rating> {
     return super.sendDeleteRequest(this.backendUrlExt, {id: id});
   }
+
+  likeRating(id: string): Promise<any> {
+    return super.sendGetRequest(this.backendUrlExt + `/like/${id}`, undefined, undefined, true);
+  }
+
+  removeLikeRating(id: string): Promise<any> {
+    return super.sendGetRequest(this.backendUrlExt + `/dislike/${id}`, undefined, undefined, true);
+  }
+
+  isRatingLiked(id: string): Promise<boolean> {
+    return super.sendGetRequest<any>(this.backendUrlExt + `/liked/${id}`).then(liked => {
+      return liked.liked;
+    });
+  }
+
+
 }
