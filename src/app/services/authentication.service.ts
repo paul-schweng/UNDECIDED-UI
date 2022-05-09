@@ -116,7 +116,7 @@ export class AuthenticationService extends CommunicationRequestService<any> {
   }
 
   public setRememberMe(): Promise<any>{
-    return super.sendGetRequest('rememberMe');
+    return super.sendGetRequest('rememberMe', undefined, undefined, true);
   }
 
   register(user: User): Promise<boolean>{
