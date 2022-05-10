@@ -39,7 +39,7 @@
     <div class="w-50 pt-5 text-center">
       <div class="d-inline-grid w-75">
         <label class="text-style Text-Style-13 pt-4" translate>basics.email</label>
-        <input-email class="d-inline-grid" (value)="user.email = $event" #email></input-email>
+        <input-email class="d-inline-grid" [unavailable]="emailError" (value)="user.email = $event" #email></input-email>
         <label class="text-style Text-Style-13 pt-4" translate>auth.register.password</label>
         <input-pwd class="d-inline-grid" (value)="user.password = $event" type="new" [disableCurrentPwdValidator]="true" #newPwd></input-pwd>
         <label class="text-style Text-Style-13 pt-4" translate>auth.repeatPwd</label>

@@ -103,6 +103,7 @@
     "enterEmail": "Email eingeben",
     "welcome": "Willkommen!",
     "usernameTaken": "Dieser Username ist bereits vergeben!",
+    "emailTaken": "Diese Email ist bereits vergeben!",
     "securePwd": {
       "length": "Min. 8 Zeichen",
       "lowercase": "Min. 1 Kleinbuchstabe",
