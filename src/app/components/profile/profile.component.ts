@@ -120,8 +120,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       if(user){
         this.iAmUser = user;
         this.clonedIAmUser = clone(user);
-        this.router.navigateByUrl('/profile');
       }
+      this.router.navigateByUrl('/profile');
+      this.reloadImage();
+
     }).finally(() => this.isBusy = false);
   }
 
@@ -181,7 +183,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getProfileImage(): string {
     return (this.edit ?
-      (this.clonedIAmUser.profileImage?.base64 ?? this.clonedIAmUser.profileImage) : `/api/img/user/${this.iAmUser.id}`);
+      this.clonedIAmUser.profileImage?.base64 ?? this.auth.iAmUser.profileImage.remote :
+      this.auth.iAmUser.profileImage.remote);
   }
 
   canSaveChanges(): boolean {
@@ -235,6 +238,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       this.router.navigate(['.'], {relativeTo: this.activatedRoute});
       this.isFollowDialogOpen = false;
     });
+  }
+
+  reloadImage(){
+    this.auth.iAmUser.profileImage.remote = this.auth.iAmUser.profileImage.remote.split('#')[0] + '#' + (new Date()).getTime();
   }
 
 
