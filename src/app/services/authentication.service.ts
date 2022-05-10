@@ -80,7 +80,11 @@ export class AuthenticationService extends CommunicationRequestService<any> {
             this.iAmUser = clone(EmptyUser);
 
             await this.userService.getUser()
-              .then( user => Object.assign(this.iAmUser, clone(user)) );
+              .then( user => {
+                user.profileImage = {};
+                user.profileImage.remote = `/api/img/user/${user.id}#a`;
+                Object.assign(this.iAmUser, clone(user))
+              } );
 
             //this.iAmUser = SampleUser;
           }
@@ -101,7 +105,11 @@ export class AuthenticationService extends CommunicationRequestService<any> {
           this.iAmUser = clone(EmptyUser);
 
           await this.userService.getUser()
-            .then(user => Object.assign(this.iAmUser, clone(user)))
+            .then(user => {
+              user.profileImage = {};
+              user.profileImage.remote = `/api/img/user/${user.id}#a`;
+              Object.assign(this.iAmUser, clone(user))
+            })
             .then(() => {
               if (credentials?.rememberMe)
                 this.setRememberMe();
