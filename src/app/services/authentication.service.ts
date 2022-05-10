@@ -119,7 +119,7 @@ export class AuthenticationService extends CommunicationRequestService<any> {
     return super.sendGetRequest('rememberMe', undefined, undefined, true);
   }
 
-  register(user: User): Promise<boolean>{
+  register(user: User): Promise<any>{
     // user.birthdate = (<Date>user.birthdate)?.toISOString().split("T")[0];
     return super.sendPostRequest('register', user);
   }

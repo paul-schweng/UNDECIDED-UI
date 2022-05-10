@@ -14,6 +14,13 @@ export class InputEmailComponent implements OnInit{
   @Output() invalid = new EventEmitter<boolean>();
   @Input() label?: string;
 
+  @Input('unavailable') set setUnavailable(unavailable: boolean){
+    if(unavailable)
+      this.formControl.setErrors({unavailable: true})
+    else
+      this.formControl.setErrors(null, {emitEvent: false});
+  }
+
   //TODO: uncomment Validator
   formControl: FormControl = new FormControl('',[Validators.required, /* Validators.email */]);
 
@@ -25,6 +32,8 @@ export class InputEmailComponent implements OnInit{
     if (this.formControl.hasError('required')) {
       return this.translate.instant('basics.required');
     }
+    if (this.formControl.hasError('unavailable'))
+      return this.translate.instant('auth.emailTaken');
 
     return this.formControl.hasError('email') ? 'Not a valid email' : '';
   }

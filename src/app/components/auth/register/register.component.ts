@@ -20,6 +20,8 @@ export class RegisterComponent implements OnInit {
   isBusy: boolean = false;
   private readonly TIMEOUT_AUTOCOMPLETE: number = 800;
 
+  emailError: boolean = false;
+
   formGroup: FormGroup = new FormGroup({
     name: new FormControl(),
     username: new FormControl('', [Validators.pattern(/^[a-z0-9.\-_]+$/), Validators.pattern(/^(?!.*[._\-]{2}).+$/)]),
@@ -68,7 +70,12 @@ export class RegisterComponent implements OnInit {
     this.isBusy = true;
     this.user.rememberMe = true;
     this.authService.register(this.user)
-      .then(() => {
+      .then((res) => {
+        if(res?.emailError){
+          this.emailError = true;
+          return;
+        }
+
         this.authService.login({username: this.user.email, password: this.user.password})
           .then(auth => {
             if(auth)
