@@ -48,6 +48,7 @@
     "newTags": "New tags...",
     "post": "Post it!",
     "edit": "Edit",
+    "noRatings": "No ratings posted yet",
     "filters": {
       "latest": "latest ratings",
       "highest": "highest ratings",

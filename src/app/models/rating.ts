@@ -22,7 +22,8 @@ export interface Rating {
   labelList?: Label[],
   comments?: Comment[],
   commentNum?: number,
-  imageNum?: number
+  imageNum?: number,
+  isLiked?: boolean
 }
 
 export interface RatingList{

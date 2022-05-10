@@ -22,7 +22,7 @@
 
 
 
-  <div class="d-flex flex-wrap centerCards" *ngIf="ratings; else empty">
+  <div class="d-flex flex-wrap centerCards" *ngIf="ratings?.length != 0; else empty">
     <div *ngFor="let rating of ratings" #card>
       <mat-card class="card m-4" routerLink="./" [style.background-image]="'url(\'' + getImage(rating) + '\')'" [queryParams]="{id: rating.id}">
         <div class="card-content">
@@ -36,7 +36,7 @@
   </div>
 
   <ng-template #empty>
-    <div class="middle Text-Style-18">
+    <div class="middle d-flex justify-content-center Text-Style-18 mb-5">
       {{'ratings.noRatings' | translate}}
     </div>
   </ng-template>

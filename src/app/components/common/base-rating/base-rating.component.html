@@ -1,72 +1,91 @@
 <!--Base Rating-->
 
-<!--The whole base rating-->
-<div *ngIf="!edit" class="row box-shadow">
-
-  <!--First column, the picture carousel-->
-  <div class="col p-0 flex-grow-0 m-auto">
-    <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
-      <ng-template *ngFor="let image of _rating.images" ngbSlide>
-        <div class="img-wrapper">
-          <img [src]="image" alt="slide">
-        </div>
-      </ng-template>
-    </ngb-carousel>
+<div *ngIf="!edit">
+  <!--Header-->
+  <div class="d-flex justify-content-between mx-4 my-1">
+    <div>User</div>
+    <div>date</div>
   </div>
 
-  <!--The second column, whole content of the rating-->
-  <div class="col m-1 d-inline-grid">
-    <!--The first row of the second column, with product, label and brand-->
-    <div class="row align-items-center Text-Style-16">
-      <!--product-->
-      <span class="col">{{_rating.product.name}}</span>
-      <!--label-->
-      <div class="d-flex flex-grow-1 align-items-center">
-        <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
-      </div>
-      <!--brand-->
-      <span class="col text-right">{{_rating.product?.brand}}</span>
+  <!--The whole base rating-->
+  <div class="row box-shadow">
+
+    <!--First column, the picture carousel-->
+    <div class="col p-0 flex-grow-0 m-auto">
+      <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
+        <ng-template *ngFor="let image of _rating.images" ngbSlide>
+          <div class="img-wrapper">
+            <img [src]="image" alt="slide">
+          </div>
+        </ng-template>
+      </ngb-carousel>
     </div>
 
-    <div class="line"></div>
-
-    <!--The second row of the second column, with the rest of the content-->
-    <div class="row">
-      <!--First column of second row, with tags and description-->
-      <div class="col mx-2 p-1">
-        <!--tags-->
-        <mat-chip-list class="row w-100">
-          <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
-        </mat-chip-list>
-        <!--description-->
-        <div class="row w-100 p-2 border border-2 rounded">
-          {{_rating.description}}
+    <!--The second column, whole content of the rating-->
+    <div class="col m-1 d-inline-grid">
+      <!--The first row of the second column, with product, label and brand-->
+      <div class="row align-items-center Text-Style-16">
+        <!--product-->
+        <span class="col">{{_rating.product.name}}</span>
+        <!--label-->
+        <div class="d-flex flex-grow-1 align-items-center">
+          <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
         </div>
+        <!--brand-->
+        <span class="col text-right">{{_rating.product?.brand}}</span>
       </div>
 
-      <!--Second column of second row, with location, friends, stars-->
-      <div class="col list-margin d-inline-grid">
-        <!--location-->
-        <div class="row justify-content-center align-items-center">
+      <div class="line"></div>
+
+      <!--The second row of the second column, with the rest of the content-->
+      <div class="row">
+        <!--First column of second row, with tags and description-->
+        <div class="col mx-2 p-1">
+          <!--tags-->
+          <mat-chip-list class="row w-100">
+            <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
+          </mat-chip-list>
+          <!--description-->
+          <div class="row w-100 p-2 border border-2 rounded">
+            {{_rating.description}}
+          </div>
+        </div>
+
+        <!--Second column of second row, with location, friends, stars-->
+        <div class="col list-margin d-inline-grid">
+          <!--location-->
+          <div class="row justify-content-center align-items-center">
           <span class="d-inline-grid pr-5 Text-Style-17">REWE, 12345 Altrip
-<!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
+            <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
             <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
           </span>
-          <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
-          <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>
+            <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
+            <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>
+          </div>
+          <!--friends-->
+          <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
+            <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
+          </div>
+          <!--stars/rating-->
+          <ngx-stars class="row justify-content-center" [size]="3" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
         </div>
-        <!--friends-->
-        <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
-          <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
-        </div>
-        <!--stars/rating-->
-        <ngx-stars class="row justify-content-center" [size]="3" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
       </div>
     </div>
   </div>
+
+  <!--Footer-->
+  <div class="d-flex justify-content-between mx-4 my-1">
+    <div class="d-flex align-items-center">[Comments Placeholder]</div>
+    <div class="d-flex align-items-center">
+      <button mat-icon-button (click)="likeRating()">
+        <mat-icon *ngIf="!_rating.isLiked">favorite_border</mat-icon>
+        <mat-icon *ngIf="_rating.isLiked">favorite</mat-icon>
+      </button>
+      <span class="ml-2">{{_rating.voteNum}} Likes</span>
+    </div>
+  </div>
+
 </div>
-
-
 
 
 
@@ -189,8 +208,8 @@
             <mat-autocomplete #autoFriends (optionSelected)="friendSelected($event.option.value)" [displayWith]="displayFnFriends"> <!--TODO: make autocomplete scrollable in horizontal-->
               <mat-option *ngFor="let friend of filteredOptionsFriends" [value]="friend">
 
-                  <img class="image-wrapper-2 mr-1 border" [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';">
-                  <span class="ml-1">{{friend.name}} ({{friend.username}})</span>
+                <img class="image-wrapper-2 mr-1 border" [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
+                <span class="ml-1">{{friend.name}} ({{friend.username}})</span>
 
               </mat-option>
             </mat-autocomplete>

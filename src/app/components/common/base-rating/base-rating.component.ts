@@ -18,6 +18,7 @@ import {clone} from "../../../services/clone";
 import {User} from "../../../models/user";
 import {NotificationService} from "../../../services/notification.service";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {RatingService} from "../../../services/rating.service";
 
 
 @Component({
@@ -44,7 +45,8 @@ export class BaseRatingComponent implements OnInit {
   constructor(private autocompleteService: AutocompleteService,
               public dialog: MatDialog,
               private readonly notification: NotificationService,
-              private readonly authService: AuthenticationService) {
+              private readonly authService: AuthenticationService,
+              private readonly ratingService: RatingService) {
 
     let timeoutProduct: number;
     let timeoutBrand: number;
@@ -297,5 +299,24 @@ export class BaseRatingComponent implements OnInit {
     this.friendsControl.setValue('');
     this.filteredOptionsFriends = []
   }
+
+  likeRating() {
+    // console.log("liked rating");
+
+    if(this._rating.isLiked)
+      this.ratingService.removeLikeRating(this._rating.id).then(() => {
+        this._rating.isLiked = false;
+        this._rating.voteNum! -= 1;
+      })
+
+    else
+      this.ratingService.likeRating(this._rating.id).then(() => {
+        this._rating.isLiked = true;
+        this._rating.voteNum! += 1;
+      })
+
+
+  }
+
 
 }
