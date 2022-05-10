@@ -1,7 +1,7 @@
 <div class="overflow-y-auto">
 
   <!--Edit button -->
-  <button *ngIf="data.editable" (click)="clickEdit()" color="accent" class="" mat-icon-button>
+  <button *ngIf="data.editable && data.rating.id != '-1'" (click)="clickEdit()" color="accent" class="" mat-icon-button>
     <mat-icon>edit</mat-icon>
   </button>
 
