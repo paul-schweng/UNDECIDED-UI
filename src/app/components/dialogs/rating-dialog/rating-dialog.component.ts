@@ -23,6 +23,7 @@ export class RatingDialogComponent implements OnInit {
               private readonly ratingService: RatingService,
               public dialog: MatDialog) {
     this.clonedRating = clone(data.rating);
+    this.edit = data.edit || data.rating.id == '-1';
   }
 
   postClicked(): void {
