@@ -63,6 +63,13 @@ export class RatingService extends CommunicationRequestService<any>{
       });
   }
 
+  public getRatingsOfFollowing(lastRating: string): Promise<Rating[]> {
+    return super.sendGetRequest<Rating[]>(this.backendUrlExt + '/home', {id: lastRating}).then(ratingList => {
+      ratingList = Converter.convertDeletedUser(ratingList);
+      return Converter.convertLabel(ratingList);
+    });
+  }
+
 
 
   public getMyRatings(filter: string, lastRating: string, len: number, userID: string): Promise<Rating[]> {
