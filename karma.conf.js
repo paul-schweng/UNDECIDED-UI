@@ -33,11 +33,12 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'cobertura' },
+        { type: 'lcov'}
       ]
     },
     reporters: ['dots', 'junit', 'coverage'],
     junitReporter: {
-        outputFile: 'dist/test-reports/test-results.xml'
+        outputFile: '../coverage/UI/test-results.xml'
     }  ,
     port: 9876,
     colors: true,
