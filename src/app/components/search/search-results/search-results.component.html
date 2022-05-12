@@ -1,0 +1,25 @@
+<div class="my-4 d-flex flex-wrap centerCards">
+
+  <div *ngFor="let result of results" [ngSwitch]="result.modelType">
+
+    <!--Rating Card-->
+    <mat-card *ngSwitchCase="'rating'" class="card m-4" routerLink="./" [style.background-image]="'url(\'' + getImage(result) + '\')'" [queryParams]="{id: result.id}">
+      <div class="card-content">
+        <h2 class="card-title">{{result.product.name}}</h2>
+        <div>
+          <ngx-stars [size]="2" [initialStars]="result.stars" color="var(--very-light-brown)" [readonly]="true"></ngx-stars>
+        </div>
+      </div>
+    </mat-card>
+
+    <mat-card class="card m-4" *ngSwitchCase="'user'">
+      <div class="card-content">
+        I'm a user!
+      </div>
+    </mat-card>
+
+
+  </div>
+
+
+</div>

@@ -25,7 +25,8 @@ Euer Theophilius <3`,
   followerNum: 69,
   followingNum: 420,
   ratingsNum: 42,
-  bannerImage: 0
+  bannerImage: 0,
+  modelType: "user"
 }
 
 export const SampleProduct: Product = {
@@ -45,7 +46,8 @@ export const SampleRating: Rating = {
   voteNum: 0,
   description: 'test description',
   images: [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`), //TODO: remove this
-  friends: new Array(5).fill(clone(SampleUser))
+  friends: new Array(5).fill(clone(SampleUser)),
+  modelType: "rating"
 };
 
 export const EmptyProduct: Product = {

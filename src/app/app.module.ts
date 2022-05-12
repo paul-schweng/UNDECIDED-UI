@@ -79,6 +79,7 @@ import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-p
 import { VersionComponent } from './components/common/footer/version/version.component';
 import {MatTableModule} from "@angular/material/table";
 import { PublicComponent } from './components/public/public.component';
+import { SearchResultsComponent } from './components/search/search-results/search-results.component';
 
 
 @NgModule({
@@ -117,6 +118,7 @@ import { PublicComponent } from './components/public/public.component';
     BlogPostsComponent,
     VersionComponent,
     PublicComponent,
+    SearchResultsComponent,
 
   ],
     imports: [
