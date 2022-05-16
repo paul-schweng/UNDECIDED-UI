@@ -9,7 +9,7 @@ import {SearchResults} from "../models/search-results";
 })
 export class SearchService extends CommunicationRequestService<any> {
 
-  protected readonly backendUrlExt = 'search/';
+  protected readonly backendUrlExt = 'search';
 
 
 
@@ -19,7 +19,7 @@ export class SearchService extends CommunicationRequestService<any> {
 
 
   public getSearchResults(query: string): Promise<SearchResults> {
-    return this.sendGetRequest<SearchResults>(this.backendUrlExt + query).then(results => {
+    return this.sendPostRequest<SearchResults>(this.backendUrlExt, {query: query, loadedRatings: 0}).then(results => {
       // TODO: maybe have to convert results to the specific types
 
       return results;

@@ -28,7 +28,7 @@ export class SearchResultsComponent implements OnInit {
         return;
 
       this.searchService.getSearchResults(params.query).then(results => {
-        // this.results = results;
+        this.results = results;
       })
     })
 
