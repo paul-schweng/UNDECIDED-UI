@@ -1,7 +1,4 @@
-import {AfterViewInit, Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {AuthenticationService} from "../../services/authentication.service";
-import {clone} from "../../services/clone";
-import {SampleRating} from "../../services/SampleData";
+import {AfterViewInit, Component, ElementRef, HostListener, QueryList, ViewChildren} from '@angular/core';
 import {RatingService} from "../../services/rating.service";
 import {Rating} from "../../models/rating";
 
@@ -42,6 +39,9 @@ export class HomeComponent implements AfterViewInit {
   areLastCardsInView(): boolean {
     if(!this.cards?.last)
       return true;
+
+    if(this.cards.length != this.ratings.length)
+      return false;
 
     let cards = this.cards.toArray().slice(-4);
 

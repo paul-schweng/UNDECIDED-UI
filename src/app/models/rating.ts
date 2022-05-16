@@ -23,7 +23,8 @@ export interface Rating {
   comments?: Comment[],
   commentNum?: number,
   imageNum?: number,
-  isLiked?: boolean
+  isLiked?: boolean,
+  modelType?: 'rating'
 }
 
 export interface RatingList{

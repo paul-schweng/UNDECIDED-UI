@@ -9,8 +9,7 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private readonly auth: AuthenticationService,
-              private readonly router: Router) {
+  constructor(private readonly auth: AuthenticationService) {
   }
 
   ngOnInit(): void {
@@ -35,10 +34,7 @@ export class LoginComponent implements OnInit {
 
   loginClicked() {
     this.auth.login({username: this.email.value, password: this.password.value, rememberMe: this.rememberMe}).then(res => {
-      if(res){
-        this.router.navigateByUrl('/');
-      }
-      else
+      if(!res)
         this.authFailed = true;
     });
   }

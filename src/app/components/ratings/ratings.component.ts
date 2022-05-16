@@ -103,11 +103,16 @@ export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
     if(!this.cards?.last)
       return true;
 
+    if(this.cards.length != this.ratings.length)
+      return false;
+
     let card = this.cards.last;
 
     let rect = card.nativeElement.getBoundingClientRect();
     let topShown = rect.top >= 0 && rect.top <=window.innerHeight;
     let bottomShown = rect.bottom <= window.innerHeight;
+
+    //console.log("cards rendered:", this.cards.length)
 
     return topShown;
   }
@@ -272,13 +277,15 @@ export class RatingsComponent implements OnDestroy, AfterViewInit, OnInit {
     const loop = async () => {
 
       while(this.isLastCardInView() && this.ratings.length < this.user.ratingsNum!){
-        console.log('loaded ratings:', this.ratings.length);
-
         loadedRatings = this.ratings.length;
-
         await this.partialLoading();
-        if(loadedRatings == this.ratings.length)
+
+        console.log('loaded ratings:', this.ratings.length);
+        console.log(this.isLastCardInView())
+
+        if(loadedRatings == this.ratings.length) {
           counter++;
+        }
 
         if(counter >= MAX_LOOPS)
           break;

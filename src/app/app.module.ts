@@ -79,6 +79,10 @@ import { BlogPostsComponent } from './components/common/footer/blog-posts/blog-p
 import { VersionComponent } from './components/common/footer/version/version.component';
 import {MatTableModule} from "@angular/material/table";
 import { PublicComponent } from './components/public/public.component';
+import { SearchResultsComponent } from './components/search/search-results/search-results.component';
+import { OpenRatingComponent } from './components/search/open-rating/open-rating.component';
+import {RouteReuseStrategy} from "@angular/router";
+import {CustomReuseStrategy} from "./providers/cache-route-reuse.strategy";
 
 
 @NgModule({
@@ -117,6 +121,8 @@ import { PublicComponent } from './components/public/public.component';
     BlogPostsComponent,
     VersionComponent,
     PublicComponent,
+    SearchResultsComponent,
+    OpenRatingComponent,
 
   ],
     imports: [
@@ -180,6 +186,9 @@ import { PublicComponent } from './components/public/public.component';
       useFactory: initApp,
       multi: true,
       deps: [AuthenticationService]
+    }, {
+      provide: RouteReuseStrategy,
+      useClass: CustomReuseStrategy
     }
 
   ],
