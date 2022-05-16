@@ -37,7 +37,8 @@
     "profile": "profiles",
     "location": "locations",
     "brand": "brands",
-    "tags": "tags"
+    "tags": "tags",
+    "noResults": "Sadly we didn't find anything matching your search 😔"
 
   },
   "ratings": {

@@ -1,4 +1,4 @@
-<div class="my-4 d-flex flex-wrap centerCards">
+<div class="my-4 d-flex flex-wrap centerCards" *ngIf="results?.length != 0; else empty">
 
   <div *ngFor="let result of results" [ngSwitch]="result.modelType">
 
@@ -21,5 +21,10 @@
 
   </div>
 
-
 </div>
+
+<ng-template #empty>
+  <div class="middle d-flex justify-content-center Text-Style-18 my-5">
+    {{'search.noResults' | translate}}
+  </div>
+</ng-template>

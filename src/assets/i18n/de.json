@@ -37,7 +37,8 @@
     "profile": "Profile",
     "location": "Orte",
     "brand": "Marken",
-    "tags": "Tags"
+    "tags": "Tags",
+    "noResults": "Leider haben wir zu deiner Suche nichts gefunden 😔"
 
   },
   "ratings": {
