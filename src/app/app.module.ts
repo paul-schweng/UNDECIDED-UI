@@ -80,6 +80,7 @@ import { VersionComponent } from './components/common/footer/version/version.com
 import {MatTableModule} from "@angular/material/table";
 import { PublicComponent } from './components/public/public.component';
 import { SearchResultsComponent } from './components/search/search-results/search-results.component';
+import { OpenRatingComponent } from './components/search/open-rating/open-rating.component';
 
 
 @NgModule({
@@ -119,6 +120,7 @@ import { SearchResultsComponent } from './components/search/search-results/searc
     VersionComponent,
     PublicComponent,
     SearchResultsComponent,
+    OpenRatingComponent,
 
   ],
     imports: [
