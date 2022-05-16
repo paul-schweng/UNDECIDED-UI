@@ -125,6 +125,9 @@ export class SearchResultsComponent implements OnInit {
     if(!this.cards?.last)
       return true;
 
+    if(this.cards.length != this.results.length)
+      return false;
+
     let card = this.cards.last;
 
     let rect = card.nativeElement.getBoundingClientRect();
@@ -151,11 +154,11 @@ export class SearchResultsComponent implements OnInit {
     const loop = async () => {
 
       while(this.isLastCardInView()){
-        console.log('loaded ratings:', this.results.length);
-
         loadedRatings = this.results.length;
-
         await this.partialLoading();
+
+        console.log('loaded results:', this.results.length);
+
         if(loadedRatings == this.results.length)
           counter++;
 
