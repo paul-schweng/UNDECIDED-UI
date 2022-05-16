@@ -3,12 +3,12 @@
 @use "styles/colors";
 @use "styles/fonts";
 
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 
-@import "~@angular/material/theming";
+@import "@angular/material/theming";
 
 
-@import "~@angular/material/theming";
+@import "@angular/material/theming";
 @include mat.core();
 
 
