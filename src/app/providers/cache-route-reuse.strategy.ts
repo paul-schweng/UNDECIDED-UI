@@ -1,38 +1,53 @@
 import {DetachedRouteHandle, RouteReuseStrategy} from "@angular/router/";
 import {ActivatedRouteSnapshot} from "@angular/router";
 
+
 export class CustomReuseStrategy implements RouteReuseStrategy {
 
   handlers: {[key: string]: DetachedRouteHandle} = {};
 
+  doNotSaveNextNavigation: boolean = false;
+
+  clearHandlers(){
+    this.handlers = {};
+    this.doNotSaveNextNavigation = true;
+    console.log("CLEARED CACHE")
+  }
+
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     //console.debug('CustomReuseStrategy:shouldDetach', route);
+    if(this.doNotSaveNextNavigation){
+      this.doNotSaveNextNavigation = false;
+      return false;
+    }
     return true;
   }
 
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
     //console.debug('CustomReuseStrategy:store', route, handle);
+
     // @ts-ignore
     this.handlers[route.routeConfig.path] = handle;
   }
 
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     //console.debug('CustomReuseStrategy:shouldAttach', route);
+
     // @ts-ignore
     return !!route.routeConfig && !!this.handlers[route.routeConfig.path];
   }
 
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
     //console.debug('CustomReuseStrategy:retrieve', route);
-    if (!route.routeConfig) { // @ts-ignore
-      return null;
-    }
+
+    console.log(this.handlers)
 
     // @ts-ignore
     return this.handlers[route.routeConfig.path];
   }
 
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+
     //console.debug('CustomReuseStrategy:shouldReuseRoute', future, curr);
     return future.routeConfig === curr.routeConfig;
   }

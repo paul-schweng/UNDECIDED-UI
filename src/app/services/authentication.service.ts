@@ -8,9 +8,10 @@ import {Subject} from "rxjs";
 import {CommunicationRequestService} from "./lib/communication-request.service";
 import {NotificationService} from "./notification.service";
 import {ImageService} from "./image.service";
-import {Router} from "@angular/router";
+import {Router, RouteReuseStrategy} from "@angular/router";
 import {UserService} from "./user.service";
 import {clone} from "./clone";
+import {CustomReuseStrategy} from "../providers/cache-route-reuse.strategy";
 
 
 @Injectable({
@@ -47,7 +48,8 @@ export class AuthenticationService extends CommunicationRequestService<any> {
               protected imageService: ImageService,
               protected http: HttpClient,
               protected router: Router,
-              private readonly userService: UserService) {
+              private readonly userService: UserService,
+              private readonly routeReuse: RouteReuseStrategy) {
     super(notification, imageService, http, router);
   }
 
@@ -55,7 +57,7 @@ export class AuthenticationService extends CommunicationRequestService<any> {
   logout() {
     super.sendPostRequest('logout', {}).then(() => {
       this.authenticated = false;
-      localStorage.removeItem('credentials');
+      (<CustomReuseStrategy>this.routeReuse).clearHandlers();
       this.router.navigateByUrl('/login');
     })
   }
@@ -72,55 +74,46 @@ export class AuthenticationService extends CommunicationRequestService<any> {
         async () => {
           this.authenticated = true;
 
-          console.log("heereee")
+          //console.log("heereee")
 
           if(this.authenticated) {
-            //localStorage.setItem('credentials', JSON.stringify(credentials));
-
             this.iAmUser = clone(EmptyUser);
-
-            await this.userService.getUser()
-              .then( user => {
-                user.profileImage = {};
-                user.profileImage.remote = `/api/img/user/${user.id}#a`;
-                Object.assign(this.iAmUser, clone(user))
-              } );
-
-            //this.iAmUser = SampleUser;
+            await this.loadUser();
           }
+
           return this.authenticated;
         })
-        .catch(
-        (res) => {
-          console.log("falsee :(", res)
-          return false;});
+        .catch(() => {return false;});
+
 
     return super.sendGetRequest('login', credentials, headers)
       .then(async (response: any) => {
         this.authenticated = response!=null && !!response['name'];
 
         if(this.authenticated) {
-          //localStorage.setItem('credentials', JSON.stringify(credentials));
-
           this.iAmUser = clone(EmptyUser);
-
-          await this.userService.getUser()
-            .then(user => {
-              user.profileImage = {};
-              user.profileImage.remote = `/api/img/user/${user.id}#a`;
-              Object.assign(this.iAmUser, clone(user))
-            })
-            .then(() => {
+          await this.loadUser().then(() => {
               if (credentials?.rememberMe)
                 this.setRememberMe();
             });
-
-          //this.iAmUser = SampleUser;
         }
+
+        (<CustomReuseStrategy>this.routeReuse).clearHandlers()
+        this.router.navigateByUrl('/');
+
         return this.authenticated;
+      })
+      .catch(() => {return false;});
 
-      }, () => {return false;});
+  }
 
+  private async loadUser(){
+    return await this.userService.getUser()
+      .then( user => {
+        user.profileImage = {};
+        user.profileImage.remote = `/api/img/user/${user.id}#a`;
+        Object.assign(this.iAmUser, clone(user))
+      } );
   }
 
   public setRememberMe(): Promise<any>{
