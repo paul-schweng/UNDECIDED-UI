@@ -81,6 +81,8 @@ import {MatTableModule} from "@angular/material/table";
 import { PublicComponent } from './components/public/public.component';
 import { SearchResultsComponent } from './components/search/search-results/search-results.component';
 import { OpenRatingComponent } from './components/search/open-rating/open-rating.component';
+import {RouteReuseStrategy} from "@angular/router/";
+import {CustomReuseStrategy} from "./providers/cache-route-reuse.strategy";
 
 
 @NgModule({
@@ -184,6 +186,9 @@ import { OpenRatingComponent } from './components/search/open-rating/open-rating
       useFactory: initApp,
       multi: true,
       deps: [AuthenticationService]
+    }, {
+      provide: RouteReuseStrategy,
+      useClass: CustomReuseStrategy
     }
 
   ],

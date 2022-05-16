@@ -18,8 +18,12 @@ export class SearchService extends CommunicationRequestService<any> {
   }
 
 
-  public getSearchResults(query: string): Promise<SearchResults> {
-    return this.sendPostRequest<SearchResults>(this.backendUrlExt, {query: query, loadedRatings: 0}).then(results => {
+  public getSearchResults(query: string, loadedRatings: number, loadedUsers: number): Promise<SearchResults> {
+    return this.sendPostRequest<SearchResults>(this.backendUrlExt, {
+      query: query,
+      loadedRatings: loadedRatings,
+      loadedUsers: loadedUsers
+    }).then(results => {
       // TODO: maybe have to convert results to the specific types
 
       return results;

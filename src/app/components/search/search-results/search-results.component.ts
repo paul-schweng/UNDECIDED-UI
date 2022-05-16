@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Rating} from "../../../models/rating";
 import {User} from "../../../models/user";
 import {SampleRating, SampleUser} from "../../../services/SampleData";
@@ -15,6 +15,10 @@ import {RatingService} from "../../../services/rating.service";
   styleUrls: ['./search-results.component.scss']
 })
 export class SearchResultsComponent implements OnInit {
+
+  isLoadInProgress: boolean = false;
+  loadedEverything: boolean = false;
+  @ViewChildren('card', {read: ElementRef}) cards!: QueryList<ElementRef>;
 
   results: any = []
 
@@ -33,9 +37,8 @@ export class SearchResultsComponent implements OnInit {
         return;
 
       this.results = [];
-      this.searchService.getSearchResults(params.query).then(results => {
-        this.results = results;
-      })
+      this.loadedEverything = false;
+      this.onScroll();
     })
 
     this.activatedRoute.queryParams.subscribe(params => {
@@ -88,5 +91,74 @@ export class SearchResultsComponent implements OnInit {
     return rating.imageNum ? image : defaultImage;
 
   }
+
+
+  partialLoading() {
+
+    this.isLoadInProgress = true;
+
+    let lastRating = this.results[this.results.length - 1];
+
+    let query = this.activatedRoute.snapshot.params.query;
+
+    let loadedRatings = this.results.filter((r: any) => r.modelType === 'rating').length
+    let loadedUsers = this.results.filter((r: any) => r.modelType === 'user').length
+
+    //console.log(this.activatedRoute.snapshot.params)
+
+    return this.searchService.getSearchResults(query, loadedRatings, loadedUsers).then(results => {
+      this.results.push(...results);
+    })
+      .finally(() => this.isLoadInProgress = false);
+  }
+
+
+  isLastCardInView(): boolean {
+    if(!this.cards?.last)
+      return true;
+
+    let card = this.cards.last;
+
+    let rect = card.nativeElement.getBoundingClientRect();
+    let topShown = rect.top >= 0 && rect.top <=window.innerHeight;
+    let bottomShown = rect.bottom <= window.innerHeight;
+
+    return topShown;
+  }
+
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll() {
+
+    if(this.isLoadInProgress || this.loadedEverything)
+      return;
+
+    //let height = this.scrollAmount.scrollHeight;
+
+    let counter = 0;
+    let MAX_LOOPS = 2;
+    let loadedRatings;
+
+
+    const loop = async () => {
+
+      while(this.isLastCardInView()){
+        console.log('loaded ratings:', this.results.length);
+
+        loadedRatings = this.results.length;
+
+        await this.partialLoading();
+        if(loadedRatings == this.results.length)
+          counter++;
+
+        if(counter >= MAX_LOOPS){
+          this.loadedEverything = true;
+          break;
+        }
+      }
+    }
+    loop();
+  }
+
 
 }

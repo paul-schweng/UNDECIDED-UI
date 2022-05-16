@@ -11,7 +11,7 @@ import {PublicComponent} from "./components/public/public.component";
 
 
 const routes: Routes = [
-  {path: '', component: MainFrameComponent, canActivate: [AuthGuard], children: MAIN_ROUTES},
+  {path: '', component: MainFrameComponent, canActivate: [AuthGuard], children: MAIN_ROUTES, data: {reuse: true}},
   {path: '', component: AuthComponent, canActivate: [LoginGuard], children: AUTH_ROUTES},
   {path: '', component: PublicComponent, children: PUBLIC_ROUTES},
 
