@@ -1,10 +1,8 @@
 import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Rating} from "../../../models/rating";
-import {User} from "../../../models/user";
 import {SampleRating, SampleUser} from "../../../services/SampleData";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SearchService} from "../../../services/search.service";
-import {SearchResults} from "../../../models/search-results";
 import {RatingDialogComponent} from "../../dialogs/rating-dialog/rating-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RatingService} from "../../../services/rating.service";
@@ -19,6 +17,7 @@ export class SearchResultsComponent implements OnInit {
   isLoadInProgress: boolean = false;
   loadedEverything: boolean = false;
   @ViewChildren('card', {read: ElementRef}) cards!: QueryList<ElementRef>;
+  query: string = '';
 
   results: any = []
 
@@ -43,12 +42,21 @@ export class SearchResultsComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
       console.log(params)
+
       let id = params.id;
-      if(id){
+      if(id != null){
         this.getRating(id).then(r => {
           if(r)
             this.openRating(r);
         });
+      }
+
+      let query = params.q
+      if(query != null && query != this.query){
+        this.results = [];
+        this.loadedEverything = false;
+        this.query = query;
+        this.onScroll();
       }
     });
 
@@ -78,7 +86,7 @@ export class SearchResultsComponent implements OnInit {
     });
 
     ratingDialog.afterClosed().subscribe(() => {
-      this.router.navigate(['.'], {relativeTo: this.activatedRoute});
+      this.router.navigate([], {queryParams: {id: null}, queryParamsHandling: "merge"});
     })
   }
 
@@ -95,18 +103,18 @@ export class SearchResultsComponent implements OnInit {
 
   partialLoading() {
 
+    if(this.query == '')
+      return;
+
     this.isLoadInProgress = true;
 
-    let lastRating = this.results[this.results.length - 1];
-
-    let query = this.activatedRoute.snapshot.params.query;
 
     let loadedRatings = this.results.filter((r: any) => r.modelType === 'rating').length
     let loadedUsers = this.results.filter((r: any) => r.modelType === 'user').length
 
     //console.log(this.activatedRoute.snapshot.params)
 
-    return this.searchService.getSearchResults(query, loadedRatings, loadedUsers).then(results => {
+    return this.searchService.getSearchResults(this.query, loadedRatings, loadedUsers).then(results => {
       this.results.push(...results);
     })
       .finally(() => this.isLoadInProgress = false);
@@ -161,4 +169,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
 
+  clickedRating(id: string) {
+    this.router.navigate([], {queryParams: {id: id}, queryParamsHandling: "merge"})
+  }
 }

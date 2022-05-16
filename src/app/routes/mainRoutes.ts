@@ -15,7 +15,7 @@ export const MAIN_ROUTES: Routes = [
   {path: 'search', component: SearchComponent, children:[
       {path: 'user/:username', component: ProfileComponent},
       {path: 'rating/:id', component: OpenRatingComponent},
-      {path: 'results/:query', component: SearchResultsComponent}
+      {path: 'results', component: SearchResultsComponent}
     ]},
   {path: 'ratings', component: RatingsComponent},
   {path: 'profile', component: ProfileComponent, children:[
