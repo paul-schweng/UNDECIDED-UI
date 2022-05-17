@@ -76,7 +76,11 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
         if (username)
           this.userService.getUser(username.trim()).then(user => {
               this.isMe = this.auth.iAmUser.id == user.id;
+              user.profileImage = {};
+              user.profileImage.remote = `/api/img/user/${user.id}#a`;
               this.iAmUser = user;
+              // console.log(this.iAmUser)
+
 
               this.hasUserLoaded = true;
             }, () => this.userNotFound = true
@@ -184,7 +188,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
   getProfileImage(): string {
     return (this.edit ?
       this.clonedIAmUser.profileImage?.base64 ?? this.auth.iAmUser.profileImage.remote :
-      this.auth.iAmUser.profileImage.remote);
+      this.iAmUser.profileImage.remote);
   }
 
   canSaveChanges(): boolean {
