@@ -16,6 +16,7 @@ export class SearchResultsComponent implements OnInit {
 
   isLoadInProgress: boolean = false;
   loadedEverything: boolean = false;
+  loadingAllowed: boolean = true;
   @ViewChildren('card', {read: ElementRef}) cards!: QueryList<ElementRef>;
   query: string = '';
 
@@ -28,19 +29,11 @@ export class SearchResultsComponent implements OnInit {
               private readonly searchService: SearchService) { }
 
   ngOnInit(): void {
-    this.results = [SampleUser, SampleRating];
+    // this.results = [SampleUser, SampleRating];
 
+    let timeoutQuery: number;
 
-    this.activatedRoute.params.subscribe(params => {
-      if(!params?.query)
-        return;
-
-      this.results = [];
-      this.loadedEverything = false;
-      this.onScroll();
-    })
-
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe(async params => {
       console.log(params)
 
       let id = params.id;
@@ -51,16 +44,55 @@ export class SearchResultsComponent implements OnInit {
         });
       }
 
-      let query = params.q
-      if(query != null && query != this.query){
-        this.results = [];
-        this.loadedEverything = false;
-        this.query = query;
-        this.onScroll();
+      if(timeoutQuery){
+        clearTimeout(timeoutQuery);
+        timeoutQuery = 0;
       }
+
+      let query = params.q
+      if (!timeoutQuery && query != null && query != this.query) {
+        console.log("about to load")
+        this.loadedEverything = false;
+
+        timeoutQuery = setTimeout(async () => {
+          console.log("inside timeout")
+          //await new Promise(res => setTimeout(res, 50))
+          this.results = [];
+          await new Promise(res => setTimeout(res, 100));
+          // console.log("after sleep")
+          this.query = query;
+          this.onScroll();
+          timeoutQuery = 0;
+        }, 5000);
+
+      }
+      /*
+      if(query != null && query != this.query){
+        this.loadingAllowed = true;
+
+        console.log("waiting... query:", query)
+
+        while(this.isLoadInProgress){
+          console.log("while loop. query:", query)
+          await this.sleep(50);
+        }
+
+        // this.loadingAllowed = true;
+        this.results = [];
+        console.log("waiting done. query:", query, "results:", this.results.length);
+
+      }
+       */
+
+
     });
 
+  }
 
+  mySleep(time = 0){
+    return new Promise((resolve, reject) =>{
+      setTimeout(() => resolve, time);
+    })
   }
 
   getRating(id: string): Promise<any> {
@@ -115,7 +147,8 @@ export class SearchResultsComponent implements OnInit {
     //console.log(this.activatedRoute.snapshot.params)
 
     return this.searchService.getSearchResults(this.query, loadedRatings, loadedUsers).then(results => {
-      this.results.push(...results);
+      if(this.loadingAllowed)
+        this.results.push(...results);
     })
       .finally(() => this.isLoadInProgress = false);
   }
@@ -150,11 +183,13 @@ export class SearchResultsComponent implements OnInit {
     let MAX_LOOPS = 2;
     let loadedRatings;
 
+    console.log("inside scroll")
 
     const loop = async () => {
 
       while(this.isLastCardInView()){
         loadedRatings = this.results.length;
+        console.log("inside while")
         await this.partialLoading();
 
         console.log('loaded results:', this.results.length);
