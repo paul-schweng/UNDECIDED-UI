@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -18,7 +18,7 @@ import {Subscription} from "rxjs";
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestroy {
 
   iAmUser: User;
   clonedIAmUser: User;
@@ -100,6 +100,10 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit(): void {
+
+  }
+
+  ngDoCheck() {
     this.routeQueryParams$ = this.activatedRoute.queryParams.subscribe(queryParams => {
       let idx = queryParams['follow'];
       if(0 <= idx && idx < 3)
@@ -217,13 +221,17 @@ export class ProfileComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
+
   private refreshIsFollowing() {
     this.userService.isFollowing(this.iAmUser.id!).then(isFollowing => {
       this.isFollowing = isFollowing;
     })
   }
 
+
   public openDialog(tabIdx: number){
+
+    // console.log("hhheeeeeeerrrrreeeeeeeee")
     if(this.isFollowDialogOpen)
       return;
 
