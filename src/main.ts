@@ -14,6 +14,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 //------------------------------------------------------------------------------------------
 
 export const VERSION_DATA = [
+  {version: '0.4.1', detail: 'Search page got a spinner while loading results'},
   {version: '0.4', detail: 'Everything is being cached'},
   {version: '0.3', detail: 'You can search for users and ratings'},
   {version: '0.2', detail: 'Home page shows you the ratings of people you follow'},
