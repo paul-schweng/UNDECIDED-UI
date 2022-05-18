@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {CommunicationRequestService} from "./lib/communication-request.service";
-import {User} from "../models/user";
 import {HttpParams} from "@angular/common/http";
 import {SearchResults} from "../models/search-results";
 
@@ -19,6 +18,9 @@ export class SearchService extends CommunicationRequestService<any> {
 
 
   public getSearchResults(query: string, loadedRatings: number, loadedUsers: number): Promise<SearchResults> {
+    if(query == '')
+      return new Promise((resolve, reject) => reject());
+
     return this.sendPostRequest<SearchResults>(this.backendUrlExt, {
       query: query,
       loadedRatings: loadedRatings,
