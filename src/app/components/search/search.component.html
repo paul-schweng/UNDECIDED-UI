@@ -2,7 +2,7 @@
   <mat-chip-list aria-label="searchFilter" multiple selectable>
     <mat-chip *ngFor="let filter of filters"
               [selected]="filter.state"
-              (click)="filter.state = !filter.state && !filter.enablePopover"
+              (click)="chipClicked(filter)"
               (selectionChange)="filterChanged()"
               [disablePopover]="!filter.enablePopover"
               [ngbPopover]="filter.popoverContent!"

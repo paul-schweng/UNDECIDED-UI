@@ -43,9 +43,6 @@ export class SearchComponent implements OnInit, AfterViewInit {
   ]
 
 
-  selectedLabels: LabelType[] = [];
-
-
   labels: LabelType[] = LABELS.slice();
 
 
@@ -150,5 +147,16 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
     this.filterChanged()
   }
+
+
+  chipClicked(filter: Filter) {
+    if(filter.id == 'rating' && this.labels.some(l => l.state))
+      return;
+    if(filter.id == 'labels')
+      return;
+
+    filter.state = !filter.state && !filter.enablePopover
+  }
+
 
 }
