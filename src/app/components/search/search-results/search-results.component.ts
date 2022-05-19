@@ -1,6 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Rating} from "../../../models/rating";
-import {ActivatedRoute, ParamMap, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {SearchService} from "../../../services/search.service";
 import {RatingDialogComponent} from "../../dialogs/rating-dialog/rating-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
@@ -131,6 +131,7 @@ export class SearchResultsComponent implements OnInit {
     if(this.cards.length != this.results.length)
       return false;
 
+
     let card = this.cards.last;
 
     let rect = card.nativeElement.getBoundingClientRect();
@@ -161,7 +162,7 @@ export class SearchResultsComponent implements OnInit {
 
       while(this.isLastCardInView() && this.isLoadAllowed){
         loadedRatings = this.results.length;
-        // console.log("inside while")
+
         await this.partialLoading();
 
         console.log('loaded results:', this.results.length);
@@ -171,8 +172,12 @@ export class SearchResultsComponent implements OnInit {
 
         if(counter >= MAX_LOOPS){
           this.loadedEverything = true;
+          console.log("breaking")
           break;
         }
+
+        // wait for view to update
+        await new Promise(res => setTimeout(res, 10))
       }
     }
 
