@@ -1,6 +1,6 @@
 <busy-div [busy]="isBusy" [styleClass]="'min-height'" *ngIf="results?.length != 0 || isLoadInProgress || isBusy; else empty">
-  <div class="my-4 d-flex flex-wrap centerCards">
 
+  <div class="my-4 d-flex flex-wrap centerCards">
     <div *ngFor="let result of results" [ngSwitch]="result.modelType">
 
       <!--Rating Card-->
@@ -13,6 +13,7 @@
         </div>
       </mat-card>
 
+      <!--User card-->
       <mat-card class="card m-4" *ngSwitchCase="'user'" [routerLink]="'/search/user/' + result.username" #card>
         <div class="card-content">
           {{result.name}}

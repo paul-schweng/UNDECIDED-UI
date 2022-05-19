@@ -1,11 +1,12 @@
 import {Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Rating} from "../../../models/rating";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {SearchService} from "../../../services/search.service";
 import {RatingDialogComponent} from "../../dialogs/rating-dialog/rating-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {RatingService} from "../../../services/rating.service";
 import {waitFor} from "../../../services/waitFor";
+import {distinctUntilChanged, map} from "rxjs";
 
 @Component({
   selector: 'search-results',
@@ -18,6 +19,7 @@ export class SearchResultsComponent implements OnInit {
   loadedEverything: boolean = false;
   isLoadAllowed: boolean = true;
   isBusy: boolean = false;
+  timeoutQuery: number = 0;
 
   @ViewChildren('card', {read: ElementRef}) cards!: QueryList<ElementRef>;
 
@@ -33,48 +35,30 @@ export class SearchResultsComponent implements OnInit {
   ngOnInit(): void {
     // this.results = [SampleUser, SampleRating];
 
-    let timeoutQuery: number;
+    this.searchService.filters.subscribe(() => {
+      this.changedQuery(this.query);
+    })
 
-    this.activatedRoute.queryParams.subscribe(async params => {
-      console.log(params)
+    this.activatedRoute.queryParamMap.pipe(
+        map(params => params.get('q')),
+        distinctUntilChanged()
+      ).subscribe(query => {
+        this.changedQuery(query);
+      });
 
-      let id = params.id;
-      if(id != null){
-        this.getRating(id).then(r => {
+
+    this.activatedRoute.queryParamMap.pipe(
+      map(params => params.get('id')),
+      distinctUntilChanged()
+    ).subscribe(ratingId => {
+      // console.log(ratingId)
+
+      if(ratingId != null){
+        this.getRating(ratingId).then(r => {
           if(r)
             this.openRating(r);
         });
       }
-
-      if(timeoutQuery){
-        clearTimeout(timeoutQuery);
-        timeoutQuery = 0;
-      }
-
-      let query = params.q
-      if (!timeoutQuery && query != null) {
-        // console.log("about to load")
-        this.loadedEverything = false;
-        this.isBusy = true;
-        this.isLoadAllowed = false;
-
-        this.results = [];
-
-        timeoutQuery = setTimeout(async () => {
-          // console.log("inside timeout")
-          //await new Promise(res => setTimeout(res, 50))
-
-          // await new Promise(res => setTimeout(res, 100));
-          // console.log("after sleep")
-          await waitFor(() => !this.isLoadInProgress)
-
-          this.query = query;
-          this.onScroll();
-          timeoutQuery = 0;
-        }, 500);
-
-      }
-
     });
 
   }
@@ -199,4 +183,37 @@ export class SearchResultsComponent implements OnInit {
   clickedRating(id: string) {
     this.router.navigate([], {queryParams: {id: id}, queryParamsHandling: "merge"})
   }
+
+
+  changedQuery(query: string | null) {
+    if(this.timeoutQuery){
+      clearTimeout(this.timeoutQuery);
+      this.timeoutQuery = 0;
+    }
+
+    if (!this.timeoutQuery && query !== null) {
+      // console.log("about to load")
+      this.loadedEverything = false;
+      this.isBusy = true;
+      this.isLoadAllowed = false;
+
+      this.results = [];
+
+      this.timeoutQuery = setTimeout(async () => {
+        // console.log("inside timeout")
+        //await new Promise(res => setTimeout(res, 50))
+
+        // await new Promise(res => setTimeout(res, 100));
+        // console.log("after sleep")
+        await waitFor(() => !this.isLoadInProgress)
+
+        this.query = query;
+        this.onScroll();
+        this.timeoutQuery = 0;
+      }, 500);
+
+    }
+  }
+
+
 }
