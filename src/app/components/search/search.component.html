@@ -1,10 +1,15 @@
 <div class="search-header d-grid justify-content-center">
-  <mat-chip-list aria-label="searchFilter">
-    <mat-chip>{{'search.product' | translate}}</mat-chip>
-    <mat-chip>{{'search.profile' | translate}}</mat-chip>
-    <mat-chip>{{'search.location' | translate}}</mat-chip>
-    <mat-chip>{{'search.brand' | translate}}</mat-chip>
-    <mat-chip>{{'search.tags' | translate}}</mat-chip>
+  <mat-chip-list aria-label="searchFilter" multiple selectable>
+    <mat-chip *ngFor="let filter of filters"
+              [selected]="filter.state"
+              (click)="filter.state = !filter.state && !filter.enablePopover"
+              (selectionChange)="filterChanged()"
+              [disablePopover]="!filter.enablePopover"
+              [ngbPopover]="filter.popoverContent!"
+              [autoClose]="'outside'"
+              placement="bottom">
+      {{filter.label | translate}}
+    </mat-chip>
   </mat-chip-list>
 
   <div class="d-inline-grid justify-items-center">
@@ -12,7 +17,7 @@
     <span class="Text-Style-20" >{{'search.startSearch' | translate}}</span>
   </div>
 
-  <form (ngSubmit)="startSearch()">
+  <form>
     <mat-form-field appearance="fill" class="w-100">
       <mat-label>{{'search.search' | translate}}</mat-label>
       <input [formControl]="searchControl" matInput placeholder="{{'search.search' | translate}}">
@@ -24,3 +29,20 @@
 
 
 <router-outlet></router-outlet>
+
+
+
+<ng-template [data]="'labels'" #popoverContent>
+  <mat-chip-list multiple selectable>
+    <mat-chip *ngFor="let label of labels"
+              [selected]="label.state"
+              (click)="tagChanged(label)">
+      <mat-chip-avatar>
+        <mat-icon mat-list-icon class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
+      </mat-chip-avatar>
+      {{label.label | translate}}
+    </mat-chip>
+  </mat-chip-list>
+</ng-template>
+
+

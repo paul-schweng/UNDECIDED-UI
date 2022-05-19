@@ -83,6 +83,7 @@ import { SearchResultsComponent } from './components/search/search-results/searc
 import { OpenRatingComponent } from './components/search/open-rating/open-rating.component';
 import {RouteReuseStrategy} from "@angular/router";
 import {CustomReuseStrategy} from "./providers/cache-route-reuse.strategy";
+import { NgTemplateDataDirective } from './directives/ng-template-data.directive';
 
 
 @NgModule({
@@ -123,6 +124,7 @@ import {CustomReuseStrategy} from "./providers/cache-route-reuse.strategy";
     PublicComponent,
     SearchResultsComponent,
     OpenRatingComponent,
+    NgTemplateDataDirective,
 
   ],
     imports: [

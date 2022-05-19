@@ -1,6 +1,6 @@
-export interface Label {
-  id: number
-  label: string
+export type Label = {
+  id: number,
+  label: string,
   icon: string
 }
 
