@@ -1,7 +1,21 @@
 {
+
+  "/auth": {
+    "target": "https://undecided.ted2.cyou",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+
+  },
+
+
+
+
   "/api": {
-    "target": "http://10.0.0.4:8080",
-    "secure": true,
-    "changeOrigin": true
+    "target": "https://undecided.ted2.cyou",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
+
 }
