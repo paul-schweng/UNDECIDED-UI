@@ -60,7 +60,7 @@
 
 .Text-Style-17 {
   font-family: Roboto, serif;
-  font-size: 1.393rem;
+  font-size: 1.093rem;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -71,7 +71,7 @@
 }
 .Text-Style-18 {
   font-family: Roboto, serif;
-  font-size: 1.393rem;
+  font-size: 1.093rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -83,7 +83,7 @@
 
 .Text-Style-16 {
   font-family: Roboto, serif;
-  font-size: 2.322rem;
+  font-size: 1.5rem;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -173,7 +173,7 @@
   color: var(--white);
 }
 .Text-Style-20 {
-  font-family: OpenSans;
+  font-family: OpenSans, serif;
   font-size: 1.5rem;
   font-weight: normal;
   font-stretch: normal;

@@ -1,9 +1,11 @@
 <div class="overflow-y-auto">
 
-  <!--Edit button -->
-  <button *ngIf="data.editable && data.rating.id != '-1'" (click)="clickEdit()" color="accent" class="" mat-icon-button>
-    <mat-icon>edit</mat-icon>
-  </button>
+  <div class="d-flex justify-content-end position-absolute w-90">
+    <!--Edit button -->
+    <button *ngIf="data.editable && data.rating.id != '-1'" (click)="clickEdit()" color="accent" class="edit-button" mat-mini-fab mat-icon-button>
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
 
   <busy-div [busy]="isBusy" class="w-100">
     <base-rating [rating]="data.rating" (valid)="valid = $event" [edit]="edit"></base-rating>

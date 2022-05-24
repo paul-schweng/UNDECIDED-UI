@@ -1,3 +1,16 @@
+.header-line{
+  box-shadow: 0px -5px 17px 0px rgba(0, 0, 0, 0.2);
+  border-bottom: solid;
+  border-width: 0.5px;
+  border-color: #ddd;
+}
+
+.footer-line{
+  box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.2);
+  border-top: solid;
+  border-width: 0.5px;
+  border-color: #ddd;
+}
 
 .color-red {
   color: var(--red)
@@ -85,6 +98,10 @@
   ::ng-deep .carousel-control-next, ::ng-deep .carousel-control-prev, ::ng-deep .carousel-indicators {
     display: none;
   }
+}
+
+::ng-deep.visually-hidden {
+    display: none;
 }
 
 .row{

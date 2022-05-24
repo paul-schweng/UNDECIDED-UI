@@ -86,8 +86,22 @@ a.mat-button-base, a.mat-button-base:hover {
   border-radius: 10px !important;
 }
 
+.rounded-top{
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+.rounded-bottom{
+  border-bottom-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
 .border-2{
   border-width: 2px !important;
+}
+
+.line-break-anywhere{
+  line-break: anywhere;
 }
 
 .h-100{
@@ -104,6 +118,10 @@ a.mat-button-base, a.mat-button-base:hover {
 
 .flex-grow-2{
   flex-grow: 2;
+}
+
+.w-90{
+  width: 90% !important;
 }
 
 .justify-items-center{
