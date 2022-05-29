@@ -6,7 +6,7 @@
       <ng-template matTabContent>
         <mat-list *ngIf="followerList">
           <mat-list-item class="on-hover" (click)="clickOnUser(user.username)" *ngFor="let user of tab.list">
-            <img class="image-wrapper mr-1 border" [src]="'/api/img/user/'+user.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
+            <img class="image-wrapper me-3 border" [src]="'/api/img/user/'+user.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
             <div class="col">
               <span class="follow-name">
                   {{user?.name || ""}}

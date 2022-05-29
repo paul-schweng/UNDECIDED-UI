@@ -10,7 +10,7 @@
 
 
       <!--picture-->
-      <div class="col m-auto flex-grow-0 align-items-center justify-content-around">
+      <div class="col position-relative m-auto flex-grow-0 align-items-center justify-content-around">
         <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="" onerror="this.src = '/assets/img/default-user.png'">
         <!--edit picture-->
         <div class="edit-profile-picture" *ngIf="edit">
@@ -62,7 +62,7 @@
     </ng-template>
 
     <!--stats-->
-    <div class="row profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
+    <div class="profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
       <a routerLink="{{isMe ? '/ratings' : '.'}}" [fragment]="isMe ? undefined : 'ratings'" translate [translateParams]="{num: iAmUser.ratingsNum}" class="Text-Style-15">profile.ratings</a>
       <a routerLink="./" [queryParams]="{follow: 0}" translate [translateParams]="{num: iAmUser.followerNum}" class="Text-Style-15 cursor-pointer">profile.follower</a>
       <a routerLink="./" [queryParams]="{follow: 1}" translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15 cursor-pointer">profile.following</a>
@@ -111,7 +111,7 @@
       <ng-template #saveChanges>
         <div class="d-flex justify-content-around align-content-center">
           <div class="my-auto">
-            <button (click)="cancelClicked()" class="color-grey rounded-btn py-2 px-5 mr-5" mat-flat-button>{{'basics.cancel' | translate}}</button>
+            <button (click)="cancelClicked()" class="color-grey rounded-btn py-2 px-5 me-5" mat-flat-button>{{'basics.cancel' | translate}}</button>
             <button (click)="saveChangesClicked()" [disabled]="canSaveChanges()" class="color-green rounded-btn py-2 px-5 ml-5" mat-flat-button>{{'profile.save' | translate}}</button>
           </div>
         </div>
