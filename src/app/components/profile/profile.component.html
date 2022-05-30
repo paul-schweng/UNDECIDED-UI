@@ -75,10 +75,10 @@
     <div class="row w-100 justify-content-center">
 
       <!--description-->
-      <div *ngIf="!edit" class="col m-4  p-4 border border-2 rounded respect-new-line">{{iAmUser.description || ('profile.defaultDesc' | translate)}}</div>
+      <div *ngIf="!edit" class="w-50 m-4  p-4 border border-2 rounded respect-new-line">{{iAmUser.description || ('profile.defaultDesc' | translate)}}</div>
 
       <!--edit description-->
-      <div *ngIf="edit" class="col m-4 p-3 border border-2 rounded respect-new-line">
+      <div *ngIf="edit" class="w-50 m-4 p-3 border border-2 rounded respect-new-line">
         <mat-form-field class="w-100" appearance="fill">
           <mat-label translate>profile.desc</mat-label>
           <textarea [(ngModel)]="clonedIAmUser.description" name="text" matInput #descr rows="8" maxlength="256" spellcheck="false" placeholder="{{'profile.descPlaceholder' | translate}}"></textarea>
