@@ -145,7 +145,7 @@ a.mat-button-base, a.mat-button-base:hover {
 }
 
 .Line-6 {
-  width: 2px;
+  width: 2px !important;
   height: 20rem;
   padding: 0 !important;
   background-image: linear-gradient(0deg, rgba(192, 198, 201, 0) 0%, #c0c6c9 50%, rgba(192, 198, 201, 0) 100%);
