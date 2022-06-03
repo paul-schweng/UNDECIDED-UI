@@ -2,7 +2,7 @@
 
 <div *ngIf="!edit">
   <!--Header-->
-  <div class="d-flex justify-content-between mx-4 my-1">
+  <div class="d-flex justify-content-between px-4 py-1 rounded-top header-line">
     <div>User</div>
     <div>date</div>
   </div>
@@ -15,30 +15,30 @@
       <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=1}" [interval]="0"> <!--TODO:Geschwindigkeit vom bildwechsel-->
         <ng-template *ngFor="let image of _rating.images" ngbSlide>
           <div class="img-wrapper">
-            <img [src]="image" alt="slide">
+            <img [src]="image" alt="Picture cannot load">
           </div>
         </ng-template>
       </ngb-carousel>
     </div>
 
     <!--The second column, whole content of the rating-->
-    <div class="col m-1 d-inline-grid">
+    <div class="col m-3 d-inline-grid">
       <!--The first row of the second column, with product, label and brand-->
-      <div class="row align-items-center Text-Style-16">
+      <div class="row flex-nowrap align-items-center Text-Style-16">
         <!--product-->
-        <span class="col">{{_rating.product.name}}</span>
+        <span class="col w-50 line-break-anywhere">{{_rating.product.name}}</span>
         <!--label-->
-        <div class="d-flex flex-grow-1 align-items-center">
+        <div class="d-flex align-items-center">
           <mat-icon *ngFor="let label of _rating.labelList" class="d-flex"><img [src]="'assets/img/labels/'+ label.icon" alt="label"></mat-icon>
         </div>
         <!--brand-->
-        <span class="col text-right">{{_rating.product?.brand}}</span>
+        <span class="col w-50 text-end line-break-anywhere">{{_rating.product?.brand}}</span>
       </div>
 
       <div class="line"></div>
 
       <!--The second row of the second column, with the rest of the content-->
-      <div class="row">
+      <div class="row m-2">
         <!--First column of second row, with tags and description-->
         <div class="col mx-2 p-1">
           <!--tags-->
@@ -46,16 +46,18 @@
             <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
           </mat-chip-list>
           <!--description-->
-          <div class="row w-100 p-2 border border-2 rounded">
-            {{_rating.description}}
-          </div>
+          <mat-form-field class="row w-100 h-100 p-2 border border-2 rounded remove-underline">
+            <mat-label>{{'profile.desc' | translate}}</mat-label>
+            <textarea readonly matInput cdkTextareaAutosize cdkAutosizeMinRows="8" cdkAutosizeMaxRows="8"
+                      maxlength="350" name="description">{{_rating.description}}</textarea>
+          </mat-form-field>
         </div>
 
         <!--Second column of second row, with location, friends, stars-->
-        <div class="col list-margin d-inline-grid">
+        <div class="col d-inline-grid">
           <!--location-->
           <div class="row justify-content-center align-items-center">
-          <span class="d-inline-grid pr-5 Text-Style-17">REWE, 12345 Altrip
+          <span class="d-inline-grid pe-5 Text-Style-17">REWE, 12345 Altrip
             <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
             <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
           </span>
@@ -64,24 +66,24 @@
           </div>
           <!--friends-->
           <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
-            <div class="image-wrapper mr-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
+            <div class="image-wrapper me-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
           </div>
           <!--stars/rating-->
-          <ngx-stars class="row justify-content-center" [size]="3" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
+          <ngx-stars class="row justify-content-center" [size]="2" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
         </div>
       </div>
     </div>
   </div>
 
   <!--Footer-->
-  <div class="d-flex justify-content-between mx-4 my-1">
+  <div class="d-flex justify-content-between px-4 py-1 rounded-bottom footer-line">
     <div class="d-flex align-items-center">[Comments Placeholder]</div>
     <div class="d-flex align-items-center">
       <button mat-icon-button (click)="likeRating()">
         <mat-icon *ngIf="!_rating.isLiked">favorite_border</mat-icon>
         <mat-icon *ngIf="_rating.isLiked">favorite</mat-icon>
       </button>
-      <span class="ml-2">{{_rating.voteNum}} Likes</span>
+      <span class="ms-2">{{_rating.voteNum}} Likes</span>
     </div>
   </div>
 
@@ -100,9 +102,9 @@
     <ngb-carousel *ngIf="_rating.images" [ngClass]="{'remove-carousel-control': _rating.images.length<=0}" [interval]="0" #carousel="ngbCarousel">
       <ng-template *ngFor="let image of _rating.images; let i = index" ngbSlide>
         <div class="img-wrapper">
-          <img [src]="getImage(image)" alt="slide">
+          <img [src]="getImage(image)" alt="Picture cannot load">
           <button (click)="deleteImage(i)" class="btn-delete m-2" mat-icon-button>
-            <mat-icon class="mr-2 ml-2 color-red">delete</mat-icon>
+            <mat-icon class="me-2 ms-2 color-red">delete</mat-icon>
           </button>
         </div>
       </ng-template>
@@ -123,7 +125,7 @@
   <!--The second column, whole content of the rating-->
   <div class="col m-1 d-inline-grid">
     <!--The first row of the second column, with product, label and brand-->
-    <form class="row align-items-center">
+    <form class="row m-2 align-items-center">
       <!--product input field-->
       <mat-form-field class="col" appearance="fill">
         <mat-label translate>product.product</mat-label>
@@ -153,7 +155,7 @@
         </button>
       </div>
       <!--brand input field-->
-      <mat-form-field class="col text-right" appearance="fill">
+      <mat-form-field class="col text-end" appearance="fill">
         <mat-label translate>product.brand</mat-label>
         <input type="text" matInput [formControl]="brandControl" [matAutocomplete]="autoBrand" name="brand">
         <mat-autocomplete #autoBrand [displayWith]="displayFnBrand">
@@ -183,20 +185,22 @@
       <!--Second column of second row, with location, friends, stars-->
       <div class="col list-margin d-inline-grid">
         <!--location-->
-        <mat-form-field class="row w-100 align-items-center">
-          <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
-          <input matInput placeholder="Restaurant/bar/..."
-                 [(ngModel)]="_rating.location!.name" name="location">
-          <button (click)="openMap()" matSuffix mat-flat-button>
-            <mat-icon>location_on</mat-icon>
-          </button>
-        </mat-form-field><!--Wenn eine location gefunden wurde (durch vorschläge) dann soll obriges Format eingenommen werden-->
+        <div class="row d-grid w-100 justify-items-center align-items-center">
+          <mat-form-field>
+            <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
+            <input matInput placeholder="Restaurant/bar/..."
+                   [(ngModel)]="_rating.location!.name" name="location">
+            <button (click)="openMap()" matSuffix mat-flat-button>
+              <mat-icon>location_on</mat-icon>
+            </button>
+          </mat-form-field><!--Wenn eine location gefunden wurde (durch vorschläge) dann soll obriges Format eingenommen werden-->
+        </div>
         <!--friends-->
         <div class="row d-flex m-auto justify-content-center w-100">
           <div class="d-inline-flex align-items-center">
 
             <div *ngFor="let friend of _rating.friends" [matTooltip]="friend.name! + ' (' + friend.username! + ')'" matTooltipPosition="below" [matTooltipShowDelay]="80">
-              <img class="image-wrapper mr-1 border"
+              <img class="image-wrapper me-1 border"
                    [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
               <mat-icon mat-ripple (click)="removeFriend(friend)" class="close-badge" aria-hidden="false" aria-label="Example home icon">close</mat-icon>
             </div>
@@ -208,16 +212,17 @@
             <mat-autocomplete #autoFriends (optionSelected)="friendSelected($event.option.value)" [displayWith]="displayFnFriends"> <!--TODO: make autocomplete scrollable in horizontal-->
               <mat-option *ngFor="let friend of filteredOptionsFriends" [value]="friend">
 
-                <img class="image-wrapper-2 mr-1 border" [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
-                <span class="ml-1">{{friend.name}} ({{friend.username}})</span>
+                <img class="image-wrapper-2 me-1 border" [src]="'/api/img/user/'+friend.id" onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="">
+                <span class="ms-1">{{friend.name}} ({{friend.username}})</span>
 
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
         </div>
         <!--stars/rating-->
-        <ngx-stars class="row justify-content-center" [size]="3" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black" #stars></ngx-stars>
+        <ngx-stars class="row justify-content-center" [size]="2" (ratingOutput)="setStars($event)" [initialStars]="_rating.stars" color="black" #stars></ngx-stars>
       </div>
     </div>
   </div>
 </div>
+

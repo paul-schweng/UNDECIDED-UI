@@ -14,12 +14,10 @@
       </mat-card>
 
       <!--User card-->
-      <mat-card class="card m-4" *ngSwitchCase="'user'" [routerLink]="'/search/user/' + result.username" #card>
-        <div class="card-content">
-          {{result.name}}
-        </div>
-      </mat-card>
-
+      <div class="d-grid m-4 justify-items-center transition" *ngSwitchCase="'user'" [routerLink]="'/search/user/' + result.username" #card>
+        <img class="result-profile" src="/assets/img/default-user.png" alt="">
+        <div class="Text-Style-20 text-center">{{result.name}}</div>
+      </div>
 
     </div>
   </div>

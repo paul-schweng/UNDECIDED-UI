@@ -10,7 +10,7 @@
 
 
       <!--picture-->
-      <div class="col m-auto flex-grow-0 align-items-center justify-content-around">
+      <div class="col position-relative m-auto flex-grow-0 align-items-center justify-content-around">
         <img class="profile-picture" [class.profile-picture-edit]="edit" [src]="getProfileImage()" alt="" onerror="this.src = '/assets/img/default-user.png'">
         <!--edit picture-->
         <div class="edit-profile-picture" *ngIf="edit">
@@ -62,7 +62,7 @@
     </ng-template>
 
     <!--stats-->
-    <div class="row profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
+    <div class="profile-stats m-auto px-4 py-4 d-flex align-items-center justify-content-between border-bottom border-2">
       <a routerLink="{{isMe ? '/ratings' : '.'}}" [fragment]="isMe ? undefined : 'ratings'" translate [translateParams]="{num: iAmUser.ratingsNum}" class="Text-Style-15">profile.ratings</a>
       <a routerLink="./" [queryParams]="{follow: 0}" translate [translateParams]="{num: iAmUser.followerNum}" class="Text-Style-15 cursor-pointer">profile.follower</a>
       <a routerLink="./" [queryParams]="{follow: 1}" translate [translateParams]="{num: iAmUser.followingNum}" class="Text-Style-15 cursor-pointer">profile.following</a>
@@ -75,10 +75,10 @@
     <div class="row w-100 justify-content-center">
 
       <!--description-->
-      <div *ngIf="!edit" class="col m-4  p-4 border border-2 rounded respect-new-line">{{iAmUser.description || ('profile.defaultDesc' | translate)}}</div>
+      <div *ngIf="!edit" class="w-50 m-4  p-4 border border-2 rounded respect-new-line">{{iAmUser.description || ('profile.defaultDesc' | translate)}}</div>
 
       <!--edit description-->
-      <div *ngIf="edit" class="col m-4 p-3 border border-2 rounded respect-new-line">
+      <div *ngIf="edit" class="w-50 m-4 p-3 border border-2 rounded respect-new-line">
         <mat-form-field class="w-100" appearance="fill">
           <mat-label translate>profile.desc</mat-label>
           <textarea [(ngModel)]="clonedIAmUser.description" name="text" matInput #descr rows="8" maxlength="256" spellcheck="false" placeholder="{{'profile.descPlaceholder' | translate}}"></textarea>
@@ -111,7 +111,7 @@
       <ng-template #saveChanges>
         <div class="d-flex justify-content-around align-content-center">
           <div class="my-auto">
-            <button (click)="cancelClicked()" class="color-grey rounded-btn py-2 px-5 mr-5" mat-flat-button>{{'basics.cancel' | translate}}</button>
+            <button (click)="cancelClicked()" class="color-grey rounded-btn py-2 px-5 me-5" mat-flat-button>{{'basics.cancel' | translate}}</button>
             <button (click)="saveChangesClicked()" [disabled]="canSaveChanges()" class="color-green rounded-btn py-2 px-5 ml-5" mat-flat-button>{{'profile.save' | translate}}</button>
           </div>
         </div>

@@ -1,16 +1,29 @@
+.header-line{
+  box-shadow: 0px -5px 17px 0px rgba(0, 0, 0, 0.2);
+  border-bottom: solid;
+  border-width: 0.5px;
+  border-color: #ddd;
+}
+
+.footer-line{
+  box-shadow: 0px 5px 17px 0px rgba(0, 0, 0, 0.2);
+  border-top: solid;
+  border-width: 0.5px;
+  border-color: #ddd;
+}
 
 .color-red {
-  color: var(--red)
+  color: var(--color-red-1-red);
 }
 
 .close-badge{
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.7);
-  color: var(--red);
+  color: var(--color-red-1-red);
   float: right;
   transform: translate(-90%, -10%);
   cursor: pointer;
-  width: 17px;
+  width: 17px !important;
   height: 17px;
   font-size: 17px;
 }
@@ -27,7 +40,7 @@
 }
 
 .line{
-    width: 100%;
+    width: 100% !important;
     height: 2px;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.29);
     background-color: #766d63;
@@ -43,14 +56,14 @@
 
 .img-wrapper{
   position: relative;
-  width: 350px;
-  height: 400px;
+  width: 350px!important;
+  height: 375px;
   overflow: hidden;
   background: #3d3d3d;
 }
 
 .img-wrapper img{
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   position: relative;
   object-fit: cover;
@@ -59,7 +72,6 @@
 
 .img-wrapper button{
   position: absolute;
-  width: 70%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -87,13 +99,17 @@
   }
 }
 
+::ng-deep.visually-hidden {
+    display: none;
+}
+
 .row{
   margin: unset;
 }
 
 .image-wrapper{
   height: 45px;
-  width: 45px;
+  width: 45px !important;
   border-radius: 50%;
   background-size: cover;
   background-position: center center;
@@ -113,7 +129,7 @@
   background-size: cover;
   background-position: center center;
   border-radius: 50%;
-  width: 2rem;
+  width: 2rem !important;
   height: 2rem;
 }
 

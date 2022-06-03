@@ -86,8 +86,22 @@ a.mat-button-base, a.mat-button-base:hover {
   border-radius: 10px !important;
 }
 
+.rounded-top{
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+.rounded-bottom{
+  border-bottom-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
 .border-2{
   border-width: 2px !important;
+}
+
+.line-break-anywhere{
+  line-break: anywhere;
 }
 
 .h-100{
@@ -104,6 +118,10 @@ a.mat-button-base, a.mat-button-base:hover {
 
 .flex-grow-2{
   flex-grow: 2;
+}
+
+.w-90{
+  width: 90% !important;
 }
 
 .justify-items-center{
@@ -129,6 +147,7 @@ a.mat-button-base, a.mat-button-base:hover {
 .Line-6 {
   width: 2px;
   height: 20rem;
+  padding: 0 !important;
   background-image: linear-gradient(0deg, rgba(192, 198, 201, 0) 0%, #c0c6c9 50%, rgba(192, 198, 201, 0) 100%);
 }
 
@@ -144,6 +163,10 @@ a{
 
 .d-grid{
   display: grid;
+}
+
+.float-left{
+  float: left;
 }
 
 a:hover{
@@ -216,5 +239,38 @@ a:hover{
 }
 
 .mb-7 {
-  margin-bottom: 5rem;
+  margin-bottom: 5rem !important;
+}
+
+.ml-1{
+  margin-left: 0.25rem !important;
+}
+
+.ml-2{
+  margin-left: 0.5rem !important;
+}
+
+.ml-5{
+  margin-left: 3rem !important;
+}
+
+.mr-1{
+  margin-right: 0.25rem !important;
+}
+
+.mr-2{
+  margin-right: 0.5rem !important;
+}
+
+.pl-4{
+  padding-left: 1.5rem !important;
+}
+
+.row > * {
+  flex-shrink: unset;
+  width: unset;
+  max-width: unset;
+  padding-right: unset;
+  padding-left: unset;
+  margin-top: unset;
 }
