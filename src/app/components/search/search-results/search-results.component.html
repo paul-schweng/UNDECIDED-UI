@@ -15,10 +15,10 @@
 
       <!--User card-->
       <div class="d-grid m-4 justify-items-center transition" *ngSwitchCase="'user'" [routerLink]="'/search/user/' + result.username" #card>
-        <img class="result-profile" src="/assets/img/default-user.png" alt="">
+        <img class="result-profile" [src]="'/api/img/user/' + result.id"
+             onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';" alt="profile image">
         <div class="Text-Style-20 text-center">{{result.name}}</div>
       </div>
-
     </div>
   </div>
 

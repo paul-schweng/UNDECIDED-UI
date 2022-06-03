@@ -4,6 +4,7 @@ import {HttpParams} from "@angular/common/http";
 import {Rating} from "../models/rating";
 import {SampleProduct} from "./SampleData";
 import {Converter} from "./converter";
+import {User} from "../models/user";
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,7 @@ export class RatingService extends CommunicationRequestService<any>{
 
   public getRatingsOfFollowing(lastRating: string): Promise<Rating[]> {
     return super.sendGetRequest<Rating[]>(this.backendUrlExt + '/home', {id: lastRating}).then(ratingList => {
+      this.loadImagesArray(ratingList);
       ratingList = Converter.convertDeletedUser(ratingList);
       return Converter.convertLabel(ratingList);
     });
@@ -110,5 +112,23 @@ export class RatingService extends CommunicationRequestService<any>{
     });
   }
 
+  loadImagesArray(ratings: Rating[]){
+    ratings.forEach(rating => {
+      this.loadImages(rating)
+    });
+  }
+
+
+  loadImages(rating: Rating) {
+    if (rating.user) {
+      rating.user.loadImage = new User().loadImage;
+      rating.user?.loadImage();
+    }
+
+    rating.friends?.forEach(friend => {
+      friend.loadImage = new User().loadImage;
+      friend.loadImage();
+    });
+  }
 
 }

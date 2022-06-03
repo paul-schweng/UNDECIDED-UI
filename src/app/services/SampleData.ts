@@ -26,7 +26,9 @@ Euer Theophilius <3`,
   followingNum: 420,
   ratingsNum: 42,
   bannerImage: 0,
-  modelType: "user"
+  modelType: "user",
+  loadImage() {
+  }
 }
 
 export const SampleProduct: Product = {
@@ -92,7 +94,9 @@ export const EmptyUser: User = {
   rememberMe: false,
   username: "",
   usertype: 'privat',
-  verified: false
+  verified: false,
+  loadImage() {
+  }
 
 }
 
@@ -114,7 +118,9 @@ export const DeletedUser: User = {
   rememberMe: false,
   username: "Deleted",
   usertype: 'privat',
-  verified: false
+  verified: false,
+  loadImage() {
+  }
 
 }
 

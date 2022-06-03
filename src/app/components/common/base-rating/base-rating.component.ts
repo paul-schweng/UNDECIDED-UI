@@ -45,7 +45,7 @@ export class BaseRatingComponent implements OnInit {
   constructor(private autocompleteService: AutocompleteService,
               public dialog: MatDialog,
               private readonly notification: NotificationService,
-              private readonly authService: AuthenticationService,
+              public readonly authService: AuthenticationService,
               private readonly ratingService: RatingService) {
 
     let timeoutProduct: number;
@@ -292,6 +292,16 @@ export class BaseRatingComponent implements OnInit {
 
   removeFriend(friend: User) {
     this._rating.friends?.splice(this._rating.friends?.indexOf(friend),1);
+  }
+
+  getDate(){
+    if (this._rating.timestamp) {
+      let date = new Date(this._rating.timestamp);
+      return date.toLocaleDateString() + " - " + date.toLocaleTimeString();
+    }
+  else {
+      return ""
+    }
   }
 
   friendSelected(friend: User) {

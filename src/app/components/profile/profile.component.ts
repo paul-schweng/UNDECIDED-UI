@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
 
       this.edit = this.router.url.includes('edit');
       this.router.events.subscribe((val) => {
+        console.log("hallllooooooooooo")
         this.edit = (val as NavigationEnd).url?.includes('edit');
       });
     } else {

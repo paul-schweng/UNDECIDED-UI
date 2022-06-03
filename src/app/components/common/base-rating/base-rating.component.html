@@ -2,9 +2,16 @@
 
 <div *ngIf="!edit">
   <!--Header-->
-  <div class="d-flex justify-content-between px-4 py-1 rounded-top header-line">
-    <div>User</div>
-    <div>date</div>
+  <div class="d-flex text-center justify-content-between px-4 py-1 rounded-top header-line">
+    <div>
+      <div class="row d-flex m-auto align-items-center justify-content-center w-100 cursor-pointer" [routerLink]="'/search/user/' + _rating.user!.username!">
+        <div class="image-wrapper-header me-2 border"
+             [style]="'background-image: url(' + _rating.user?.profileImage + ');'"
+             onerror="if (this.src !== '/assets/img/default-user.png') this.src = '/assets/img/default-user.png';"></div>
+        <div>{{_rating.user!.username!}}</div>
+      </div>
+    </div>
+    <div class="d-grid align-items-center">{{getDate()}}</div>
   </div>
 
   <!--The whole base rating-->
@@ -56,20 +63,25 @@
         <!--Second column of second row, with location, friends, stars-->
         <div class="col d-inline-grid">
           <!--location-->
-          <div class="row justify-content-center align-items-center">
-          <span class="d-inline-grid pe-5 Text-Style-17">REWE, 12345 Altrip
-            <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
-            <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
-          </span>
+          <div class="row m-1 justify-content-center align-items-center">
+            <span class="d-inline-grid pe-5 Text-Style-17">REWE, 12345 Altrip
+              <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
+              <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
+            </span>
             <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
             <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>
           </div>
           <!--friends-->
           <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
-            <div class="image-wrapper me-1 border" *ngFor="let friend of _rating.friends" [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"></div>
+            <div class="image-wrapper me-1 border cursor-pointer" *ngFor="let friend of _rating.friends"
+                 [style]="'background-image: url(' + (friend?.profileImage || '/assets/img/default-user.png') + ');'"
+                 [matTooltip]="friend.name! + ' (' + friend.username! + ')'" matTooltipPosition="below"
+                 [matTooltipShowDelay]="80"
+                 [routerLink]="'/search/user/' + friend.username">
+            </div>
           </div>
           <!--stars/rating-->
-          <ngx-stars class="row justify-content-center" [size]="2" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
+          <ngx-stars class="row m-1 justify-content-center" [size]="2" [initialStars]="_rating.stars" color="black" [readonly]="!edit"></ngx-stars>
         </div>
       </div>
     </div>
