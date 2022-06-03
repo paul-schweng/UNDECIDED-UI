@@ -27,6 +27,7 @@ export class RatingService extends CommunicationRequestService<any>{
   public getRating(id: string): Promise<Rating> {
     return super.sendGetRequest<Rating>(this.backendUrlExt, {id: id})
       .then(rating => {
+        this.loadImages(rating);
         rating = Converter.convertDeletedUser(rating);
         return Converter.convertLabel<Rating>(rating);
       });
@@ -44,6 +45,7 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(async resRating => {
         if(rating.images)
           await this.imageService.postRatingImages(resRating, images);
+        this.loadImages(rating);
         return Converter.convertLabel(resRating);
       });
   }
@@ -60,6 +62,7 @@ export class RatingService extends CommunicationRequestService<any>{
       .then(async resRating => {
         if(images)
           await this.imageService.postRatingImages(resRating, images);
+        this.loadImages(rating);
         return Converter.convertLabel(resRating);
       });
   }
@@ -76,22 +79,10 @@ export class RatingService extends CommunicationRequestService<any>{
 
   public getMyRatings(filter: string, lastRating: string, len: number, userID: string): Promise<Rating[]> {
     return super.sendGetRequest<Rating[]>(this.backendUrlExt + 's', {filter: filter, id: lastRating, i: len, userID: userID}).then(ratingList => {
+        this.loadImagesArray(ratingList);
         ratingList = Converter.convertDeletedUser(ratingList);
         return Converter.convertLabel(ratingList);
-    }, //TODO: delete this mockdata from here
-      () => {
-      let ratingList: Rating[] = [{
-        product: SampleProduct,
-        stars: 4.5,
-        id: 'dfas3',
-        labels: [0,4,8,2],
-        images: []
-      }]
-      let ratings = ratingList || [];
-      ratings.forEach( rating => Converter.convertLabel(rating) );
-      return ratings;
-    } //until here
-    );
+    });
   }
 
   deleteRating(id: string): Promise<Rating> {

@@ -43,10 +43,7 @@ export class RatingDialogComponent implements OnInit {
   }
 
   isValid(): boolean {
-    if(this.data.rating.id != -1)
-      return JSON.stringify(this.clonedRating) != JSON.stringify(this.data.rating);
-    else
-      return this.valid;
+      return this.valid && JSON.stringify(this.clonedRating) != JSON.stringify(this.data.rating);
   }
 
   deleteClicked() {

@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
               public readonly notification: NotificationService) {
 
     //TODO: remove SampleUser
-    this.iAmUser = this.auth.iAmUser || SampleUser;
+    this.iAmUser = clone(this.auth.iAmUser) || SampleUser;
     this.clonedIAmUser = clone(this.iAmUser);
   }
 
@@ -127,11 +127,15 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
     this.isBusy = true;
     this.userService.updateUser(tempUser).then(user => {
       if(user){
-        this.iAmUser = user;
+        user.profileImage = {};
+        this.auth.iAmUser = user;
+        this.iAmUser = clone(user);
         this.clonedIAmUser = clone(user);
       }
-      this.router.navigateByUrl('/profile');
+
       this.reloadImage();
+      this.router.navigateByUrl('/profile');
+
 
     }).finally(() => this.isBusy = false);
   }
@@ -254,7 +258,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
   }
 
   reloadImage(){
-    this.auth.iAmUser.profileImage.remote = this.auth.iAmUser.profileImage.remote.split('#')[0] + '#' + (new Date()).getTime();
+    this.auth.iAmUser.profileImage.remote = `/api/img/user/${this.iAmUser.id}` + '#' + (new Date()).getTime();
+    this.iAmUser = clone(this.auth.iAmUser);
   }
 
 
