@@ -14,6 +14,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 //------------------------------------------------------------------------------------------
 
 export const VERSION_DATA = [
+  {version: '0.4.4', detail: 'Bug fixes'},
   {version: '0.4.3', detail: 'Adjust whole CSS code'},
   {version: '0.4.2', detail: 'Added filters to search'},
   {version: '0.4.1', detail: 'Search page got a spinner while loading results'},
