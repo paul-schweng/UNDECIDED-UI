@@ -7,7 +7,7 @@
 
   <ul class="nav d-contents justify-content-end">
     <li>
-      <a [routerLink]="router.url.includes('login') ? 'register' : 'login'" class="Text-Style-15">
+      <a [routerLink]="router.url.includes('login') ? '/register' : '/login'" class="Text-Style-15">
         {{(router.url.includes('login') ? 'auth.register.signUp' : 'auth.login.signIn') | translate}}</a>
     </li>
     <li>
