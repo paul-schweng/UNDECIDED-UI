@@ -10,16 +10,16 @@
 
   <ul class="nav d-contents justify-content-end">
     <li>
-      <a routerLink="home" (click)="onActivate()" mat-icon-button [class.button-selected]="router.url.includes('home')"><img src="/assets/img/iconNavHome.svg" alt="HOME"></a>
+      <a routerLink="/home" (click)="onActivate()" mat-icon-button [class.button-selected]="router.url.includes('home')"><img src="/assets/img/iconNavHome.svg" alt="HOME"></a>
     </li>
     <li>
-      <a routerLink="search" mat-icon-button [class.button-selected]="router.url.includes('search')"><img src="/assets/img/iconsNavSearch.svg" alt="SEARCH"></a>
+      <a routerLink="/search" mat-icon-button [class.button-selected]="router.url.includes('search')"><img src="/assets/img/iconsNavSearch.svg" alt="SEARCH"></a>
     </li>
     <li>
-      <a routerLink="ratings" mat-icon-button [class.button-selected]="router.url.split('/') [1]=='ratings'"><img src="/assets/img/iconsNavImage.svg" alt="RATINGS"></a>
+      <a routerLink="/ratings" mat-icon-button [class.button-selected]="router.url.split('/') [1]=='ratings'"><img src="/assets/img/iconsNavImage.svg" alt="RATINGS"></a>
     </li>
     <li>
-      <a routerLink="profile" class="rounded" [class.button-selected]="router.url.includes('profile')">
+      <a routerLink="/profile" class="rounded" [class.button-selected]="router.url.includes('profile')">
         <img [src]="getProfileImage()" onerror="this.src = '/assets/img/default-user.png'" class="nav-bar-profile" alt="PROFILE">
       </a>
     </li>
