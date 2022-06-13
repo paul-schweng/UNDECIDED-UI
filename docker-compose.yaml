@@ -24,7 +24,7 @@ services:
     #       - "service apache2 restart"
     volumes:
       - /srv/docker/angular/apache.conf:/etc/apache2/sites-enabled/000-default.conf
-      - /srv/docker/angular/dist/UI:/var/www/html
+      - /srv/docker/angular/dist/UNDECIDED:/var/www/html
       - /srv/docker/angular/.htaccess:/var/www/html/.htaccess
     ports:
       - "8081:80"
