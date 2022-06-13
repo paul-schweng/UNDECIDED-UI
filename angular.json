@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "UI": {
+    "UNDECIDED": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/UI",
+            "outputPath": "dist/UNDECIDED",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -77,15 +77,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "UI:build",
+            "browserTarget": "UNDECIDED:build",
             "proxyConfig": "proxy.conf.dev.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "UI:build:production"
+              "browserTarget": "UNDECIDED:build:production"
             },
             "development": {
-              "browserTarget": "UI:build:development"
+              "browserTarget": "UNDECIDED:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -93,7 +93,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "UI:build"
+            "browserTarget": "UNDECIDED:build"
           }
         },
         "test": {
@@ -119,5 +119,5 @@
       }
     }
   },
-  "defaultProject": "UI"
+  "defaultProject": "UNDECIDED"
 }
