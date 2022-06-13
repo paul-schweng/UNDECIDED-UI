@@ -14,6 +14,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 //------------------------------------------------------------------------------------------
 
 export const VERSION_DATA = [
+  {version: '0.5.0', detail: 'You can install UNDECIDED as a webapp now!!!'},
   {version: '0.4.4', detail: 'Bug fixes'},
   {version: '0.4.3', detail: 'Adjust whole CSS code'},
   {version: '0.4.2', detail: 'Added filters to search'},
