@@ -84,6 +84,8 @@ import { OpenRatingComponent } from './components/search/open-rating/open-rating
 import {RouteReuseStrategy} from "@angular/router";
 import {CustomReuseStrategy} from "./providers/cache-route-reuse.strategy";
 import { NgTemplateDataDirective } from './directives/ng-template-data.directive';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -175,7 +177,13 @@ import { NgTemplateDataDirective } from './directives/ng-template-data.directive
         MatTooltipModule,
         InfiniteScrollModule,
         MatTabsModule,
-        MatTableModule
+        MatTableModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+          enabled: environment.production,
+          // Register the ServiceWorker as soon as the application is stable
+          // or after 30 seconds (whichever comes first).
+          registrationStrategy: 'registerWhenStable:30000'
+        })
 
     ],
   providers: [
