@@ -33,10 +33,9 @@ services:
       - "traefik.http.routers.apache.priority=1"
     hostname: apache
     networks:
-      default:
-        external:
-          name: undecided
-#    depends_on:
+      - undecided
+
+  #    depends_on:
 #      - backend
 
   #  mariadb:
@@ -65,9 +64,7 @@ services:
       - /srv/docker/angular/letsencrypt:/etc/letsencrypt
     hostname: nginx-manager
     networks:
-      default:
-        external:
-          name: undecided
+      - undecided
 #  traefik:
 #    image: "traefik:v2.5"
 #    command:
