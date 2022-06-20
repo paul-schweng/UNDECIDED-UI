@@ -32,6 +32,9 @@ services:
       - "traefik.http.routers.apache.rule=Host(`undecided.ted2.cyou`)"
       - "traefik.http.routers.apache.priority=1"
     hostname: apache
+    networks:
+      frontend:
+        - ipv4_address: 172.20.0.3
 
 
   #    depends_on:
@@ -62,11 +65,15 @@ services:
       - /srv/docker/angular/data:/data
       - /srv/docker/angular/letsencrypt:/etc/letsencrypt
     hostname: nginx-manager
+    networks:
+      frontend:
+        - ipv4_address: 172.20.0.2
 
 networks:
-  default:
-    external:
-      name: undecided
+  frontend:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
 #  traefik:
 #    image: "traefik:v2.5"
 #    command:
