@@ -57,8 +57,8 @@ services:
       - '8181:81'
       - '8088:80'
     volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
+      - /srv/docker/angular/data:/data
+      - /srv/docker/angular/letsencrypt:/etc/letsencrypt
     hostname: nginx-manager
 #  traefik:
 #    image: "traefik:v2.5"
