@@ -4,7 +4,7 @@ services:
 
 
 #  backend:
-#    build: .
+#    build: ./
 #    image: spring
 #    ports:
 #      - "8881:8080"
@@ -16,8 +16,19 @@ services:
   #    networks:
   #      - db
 
+
+  spring:
+    build: ./spring_docker
+    image: spring
+    ports:
+      - "8080"
+    hostname: spring
+    networks:
+      frontend:
+        ipv4_address: 172.20.0.4
+
   apache:
-    build: .
+    build: ./angular_docker
     image: apache
     #    command:
     #       - "cat /etc/apache2/sites-enabled/000-default.conf"
