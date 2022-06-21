@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DoCheck, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -34,6 +34,7 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
   isMe: boolean = true;
   isFollowDialogOpen: boolean = false;
   hasUserLoaded: boolean = false;
+  mobile: any;
 
   private routeQueryParams$!: Subscription;
   private routeParams$!: Subscription;
@@ -95,6 +96,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
     }
 
     console.log(this.editForbidden)
+
+    this.mobile = window.innerWidth;
 
   }
 
@@ -241,7 +244,6 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
       return;
 
     const followDialog = this.dialog.open(FollowDialogComponent, {
-      width: '40%',
       maxWidth: '',
       height:'70%',
       data: {tab: tabIdx, id: this.iAmUser.id},
@@ -268,5 +270,8 @@ export class ProfileComponent implements OnInit, AfterViewInit, DoCheck, OnDestr
     this.routeQueryParams$.unsubscribe();
   }
 
+  @HostListener('window:resize', ['$event']) onResize() {
+    this.mobile = window.innerWidth;
+  }
 
 }

@@ -49,9 +49,9 @@
         <!--First column of second row, with tags and description-->
         <div class="col mx-2 p-1">
           <!--tags-->
-          <mat-chip-list class="row w-100">
+<!--          <mat-chip-list class="row w-100">
             <mat-chip *ngFor="let type of _rating.types">{{type}}</mat-chip>
-          </mat-chip-list>
+          </mat-chip-list>-->
           <!--description-->
           <mat-form-field class="row w-100 h-100 p-2 border border-2 rounded remove-underline">
             <mat-label>{{'profile.desc' | translate}}</mat-label>
@@ -185,7 +185,7 @@
       <!--First column of second row, with tags and description-->
       <div class="col mx-2 p-1 ">
         <!--tags-->
-        <chips-autocomplete [(type)]="_rating.types" class="row w-100 remove-underline"></chips-autocomplete>
+<!--        <chips-autocomplete [(type)]="_rating.types" class="row w-100 remove-underline"></chips-autocomplete>-->
         <!--description-->
         <mat-form-field class="row w-100 p-2 border border-2 rounded remove-underline">
           <mat-label>{{'profile.desc' | translate}}</mat-label>
@@ -197,7 +197,7 @@
       <!--Second column of second row, with location, friends, stars-->
       <div class="col list-margin d-inline-grid">
         <!--location-->
-        <div class="row d-grid w-100 justify-items-center align-items-center">
+        <div class="row m-0 d-grid w-100 justify-items-center align-items-center">
           <mat-form-field>
             <mat-label>{{'ratings.addLocation' | translate}}</mat-label>
             <input matInput placeholder="Restaurant/bar/..."

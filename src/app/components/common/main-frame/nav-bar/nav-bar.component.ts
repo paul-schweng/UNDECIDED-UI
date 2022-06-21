@@ -12,6 +12,7 @@ export class NavBarComponent implements OnInit {
 
   iAmUser: User;
   navbarfixed: boolean = false;
+  mobile: any;
 
   constructor(public readonly router: Router,
               private readonly auth: AuthenticationService) {
@@ -20,10 +21,16 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.mobile = window.innerWidth;
   }
 
   @HostListener('window:scroll',['$event']) onscroll(){
     this.navbarfixed = window.scrollY > 150;
+  }
+
+  @HostListener('window:resize', ['$event']) onResize() {
+      this.mobile = window.innerWidth;
+      //console.log("mobile width:"+this.mobile)
   }
 
   onActivate() {
