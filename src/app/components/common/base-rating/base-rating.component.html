@@ -64,12 +64,12 @@
         <div class="col d-inline-grid">
           <!--location-->
           <div class="row m-1 justify-content-center align-items-center">
-            <span class="d-inline-grid pe-5 Text-Style-17">REWE, 12345 Altrip
-              <!--            {{_rating.product.location?.name || 'location unknown'}} {{_rating.product.location?.plz || 'location unknown'}}-->
-              <span class="Text-Style-18">schönweg 20<!--{{_rating.product.location?.street || 'location unknown'}}--></span>
+            <span class="d-inline-grid text-center Text-Style-17">
+              {{_rating.location?.name || 'location unknown'}}
+              <!--<span class="Text-Style-18">{{_rating.product.location?.plz || 'location unknown'}}{{_rating.product.location?.street || 'location unknown'}}</span>-->
             </span>
-            <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
-            <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>
+<!--            <mat-icon *ngIf="_rating.location?.name">location_on</mat-icon>
+            <mat-icon *ngIf="!_rating.location?.name">location_off</mat-icon>-->
           </div>
           <!--friends-->
           <div class="row d-flex m-auto align-items-center justify-content-center fix-height w-100">
